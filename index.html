@@ -1,0 +1,229 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+                <title>browser-based experiments</title>
+
+                <!-- use lodash library for handy manipulations -->
+<!--
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.6/lodash.min.js"></script>
+                <script>
+                _ = _.noConflict(); 
+                </script>
+-->
+
+		<!-- fonts from Google fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Noto+Serif:400,700|Playfair+Display:700" rel="stylesheet">
+
+		<!-- css -->
+		<link rel="stylesheet" type="text/css" href="styles/styles.css">
+
+		<!-- js dependencies -->
+		<script src="libraries/mustache/mustache.min.js"></script>
+		<script src="libraries/jquery/dist/jquery.min.js"></script>
+
+		<!-- config -->
+                <script src="config/config_deploy.js"></script>
+                <script src="config/config_general.js"></script>
+		<script src="config/config_views.js"></script>
+
+		<!-- local js files -->
+		<script src="scripts/exp.js"></script>
+		<script src="scripts/main.js"></script>
+		<script src="scripts/views.js"></script>
+
+		<!-- new js files -->
+		<script src="scripts/canvas.js"></script>
+	</head>
+
+	<body>
+		<noscript>This task requires JavaScript. Please enable JavaScript in your browser and reload the page. For more information on how to do that, please refer to 
+			<a href='https://enable-javascript.com' target='_blank'>enable-javascript.com</a>
+		</noscript>
+
+		<!-- views are inserted in main -->
+		<main id='main'>
+			Loading...
+		</main>
+
+		<!-- Mustache templates below. Each template is a view with a separate HTML structure. -->
+
+		<!-- Introduction view -->
+		<script id="intro-view" type="x-tmpl-mustache">
+		<div class='view'>
+			{{# title }}
+			<h2 class="title">{{ title }}</h2>
+			{{/ title }}
+			{{# text }}
+			<section class="text-container">
+				<p class="text">{{ text }}</p>
+			</section>
+			{{/ text }}
+			{{# button }}
+			<button class="btn next-view">{{ button }}</button>
+			{{/ button }}
+			{{^ button }}
+			<button class="btn next-view">Begin Experiment</button>
+			{{/ button }}
+		</div>
+		</script>
+
+		<!-- Instructions view -->
+		<script id="instructions-view" type="x-tmpl-mustache">
+		<div class="view">
+			{{# title }}
+			<h2>{{ title }}</h2>
+			{{/ title }}
+			{{# text }}
+			<section class="text-container">
+				<p class="text">{{ text }}</p>
+			</section>
+			{{/ text }}
+			{{# button }}
+			<button class="btn next-view">{{ button }}</button>
+			{{/ button }}
+		</view>
+		</script>
+
+		<!-- Practice trial view -->
+		<script id="practice-view" type="x-tmpl-mustache">
+		<div class="view">
+			{{# title }}
+			<h2>{{ title }}</h2>
+			{{/ title }}
+			<div class="stimulus-container">
+				<div class="pause-container">
+					<img class="point" src="images/cross.png" height="30" width="30" />
+				</div>
+				<canvas id="canvas" class="stimulus img nodisplay show" height="160" width="500"></canvas>
+			</div>
+			{{# helpText }}
+			<p class="help-text hidden">{{ helpText }}</p>
+			{{/ helpText }}
+			<p class="sentence nodisplay show">
+				{{# sentence }}
+				<span class="word">{{ . }}</span>
+				{{/ sentence }}
+			</p>
+			<p class="question nodisplay">
+				<label for="yes" class="answer">yes</label>
+				<input type="radio" name="question" id="yes"
+					value="yes" />
+				<input type="radio" name="question" id="no" value="no" />
+				<label for="no" class="answer">no</label>
+			</p>
+		</div>
+		</script>
+
+		<!-- Begin Experiment view -->
+		<script id="begin-exp-view" type="x-tmpl-mustache">
+		<div class="view">
+			{{# text }}
+			<section class="text-container">
+				<p class="text">{{ text }}</p>
+			</section>
+			{{/ text }}
+			<button class="btn next-view">Begin Experiment</button>
+		</div>
+		</script>
+
+		<!-- Trial view (actual experiment) -->
+		<script id="trial-view" type="x-tmpl-mustache">
+		<div class="view">
+			<div class="progress-bar-container">
+				<p class="progress-bar">progress: <span id="current-trial">{{ currentTrial }}</span>/<span id="total-trial">{{ totalTrials }}</span></p>
+			</div>
+			<div class="clearfix"></div>
+			<div class="stimulus-container">
+				<div class="pause-container">
+					<img class="point" src="images/cross.png" height="30" width="30" />
+				</div>
+				<canvas id="canvas" class="stimulus img nodisplay show" height="160" width="500"></canvas>
+			</div>
+			{{# helpText }}
+			<p class="help-text hidden">{{ helpText }}</p>
+			{{/ helpText }}
+			<p class="sentence nodisplay show">
+				{{# sentence }}
+				<span class="word">{{ . }}</span>
+				{{/ sentence }}
+			</p>
+			<p class="question nodisplay">
+				<label for="yes" class="answer">yes</label>
+				<input type="radio" name="question" id="yes"
+					value="yes" />
+				<input type="radio" name="question" id="no" value="no" />
+				<label for="no" class="answer">no</label>
+			</p>
+		</div>	
+		</script>
+
+		<!-- subject info view -->
+		<script id="subj-info-view" type="x-tmpl-mustache">
+		<div class="view subj-info-templ">
+			{{# title }}
+			<h2>{{ title }}</h2>
+			{{/ title }}
+			{{# text }}
+			<section class="text-container">
+				<p class="text">{{ text }}</p>
+			</section>
+			{{/ text }}
+			<form>
+				<p>
+					<label for="age">Age:</label>
+					<input type="number" name="age" min="18" max="110" id="age" />
+				</p>
+				<p>
+					<label for="gender">Gender:</label>
+					<select id="gender" name="gender">
+						<option></option>
+						<option value="male">male</option>
+						<option value="female">female</option>
+						<option value="other">other</option>
+					</select>
+				</p>
+				<p>
+					<label for="education">Level of Education:</label>
+					<select id="education" name="education">
+						<option></option>
+						<option value="graduated_high_school">Graduated High School</option>
+						<option value="graduated_college">Graduated College</option>
+						<option value="higher_degree">Higher Degree</option>
+					</select>
+				</p>
+				<p>
+					<label for="languages" name="languages">Native Languages: <br /><span>(i.e. the language(s) spoken at home when you were a child)</</span></label>
+					<input type="text" id="languages"/>
+				</p>
+				<p class="comment-sect">
+					<label for="comments">Further comments</label>
+					<textarea name="comments" id="comments"
+					rows="6" cols="40"></textarea>
+				</p>
+				{{# buttonText }}
+				<button id="sends-data" class="btn next-view sends-data">{{ buttonText }}</button>
+				{{/ buttonText }}
+				{{^ buttonText }}
+				<button id="sends-data" class="btn next-view sends-data">Next</button>
+				{{/ buttonText }}
+			</form>
+		</div>
+		</script>
+
+		<!-- thanks view -->
+		<script id="thanks-view" type="x-tmpl-mustache">
+		<div class="view">
+			<h2>{{ thanksMessage }}</h2>
+			<form method="post" id="mturk-submission-form" action="{{ mturk_server }}">
+				<input type="hidden" name="assignmentId" value="{{ assignmentId }}" />
+				<input type="hidden" name="author" value="{{ author }}"/>
+				<input type="hidden" name="experiment_id" value="{{ experiment_id }}"/>
+				<input type="hidden" name="trials" value="{{ trials }}"/>
+				<input type="hidden" name="description" value="{{ description }}"/>
+				<input type="hidden" name="worker_id" value="{{ worker_id }}"/>
+			</form>
+		</div>
+		</script>
+	</body>
+</html>
