@@ -169,33 +169,33 @@ input[name=question] {
 }
 
 
-.subj-info-templ form {
+.post-test-templ form {
 	padding: 30px 0;
 	max-width: 550px;
 	margin: 0 auto;
 }
 
-.subj-info-templ p {
+.post-test-templ p {
 	display: flex;
 	flex-direction: column;
 	margin: 25px 0;
 }
 
-.subj-info-templ form input, 
-.subj-info-templ form select {
+.post-test-templ form input, 
+.post-test-templ form select {
 	width: 200px;
 	max-width: 200px;
 }
 
-.subj-info-templ form label {
+.post-test-templ form label {
 	margin: 0 10px 0 0;
 }
 
-.subj-info-templ form label span {
+.post-test-templ form label span {
 	font-size: 0.8em;
 }
 
-.subj-info-templ form textarea {
+.post-test-templ form textarea {
 	border-radius: 5px;
 	border: 1px solid #777;
 	font-family: "Lato", serif;

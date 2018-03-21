@@ -32,9 +32,11 @@ exp.findNextView = function() {
 	this.view = initTrialView(this.data.trials[this.CT], this.CT);
 	this.CT++;
     } else if (this.view.name === 'trial' && this.CT === this.TT) {
-	this.view = initSubjInfoView();
-    } else if (this.view.name === 'subjInfo') {
+	this.view = initPostTestView();
+    } else if (this.view.name === 'postTest') {
 	this.view = initThanksView();
+    } else {
+	console.log("something went wrong")
     }
 };
 
@@ -60,3 +62,5 @@ exp.init = function() {
 	// TT - total trials
 	this.TT = this.data.trials.length;
 };
+
+var config_views = {};
