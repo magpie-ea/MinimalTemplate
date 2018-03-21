@@ -4,14 +4,6 @@
 		<meta charset="UTF-8" />
                 <title>browser-based experiments</title>
 
-                <!-- use lodash library for handy manipulations -->
-<!--
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.6/lodash.min.js"></script>
-                <script>
-                _ = _.noConflict(); 
-                </script>
--->
-
 		<!-- fonts from Google fonts -->
 		<link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Noto+Serif:400,700|Playfair+Display:700" rel="stylesheet">
 
@@ -91,26 +83,16 @@
 			{{# title }}
 			<h2>{{ title }}</h2>
 			{{/ title }}
-			<div class="stimulus-container">
-				<div class="pause-container">
-					<img class="point" src="images/cross.png" height="30" width="30" />
-				</div>
-				<canvas id="canvas" class="stimulus img nodisplay show" height="160" width="500"></canvas>
-			</div>
-			{{# helpText }}
-			<p class="help-text hidden">{{ helpText }}</p>
-			{{/ helpText }}
-			<p class="sentence nodisplay show">
-				{{# sentence }}
-				<span class="word">{{ . }}</span>
-				{{/ sentence }}
+			<p class="question">
+				{{# problem }}
+				{{ problem }}
+				{{/ problem }}
 			</p>
-			<p class="question nodisplay">
-				<label for="yes" class="answer">yes</label>
-				<input type="radio" name="question" id="yes"
-					value="yes" />
-				<input type="radio" name="question" id="no" value="no" />
-				<label for="no" class="answer">no</label>
+			<p class="question">
+		                <label for="yes" class="answer">{{option1}}</label>
+				<input type="radio" name="question" id="yes" value={{option1}} />
+		                <input type="radio" name="question" id="no" value={{option2}} />
+		                <label for="no" class="answer">{{option2}}</label>
 			</p>
 		</div>
 		</script>
@@ -130,32 +112,18 @@
 		<!-- Trial view (actual experiment) -->
 		<script id="trial-view" type="x-tmpl-mustache">
 		<div class="view">
-			<div class="progress-bar-container">
-				<p class="progress-bar">progress: <span id="current-trial">{{ currentTrial }}</span>/<span id="total-trial">{{ totalTrials }}</span></p>
-			</div>
-			<div class="clearfix"></div>
-			<div class="stimulus-container">
-				<div class="pause-container">
-					<img class="point" src="images/cross.png" height="30" width="30" />
-				</div>
-				<canvas id="canvas" class="stimulus img nodisplay show" height="160" width="500"></canvas>
-			</div>
-			{{# helpText }}
-			<p class="help-text hidden">{{ helpText }}</p>
-			{{/ helpText }}
-			<p class="sentence nodisplay show">
-				{{# sentence }}
-				<span class="word">{{ . }}</span>
-				{{/ sentence }}
+			<p class="question">
+				{{# problem }}
+				{{ problem }}
+				{{/ problem }}
 			</p>
-			<p class="question nodisplay">
-				<label for="yes" class="answer">yes</label>
-				<input type="radio" name="question" id="yes"
-					value="yes" />
-				<input type="radio" name="question" id="no" value="no" />
-				<label for="no" class="answer">no</label>
+			<p class="question">
+		                <label for="yes" class="answer">{{option1}}</label>
+				<input type="radio" name="question" id="yes" value={{option1}} />
+		                <input type="radio" name="question" id="no" value={{option2}} />
+		                <label for="no" class="answer">{{option2}}</label>
 			</p>
-		</div>	
+		</div>
 		</script>
 
 		<!-- subject info view -->
@@ -215,14 +183,14 @@
 		<script id="thanks-view" type="x-tmpl-mustache">
 		<div class="view">
 			<h2>{{ thanksMessage }}</h2>
-			<form method="post" id="mturk-submission-form" action="{{ mturk_server }}">
-				<input type="hidden" name="assignmentId" value="{{ assignmentId }}" />
-				<input type="hidden" name="author" value="{{ author }}"/>
-				<input type="hidden" name="experiment_id" value="{{ experiment_id }}"/>
-				<input type="hidden" name="trials" value="{{ trials }}"/>
-				<input type="hidden" name="description" value="{{ description }}"/>
-				<input type="hidden" name="worker_id" value="{{ worker_id }}"/>
-			</form>
+			<!-- <form method="post" id="mturk-submission-form" action="{{ mturk_server }}"> -->
+			<!-- 	<input type="hidden" name="assignmentId" value="{{ assignmentId }}" /> -->
+			<!-- 	<input type="hidden" name="author" value="{{ author }}"/> -->
+			<!-- 	<input type="hidden" name="experiment_id" value="{{ experiment_id }}"/> -->
+			<!-- 	<input type="hidden" name="trials" value="{{ trials }}"/> -->
+			<!-- 	<input type="hidden" name="description" value="{{ description }}"/> -->
+			<!-- 	<input type="hidden" name="worker_id" value="{{ worker_id }}"/> -->
+			<!-- </form> -->
 		</div>
 		</script>
 	</body>

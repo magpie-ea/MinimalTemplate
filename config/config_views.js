@@ -14,7 +14,7 @@ var config_views = {
 		// instruction's title
 		"title": "Instructions",
 		// instruction's text
-		"text": "Each trial, you will see a picture on screen depicting shapes colored in either black or white. You will then have to press the space bar to reveal bits of a sentence which you have to read. After reading the sentence, you will be asked if you agree or disagree with what you just read. Select one of the options and you will be directed to the next trial.",
+		"text": "Each trial, you will see a question and two response options. Please select the response option you like more. We start with two practice trials.",
 		// instuction's slide proceeding button text
 		"buttonText": "Go to practice trial"
 	},
