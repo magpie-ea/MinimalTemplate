@@ -5,13 +5,13 @@ var initExp = function() {
     var data = {};
 
     var trials_raw = [
-        {question: "How are you today?", option1: "fine", option2: "great"},
-	{question: "What is the weather like?", option1: "shiny", option2: "rainbow"},
+        {question: "How are you today?", option1: "fine", option2: "great", picture: "images/question_mark_01.png"},
+	{question: "What is the weather like?", option1: "shiny", option2: "rainbow", picture: "images/question_mark_02.png"},
     ];
 
     var practice_trials = [
-        {question: "Where is your head?", option1: "here", option2: "there"},
-	{question: "What's on the bread?", option1: "jam", option2: "ham"},
+        {question: "Where is your head?", option1: "here", option2: "there", picture: "images/question_mark_03.jpg"},
+	{question: "What's on the bread?", option1: "jam", option2: "ham", picture: "images/question_mark_04.png"},
     ];
     
     // function that shuffles the items in a list

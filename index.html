@@ -85,20 +85,28 @@
 		<!-- Practice trial view -->
 		<script id="practice-view" type="x-tmpl-mustache">
 		<div class="view">
-			{{# title }}
-			<h2>{{ title }}</h2>
-			{{/ title }}
-			<p class="question">
-				{{# problem }}
-				{{ problem }}
-				{{/ problem }}
-			</p>
-			<p class="question">
-		                <label for="yes" class="answer">{{option1}}</label>
-				<input type="radio" name="question" id="yes" value={{option1}} />
-		                <input type="radio" name="question" id="no" value={{option2}} />
-		                <label for="no" class="answer">{{option2}}</label>
-			</p>
+		  
+		  {{# title }}
+		  <h2>{{ title }}</h2>
+		  {{/ title }}
+
+		  <div class="picture", align = "center">
+		    <img <img src= {{picture}} alt= "a picture" height="100" width="100">
+		  </div>
+		  
+		  <p class="question">
+		  {{# problem }}
+		  {{ problem }}
+		  {{/ problem }}
+		  </p>
+		  
+		  <p class="question">
+		    <label for="yes" class="answer">{{option1}}</label>
+		    <input type="radio" name="question" id="yes" value={{option1}} />
+		    <input type="radio" name="question" id="no" value={{option2}} />
+		    <label for="no" class="answer">{{option2}}</label>
+		  </p>
+		  
 		</div>
 		</script>
 
@@ -117,17 +125,24 @@
 		<!-- Trial view (actual experiment) -->
 		<script id="trial-view" type="x-tmpl-mustache">
 		<div class="view">
-			<p class="question">
-				{{# problem }}
-				{{ problem }}
-				{{/ problem }}
-			</p>
-			<p class="question">
-		                <label for="yes" class="answer">{{option1}}</label>
-				<input type="radio" name="question" id="yes" value={{option1}} />
-		                <input type="radio" name="question" id="no" value={{option2}} />
-		                <label for="no" class="answer">{{option2}}</label>
-			</p>
+
+		<div class="picture", align = "center">
+		    <img <img src= {{picture}} alt= "a picture" height="100" width="100">
+		</div>
+				  
+		<p class="question">
+		{{# problem }}
+		{{ problem }}
+		{{/ problem }}
+		</p>
+
+		  <p class="question">
+		   <label for="yes" class="answer">{{option1}}</label>
+		   <input type="radio" name="question" id="yes" value={{option1}} />
+		   <input type="radio" name="question" id="no" value={{option2}} />
+		   <label for="no" class="answer">{{option2}}</label>
+		  </p>
+		
 		</div>
 		</script>
 
