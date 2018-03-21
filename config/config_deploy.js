@@ -3,7 +3,7 @@ var config_deploy = {
 	"author": "Random Jane",
 	"experiment_id": "MinimalTemplate",
 	"description": "A minimal template for a browser-based experiment which can be deployed in several ways",
-	"liveExperiment": false,
+	"liveExperiment": true,
 	"contact_email": "someRandomJanesEmail@randomJoesAndJanes.love",
 	// submission settings
 	// set "is_MTurk" to true if the experiment is run in MTurk
