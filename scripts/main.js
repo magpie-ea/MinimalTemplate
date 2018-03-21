@@ -1,6 +1,7 @@
 // initExp() creates and returns an object ('data') where the experiment's info is stored.
 // data.trials - a list of objects containing the trial info that is needed for each slide
 // of the experiment.
+
 var initExp = function() {
     var data = {};
 
