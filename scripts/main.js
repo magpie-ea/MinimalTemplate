@@ -1,23 +1,25 @@
 // create and return an object ('data') where the experiment's info is stored
 // includint a placeholder exp.out in which to store participants' responses
 var initExp = function() {
-    var data = {};
 
+    // this should ideally be read in from a separate file
     var trials_raw = [
         {question: "How are you today?", option1: "fine", option2: "great", picture: "images/question_mark_01.png"},
 	{question: "What is the weather like?", option1: "shiny", option2: "rainbow", picture: "images/question_mark_02.png"},
     ];
 
+    // this should ideally be read in from a separate file
     var practice_trials = [
         {question: "Where is your head?", option1: "here", option2: "there", picture: "images/question_mark_03.jpg"},
 	{question: "What's on the bread?", option1: "jam", option2: "ham", picture: "images/question_mark_04.png"},
     ];
 
-    data.trials = shuffleComb(trials_raw);  // items in data.trials are shuffled randomly upon initialization 
-    data.practice_trials = practice_trials; // practice trials occur in the same order for all participants
-    
-    data.out = []; // mandatory field to store results in during experimental trials
-    
+    var data = {
+	'trials': shuffleComb(trials_raw),  // items in data.trials are shuffled randomly upon initialization 
+	'practice_trials': practice_trials, // practice trials occur in the same order for all participants	
+	'out': [] // mandatory field to store results in during experimental trials
+    };
+	
     return data;
 };
 
@@ -34,60 +36,26 @@ $('document').ready(function() {
 });
 
 var exp = {startDate: Date(),
-	   startTime: Date.now()};
-
-// exp.findNextView() handles the views
-exp.findNextView = function() {
-    if (this.view.name === 'intro') {
-	this.view = initInstructionsView();
-    } else if (this.view.name === 'instructions') {
-	this.view = initPracticeView(this.data.practice_trials[this.CPT], this.CPT);
-	this.CPT++;
-    } else if (this.view.name === 'practice' && (this.CPT < this.TPT)) {
-	this.view = initPracticeView(this.data.practice_trials[this.CPT], this.CPT);
-	this.CPT++;
-    } else if (this.view.name === 'practice' && this.CPT === this.TPT) {
-	this.view = initBeginExpView();
-    } else if (this.view.name === 'beginExp') {
-	this.view = initTrialView(this.data.trials[this.CT], this.CT);
-	this.CT++;
-    } else if (this.view.name === 'trial' && this.CT < this.TT) {
-	this.view = initTrialView(this.data.trials[this.CT], this.CT);
-	this.CT++;
-    } else if (this.view.name === 'trial' && this.CT === this.TT) {
-	this.view = initPostTestView();
-    } else if (this.view.name === 'postTest') {
-	this.view = initThanksView();
-    } else {
-	console.log("something went wrong")
-    }
-};
-
-exp.init = function() {
-
-        // CPT - current practice trial
-	this.CPT = 0;
-
-	// CT - current trial
-	this.CT = 0;
-
-	// generates the experiment and assigns it to this.data
-	this.data = initExp();
-	console.log(this.data);
-
-	// generated the view
-	this.view = initIntroView();
-	
-	// to be done: get TT and TPT from the model, this now is a temp solution
-	// TPT - total practice trials
-	this.TPT = this.data.practice_trials.length;
-
-	// TT - total trials
-	this.TT = this.data.trials.length;
-};
-
+	   startTime: Date.now(),
+	   currentViewCounter: 0,
+	   currentViewStepCounter: 0};
 var config_views = {};
 
+
+// navigation through the views and steps in each view;
+// shows each view (in the order defined in 'config_general') for
+// the given number of steps (as defined in 'config_general')
+exp.findNextView = function() {
+    if (this.currentViewStepCounter < config_general.viewSteps[this.currentViewCounter]) {
+	this.view = window[config_general.viewFunctions[this.currentViewCounter]](this.currentViewStepCounter);
+	this.currentViewStepCounter ++; 
+    } else {
+	this.currentViewCounter ++; 
+	this.currentViewStepCounter = 0;
+	this.view = window[config_general.viewFunctions[this.currentViewCounter]](this.currentViewStepCounter);
+	this.currentViewStepCounter ++;
+    }
+};
 
 // attaches exp.findNextView() function to all the buttons that bring
 // the next view when clicked. Which view should be shown is determined by 
@@ -114,4 +82,15 @@ var showNextView = function() {
 	    });
 	}
     }
+};
+
+// initialize the experiment
+exp.init = function() {
+
+    // initiate experiment;
+    this.data = initExp();
+    
+    // generated the first view
+    this.view = this.findNextView();
+
 };
