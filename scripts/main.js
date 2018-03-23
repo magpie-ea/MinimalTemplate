@@ -1,6 +1,6 @@
 // create and return an object ('data') where the experiment's info is stored
 // includint a placeholder exp.out in which to store participants' responses
-var initExp = function() {
+var prepareData = function() {
 
     // this should ideally be read in from a separate file
     var trials_raw = [
@@ -35,10 +35,9 @@ $('document').ready(function() {
     };
 });
 
-var exp = {startDate: Date(),
-	   startTime: Date.now(),
-	   currentViewCounter: 0,
-	   currentViewStepCounter: 0};
+// empty shells for 'exp' and 'config_views' objects;
+// to be filled with life later
+var exp = {};
 var config_views = {};
 
 
@@ -87,10 +86,16 @@ var showNextView = function() {
 // initialize the experiment
 exp.init = function() {
 
-    // initiate experiment;
-    this.data = initExp();
-    
-    // generated the first view
+    // record current date and time
+    this.startDate = Date();
+    this.startTime = Date.now();
+
+    // initialize counters and generate first view
+    this.currentViewCounter = 0;
+    this.currentViewStepCounter = 0;
     this.view = this.findNextView();
+    
+    // prepate data
+    this.data = prepareData();
 
 };
