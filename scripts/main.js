@@ -1,7 +1,5 @@
-// initExp() creates and returns an object ('data') where the experiment's info is stored.
-// data.trials - a list of objects containing the trial info that is needed for each slide
-// of the experiment.
-
+// create and return an object ('data') where the experiment's info is stored
+// includint a placeholder exp.out in which to store participants' responses
 var initExp = function() {
     var data = {};
 
@@ -14,28 +12,12 @@ var initExp = function() {
         {question: "Where is your head?", option1: "here", option2: "there", picture: "images/question_mark_03.jpg"},
 	{question: "What's on the bread?", option1: "jam", option2: "ham", picture: "images/question_mark_04.png"},
     ];
+
+    data.trials = shuffleComb(trials_raw);  // items in data.trials are shuffled randomly upon initialization 
+    data.practice_trials = practice_trials; // practice trials occur in the same order for all participants
     
-    // function that shuffles the items in a list
-    var shuffleComb = function(comb) {
-	var counter = comb.length;
-
-	while (counter > 0) {
-	    let index = Math.floor(Math.random() * counter);
-	    counter--;
-
-	    let temp = comb[counter];
-	    comb[counter] = comb[index];
-	    comb[index] = temp;
-	}
-
-	return comb;
-    };
-
-    // each time initExp() is called, items in data.trials are shuffled
-    data.trials = shuffleComb(trials_raw);
-    // practice trials occur in the same order for all participants
-    data.practice_trials = practice_trials;
-    data.out = [];
+    data.out = []; // mandatory field to store results in during experimental trials
+    
     return data;
 };
 
@@ -51,7 +33,8 @@ $('document').ready(function() {
     };
 });
 
-var exp = {};
+var exp = {startDate: Date(),
+	   startTime: Date.now()};
 
 // exp.findNextView() handles the views
 exp.findNextView = function() {

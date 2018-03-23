@@ -1,17 +1,23 @@
+// user enters information about deployment method here
 var config_deploy = {
-	// mandatory fields - author, experiment_id, description
-	"author": "Random Jane",
-	"experiment_id": "MinimalTemplate",
-	"description": "A minimal template for a browser-based experiment which can be deployed in several ways",
-	"liveExperiment": true,
-	"contact_email": "someRandomJanesEmail@randomJoesAndJanes.love",
-	// submission settings
-	// set "is_MTurk" to true if the experiment is run in MTurk
-	"is_MTurk": false,
-	// mturk's HIT submission url
-	// specify the submission url if "is_MTurk" is set to true otherwise leave blank
-	// the url for the sandbox and the live experiments are different (https://docs.aws.amazon.com/AWSMechTurk/latest/AWSMturkAPI/ApiReference_ExternalQuestionArticle.html)
-	/*"MTurk_server": "https://workersandbox.mturk.com/mturk/externalSubmit",*/
-       "MTurk_server": "https://www.mturk.com/mturk/externalSubmit"
+    
+    // obligatory fields
+    "author": "Random Jane",  // needed to recover data from server app
+    "experiment_id": "MinimalTemplate", // needed to recover data from server app
+    "description": "A minimal template for a browser-based experiment which can be deployed in several ways",
+    "deployMethod" : 'debug', // set deployment method; use one of 'debug', 'localServer', 'MTurk', 'MTurkSandbox', 'Prolific',
+    
+    // optional fields
+    "contact_email": "someRandomJanesEmail@randomJoesAndJanes.love", // who to contact in case of trouble
+
 }
 
+// user does not (should not) change the following information
+
+config_deploy.MTurk_server = config_deploy.deployMethod == 'MTurkSandbox' ?
+    "https://workersandbox.mturk.com/mturk/externalSubmit" : // URL for MTurk sandbox
+    config_deploy.deployMethod == 'MTurk' ?
+    "https://www.mturk.com/mturk/externalSubmit" : // URL for live HITs on MTurk
+    ""; // blank if deployment is not via MTurk
+config_deploy.liveExperiment = config_deploy.deployMethod != "debug";
+config_deploy.is_MTurk = config_deploy.MTurk_server == "";

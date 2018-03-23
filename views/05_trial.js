@@ -21,7 +21,7 @@ var initTrialView = function(trialInfo, CT) {
     	RT = Date.now() - startingTime; // measure RT before anything else
     	trial_data = {
     	    trial_type: "main",
-    	    trial_numner: CT+1,
+    	    trial_number: CT+1,
 	    question: trialInfo.question,
 	    question1: trialInfo.option1,
 	    question2: trialInfo.option2,
