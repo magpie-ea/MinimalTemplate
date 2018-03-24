@@ -9,7 +9,7 @@ var initPracticeView = function(CPT) {
     view.template = $('#practice-view').html();
     $('#main').html(Mustache.render(view.template, {
 	title: config_views.practice.title,
-	problem: exp.data.practice_trials[CPT].question,
+	question: exp.data.practice_trials[CPT].question,
 	option1: exp.data.practice_trials[CPT].option1,
 	option2: exp.data.practice_trials[CPT].option2,
 	picture: exp.data.practice_trials[CPT].picture
@@ -23,9 +23,9 @@ var initPracticeView = function(CPT) {
     	trial_data = {
     	    trial_type: "practice",
     	    trial_numner: CPT+1,
-	    question: exp.data.practice_trials.question,
-	    question1: exp.data.practice_trials.option1,
-	    question2: exp.data.practice_trials.option2,
+	    question: exp.data.practice_trials[CPT].question,
+	    option1: exp.data.practice_trials[CPT].option1,
+	    option2: exp.data.practice_trials[CPT].option2,
     	    response: $('input[name=question]:checked').val(),
 	    RT: RT
     	};

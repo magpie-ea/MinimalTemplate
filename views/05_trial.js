@@ -7,7 +7,7 @@ var initTrialView = function(CT) {
     view.name = 'trial',
     view.template = $('#trial-view').html();
     $('#main').html(Mustache.render(view.template, {
-	problem: exp.data.trials[CT].question,
+	question: exp.data.trials[CT].question,
 	option1: exp.data.trials[CT].option1,
 	option2: exp.data.trials[CT].option2,
 	picture: exp.data.trials[CT].picture
@@ -22,8 +22,8 @@ var initTrialView = function(CT) {
     	    trial_type: "main",
     	    trial_number: CT+1,
 	    question: exp.data.trials[CT].question,
-	    question1: exp.data.trials[CT].option1,
-	    question2: exp.data.trials[CT].option2,
+	    option1: exp.data.trials[CT].option1,
+	    option2: exp.data.trials[CT].option2,
     	    response: $('input[name=question]:checked').val(),
 	    RT: RT
     	};
