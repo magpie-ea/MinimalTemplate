@@ -1,15 +1,6 @@
-// function that shuffles the items in a list
+// insert any functions that are useful throughout the experiment here
+
 var shuffleComb = function(comb) {
-    var counter = comb.length;
-
-    while (counter > 0) {
-	let index = Math.floor(Math.random() * counter);
-	counter--;
-
-	let temp = comb[counter];
-	comb[counter] = comb[index];
-	comb[index] = temp;
-    }
-
-    return comb;
+    // while this one is trivial, this just to show that we CAN define a function here
+    return _.shuffle(comb)
 };
