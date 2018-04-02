@@ -20,7 +20,7 @@ var initThanksView = function() {
 	'description': config_deploy.description,
 	'startDateTime': exp.startDate,
 	'total_exp_time_minutes': (Date.now() - exp.startTime) / 60000,
-	'trial_data': exp.data.out
+	'trials': exp.data.out
 	// 'worker_id': HITData['workerId'],
 	// 'assignmentId': HITData['assignmentId'],
 	// 'HIT_id': HITData['hitId']
