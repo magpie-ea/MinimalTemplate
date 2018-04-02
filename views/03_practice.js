@@ -22,7 +22,7 @@ var initPracticeView = function(CPT) {
     	RT = Date.now() - startingTime; // measure RT before anything else
     	trial_data = {
     	    trial_type: "practice",
-    	    trial_numner: CPT+1,
+    	    trial_number: CPT+1,
 	    question: exp.data.practice_trials[CPT].question,
 	    option1: exp.data.practice_trials[CPT].option1,
 	    option2: exp.data.practice_trials[CPT].option2,
