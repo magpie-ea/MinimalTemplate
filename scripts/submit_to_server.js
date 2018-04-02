@@ -9,8 +9,7 @@ var submitResults = function(isMTurk, contactEmail, data) {
 
     $.ajax({
 	type: 'POST',
-	url: 'https://procomprag.herokuapp.com/api/submit_experiment',
-	// url: 'http://localhost:4000/api/submit_experiment',
+	url: config_deploy.deployMethod === "localServer" ? 'http://localhost:4000/api/submit_experiment' : 'https://procomprag.herokuapp.com/api/submit_experiment',
 	crossDomain: true,
 	data: data,
 	success: function (responseData, textStatus, jqXHR) {
