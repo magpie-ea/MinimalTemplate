@@ -18,7 +18,10 @@ var initInstructionsView = function() {
 		button: config_views.instructions.buttonText
 	}));
 
-	showNextView();
+    // moves to the next view
+    $('#next').on('click', function(e) {
+        exp.findNextView();
+    });	
 
 	return view;
 };

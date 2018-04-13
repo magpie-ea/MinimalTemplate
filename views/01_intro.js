@@ -20,7 +20,10 @@ var initIntroView = function() {
 	    button: config_views.intro.buttonText
 	}));
 
-	showNextView();
+	// moves to the next view
+    $('#next').on('click', function(e) {
+        exp.findNextView();
+    });
 
 	return view;
 };

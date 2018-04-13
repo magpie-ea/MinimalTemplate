@@ -12,27 +12,28 @@
 
 		<!-- js dependencies -->
 		<script src="libraries/mustache/mustache.min.js"></script>
-                <script src="libraries/jquery/dist/jquery.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.js"></script>
+		<script src="libraries/jquery/dist/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.js"></script>
 
 
-                <!-- config -->
-                <script src="config/config_deploy.js"></script>
-                <script src="config/config_general.js"></script>
+		<!-- config -->
+		<script src="config/config_deploy.js"></script>
+		<script src="config/config_general.js"></script>
 
 		<!-- local js files -->
-                <script src="scripts/main.js"></script>
-    <script src="scripts/helpers.js"></script>
+		<script src="scripts/main.js"></script>
+		<script src="scripts/experiment.js"></script>
+    	<script src="scripts/helpers.js"></script>
 		<script src="scripts/submit_to_server.js"></script>
 
-                <!-- views -->
-                <script src="views/01_intro.js"></script>
-                <script src="views/02_instructions.js"></script>
-                <script src="views/03_practice.js"></script>
-                <script src="views/04_beginExp.js"></script>
-                <script src="views/05_trial.js"></script>
-                <script src="views/06_postTest.js"></script>
-                <script src="views/07_thanks.js"></script>
+		<!-- views -->
+		<script src="views/01_intro.js"></script>
+		<script src="views/02_instructions.js"></script>
+		<script src="views/03_practice.js"></script>
+		<script src="views/04_beginExp.js"></script>
+		<script src="views/05_trial.js"></script>
+		<script src="views/06_postTest.js"></script>
+		<script src="views/07_thanks.js"></script>
 
 	</head>
 
@@ -60,10 +61,10 @@
 			</section>
 			{{/ text }}
 			{{# button }}
-			<button class="btn next-view">{{ button }}</button>
+			<button id="next">{{ button }}</button>
 			{{/ button }}
 			{{^ button }}
-			<button class="btn next-view">Begin Experiment</button>
+			<button id="next">Begin Experiment</button>
 			{{/ button }}
 		</div>
 		</script>
@@ -80,7 +81,7 @@
 			</section>
 			{{/ text }}
 			{{# button }}
-			<button class="btn next-view">{{ button }}</button>
+			<button id="next">{{ button }}</button>
 			{{/ button }}
 		</view>
 		</script>
@@ -121,7 +122,7 @@
 				<p class="text">{{ text }}</p>
 			</section>
 			{{/ text }}
-			<button class="btn next-view">Begin Experiment</button>
+			<button id="next">Begin Experiment</button>
 		</div>
 		</script>
 
@@ -193,10 +194,10 @@
 					rows="6" cols="40"></textarea>
 				</p>
 				{{# buttonText }}
-				<button id="sends-data" class="btn next-view sends-data">{{ buttonText }}</button>
+				<button id="next">{{ buttonText }}</button>
 				{{/ buttonText }}
 				{{^ buttonText }}
-				<button id="sends-data" class="btn next-view sends-data">Next</button>
+				<button id="next">Next</button>
 				{{/ buttonText }}
 			</form>
 		</div>

@@ -11,7 +11,10 @@ var initBeginExpView = function() {
 		text: config_views.beginExp.text
 	}));
 
-	showNextView();
+    // moves to the next view
+    $('#next').on('click', function(e) {
+        exp.findNextView();
+    });
 
 	return view;
 };
