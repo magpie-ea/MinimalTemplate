@@ -20,11 +20,11 @@ var initPostTestView = function() {
         e.preventDefault();
 
         // records the post test info
-        exp.data.out.age = $('#age').val();
-        exp.data.out.gender = $('#gender').val();
-        exp.data.out.education = $('#education').val();
-        exp.data.out.languages = $('#languages').val();
-        exp.data.out.comments = $('#comments').val().trim();
+        exp.global_data.age = $('#age').val();
+        exp.global_data.gender = $('#gender').val();
+        exp.global_data.education = $('#education').val();
+        exp.global_data.languages = $('#languages').val();
+        exp.global_data.comments = $('#comments').val().trim();
 
         // moves to the next view
         exp.findNextView();

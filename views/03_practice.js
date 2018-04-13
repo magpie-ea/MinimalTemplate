@@ -3,16 +3,16 @@ config_views.practice = {
 };
 
 // creates Practice view
-var initPracticeView = function(CPT) {
+var initPracticeView = function(CT) {
     var view = {};
     view.name = 'practice',
     view.template = $('#practice-view').html();
     $('#main').html(Mustache.render(view.template, {
 	title: config_views.practice.title,
-	question: exp.data.practice_trials[CPT].question,
-	option1: exp.data.practice_trials[CPT].option1,
-	option2: exp.data.practice_trials[CPT].option2,
-	picture: exp.data.practice_trials[CPT].picture
+	question: exp.trial_info.practice_trials[CT].question,
+	option1: exp.trial_info.practice_trials[CT].option1,
+	option2: exp.trial_info.practice_trials[CT].option2,
+	picture: exp.trial_info.practice_trials[CT].picture
     }));
     startingTime = Date.now()
     // attaches an event listener to the yes / no radio inputs
@@ -22,14 +22,14 @@ var initPracticeView = function(CPT) {
     	RT = Date.now() - startingTime; // measure RT before anything else
     	trial_data = {
     	    trial_type: "practice",
-    	    trial_number: CPT+1,
-	    question: exp.data.practice_trials[CPT].question,
-	    option1: exp.data.practice_trials[CPT].option1,
-	    option2: exp.data.practice_trials[CPT].option2,
+    	    trial_number: CT+1,
+	    question: exp.trial_info.practice_trials[CT].question,
+	    option1: exp.trial_info.practice_trials[CT].option1,
+	    option2: exp.trial_info.practice_trials[CT].option2,
     	    response: $('input[name=question]:checked').val(),
 	    RT: RT
     	};
-    	exp.data.out.push(trial_data)
+    	exp.trial_data.push(trial_data)
     	exp.findNextView();
     });
     

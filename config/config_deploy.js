@@ -2,8 +2,8 @@
 var config_deploy = {
     
     // obligatory fields
-    "author": "Random Jane",  // needed to recover data from server app
-    "experiment_id": "MinimalTemplate", // needed to recover data from server app
+    "author": "RandomJane",  // needed to recover data from server app
+    "experiment_id": "MinimalTemplateDEBUG", // needed to recover data from server app
     "description": "A minimal template for a browser-based experiment which can be deployed in several ways",
     "deployMethod" : "debug", // set deployment method; use one of:
 	                          //'debug', 'localServer', 'MTurk', 

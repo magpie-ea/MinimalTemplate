@@ -203,19 +203,29 @@
 		</div>
 		</script>
 
-		<!-- thanks view -->
-		<script id="thanks-view" type="x-tmpl-mustache">
-		<div class="view">
-			<h2>{{ thanksMessage }}</h2>
-			<!-- <form method="post" id="mturk-submission-form" action="{{ mturk_server }}"> -->
-			<!-- 	<input type="hidden" name="assignmentId" value="{{ assignmentId }}" /> -->
-			<!-- 	<input type="hidden" name="author" value="{{ author }}"/> -->
-			<!-- 	<input type="hidden" name="experiment_id" value="{{ experiment_id }}"/> -->
-			<!-- 	<input type="hidden" name="trials" value="{{ trials }}"/> -->
-			<!-- 	<input type="hidden" name="description" value="{{ description }}"/> -->
-			<!-- 	<input type="hidden" name="worker_id" value="{{ worker_id }}"/> -->
-			<!-- </form> -->
-		</div>
-		</script>
+    <!-- Thanks View -->
+    <script id="thanks-view" type="x-tmpl-mustache">
+    <div class="view thanks-templ">
+        <h4 class="warning-message">Please do not close this tab until you see a <strong>&#10004; Submission Successful</strong> message on the screen.</h4>
+        {{# thanksMessage }}
+        <h2 class="thanks-message nodisplay">{{ thanksMessage }}</h2>
+        {{/ thanksMessage }}
+        {{^ thanksMessage }}
+        <h2 class="thanks-message nodisplay">Thank you for taking part in this experiment!</h2>
+        {{/ thanksMessage }}
+        <h4 class="success-message nodisplay"><strong>&#10004; Submission Successful!</strong></h4>
+        {{# extraMessage }}
+        <h4 class="extra-message nodisplay">{{{ extraMessage }}}</h4>
+        {{/ extraMessage }}
+        <form method="post" id="mturk-submission-form" action="{{ mturk_server }}">
+            <input type="hidden" name="assignmentId" value="{{ assignmentId }}" />    
+            <input type="hidden" name="author" value="{{ author }}"/>
+            <input type="hidden" name="experimentId" value="{{ experimentId }}"/>
+            <input type="hidden" name="data" value="{{ data }}"/>
+            <input type="hidden" name="description" value="{{ description }}"/>
+            <input type="hidden" name="workerId" value="{{ workerId }}"/>
+        </form>
+    </div>
+    </script>
 	</body>
 </html>
