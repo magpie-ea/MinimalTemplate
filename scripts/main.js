@@ -27,6 +27,19 @@ exp.initializeProcedure = function(){
 // shows each view (in the order defined in 'config_general') for
 // the given number of steps (as defined in 'config_general')
 exp.findNextView = function() {
+	var currentView = this.views[this.currentViewCounter];
+    if (this.currentTrialCounter < currentView.trials) {
+		this.currentView = currentView.render(this.currentTrialCounter);
+		this.currentTrialCounter ++; 
+    } else {
+		this.currentViewCounter ++; 
+		var currentView = this.views[this.currentViewCounter];
+		this.currentTrialCounter = 0;
+		this.currentView = currentView.render(this.currentTrialCounter);
+		this.currentTrialCounter ++;
+    }
+};
+exp.findNextViewOLD = function() {
     if (this.currentTrialCounter < config_general.viewSteps[this.currentViewCounter]) {
 	this.currentView = window[config_general.viewFunctions[this.currentViewCounter]](this.currentTrialCounter);
 	this.currentTrialCounter ++; 
