@@ -20,7 +20,7 @@ exp.initializeProcedure = function(){
     this.currentViewCounter = 0;
     this.currentTrialCounter = 0;
     this.currentView = this.findNextView();
-}
+};
 
 
 // navigation through the views and steps in each view;
@@ -39,6 +39,7 @@ exp.findNextView = function() {
 		this.currentTrialCounter ++;
     }
 };
+
 exp.findNextViewOLD = function() {
     if (this.currentTrialCounter < config_general.viewSteps[this.currentViewCounter]) {
 	this.currentView = window[config_general.viewFunctions[this.currentViewCounter]](this.currentTrialCounter);
