@@ -1,173 +1,148 @@
 html,
 body {
-	margin: 0;
-	padding: 0;
 	height: 100%;
 	width: 100%;
+	margin: 0;
+	padding: 0;
 }
 
-/*
-	styles that apply to all views
-*/
-h1, h2 {
-	color: #111;
-	font-family: "Playfair Display", "Noto Serif", sans-serif;
-	font-weight: 700;
-	font-size: 2em;
+/* the container where the views are plugged */
+main {
+	max-width: 960px;
+	margin: 50px auto;
+}
+
+/* titles */
+h1 {
+	color: rgba(0, 0, 0, 0.87);
+	font-family: "Playfair Display", "Noto Serif", serif;
+	font-size: 34px;
 	text-align: center;
 }
 
-a, p, li, span, button {
-	color: #333;
-	font-family: "Noto Sans", sans-serif;
+h2,
+h3,
+h4 {
+	color: rgba(0, 0, 0, 0.87);
+	font-family: "Lato", "Noto Sans", serif;
+	font-size: 20px;
+	text-align: center;
 }
 
-#main {
-	min-height: 100%;
+h4 {
+	font-size: 18px;
+	text-align: left;
 }
 
-.view {
+/* text */
+p {
+	color: rgba(0, 0, 0, 0.87);
+	font-size: 17px;
+	line-height: 27px;
+	font-family: "Lato", "Noto Sans", sans-serif;
 	margin: 0 auto;
-	max-width: 740px;
-	padding: 30px 0;
+	max-width: 550px;
 }
 
 button {
-	border: 3px solid #535AAC;
-	background-color: white;
+	background-color: #5187BA;
+	border: none;
+	border-radius: 2px;
+	color: white;
 	display: block;
-	color: #535AAC;
-	font-weight: bold;
+	font-family: "Lato", "Noto Sans", sans-serif;
+	font-size: 12px;
+	line-height: 20px;
+	font-weight: 700;
+	letter-spacing: 0.9px;
+	margin: 40px auto 20px auto;
 	outline: none;
-	margin: 60px auto 30px auto;
-	padding: 8px 16px;
+	padding: 5px 10px;
 	text-transform: uppercase;
-	transition: all 0.125s ease;
 }
 
+/* buttons when covered or clicked */
 button:hover,
 button:focus {
-	background-color: #535AAC;
-	color: white;
-}
-
-.text-container {
-	box-sizing: border-box;
-	padding: 20px;
-}
-
-.text {
-	font-size: 1em;
-}
-
-
-/*
-	practice trial and trial related styles
-*/
-
-.trial {
-	height: 100%;
+	background-color: #324D93;
 }
 
 .progress-bar-container {
 	float: right;
-	margin: -20px 0 40px 0;
+	margin: 0 10px 30px 10px;
+}
+
+.clearfix {
+	clear: both;
 }
 
 .progress-bar {
-	color: #555;
-	font-style: italic;
+	border: 1px solid #5187BA;
+	height: 20px;
+	width: 180px;
 }
 
-.pause-container {
-	height: 100%;
-	width: 100%;
-	margin: 0 auto;
-	position: relative;
-}
-
-.pause-container .point {
-	position: absolute;
-	top: calc(50% - 15px);
-	left: calc(50% - 15px);
+.progress-bar #filled {
+	background-color: #5187BA;
+	display: block;
+	height: 20px;
 }
 
 .stimulus-container {
-	display: -webkit-box;
-	display: -moz-box;
-	display: -webkit-flex;
-	display: -ms-flexbox;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 160px;
-	margin: 30px auto;
-	width: 500px;
-}
-
-.img {
-}
-
-.help-text {
-	color: #555;
-	font-style: italic;
-	margin: 0;
-	text-align: center;
-}
-
-.sentence-container {
-	box-sizing: boder-box;
-	display: inline-block;
+	height: 300px;
 	margin: 0 auto;
-	padding: 30px 0;
-	width: auto;
+	position: relative;
+	width: 400px;
 }
 
-.sentence,
+.stimulus {
+	background-color: #414f6f;
+	height: 120px;
+	left: 140px;
+	position: absolute;
+	top: 90px;
+	width: 120px;
+}
+
 .question {
-	padding: 20px 0;
+	padding: 30px 0;
 	text-align: center;
 }
 
-.word {
-	font-size: 1.3rem; 
-	margin: 0 3px;
-	position: relative;
-	visibility: hidden;
+.answer-container {
+	text-align: center;
 }
 
-.word:after {
-	height: 2px;
-	width: 100%;
-	background: #333;
-	display: inline-block;
-	content: "";
-	visibility: visible;
-
-	position: absolute;
-	bottom: -3px;
-	left: 0;
-}
-
-input[name=question] {
+.answer-container input[name=answer] {
 	display: none;
 }
 
-.answer {
-	border: 2px solid #535AAC;
-	border-radius: 3px;
-	color: #535AAC;
-	font-weight: bold;
-	margin: 10px;
-	padding: 3px 6px;
-}
-
-.answer:hover,
-.answer:focus {
-	background: #535AAC;
+.answer-container label {
+	background-color: #5187BA;
+	border: none;
+	border-radius: 2px;
 	color: white;
+	cursor: pointer;
+	display: inline-block;
+	font-family: "Lato", "Noto Sans", sans-serif;
+	font-size: 12px;
+	line-height: 20px;
+	font-weight: 700;
+	letter-spacing: 0.9px;
+	margin: 40px 5px 20px 5px;
+	outline: none;
+	padding: 5px 10px;
+	text-transform: uppercase;
 }
 
+.answer-container label:hover {
+	background-color: #324D93;
+}
+
+/* does not display the element */
+.nodisplay {
+	display: none;
+}
 
 .post-test-templ form {
 	padding: 30px 0;
@@ -178,7 +153,8 @@ input[name=question] {
 .post-test-templ p {
 	display: flex;
 	flex-direction: column;
-	margin: 25px 0;
+	margin: 25px auto;
+	text-align: left;
 }
 
 .post-test-templ form input, 
@@ -204,21 +180,30 @@ input[name=question] {
 	margin: 5px 0 0 0;
 }
 
-.clearfix {
-	clear: both;
+.thanks-templ .debug-results {
+	text-align: left;
 }
 
-/*
-	classes used by the js
-*/
-.nodisplay {
-	display: none;
+.thanks-templ h4 {
+	margin: 40px 10px;
 }
 
-.visible {
-	visibility: visible;
+.thanks-templ strong {
+	border: 2px solid #25BC82;
+	color: #25BC82;
+	display: inline-block;
+	padding: 10px;
 }
 
-.hidden {
-	visibility: hidden;
+.thanks-templ .success-message {
+	text-align: center;
+}
+
+.thanks-templ .prolific-url {
+	color: white;
+	display: inline-block;
+	background: #25BC82;
+	padding: 10px;
+	margin: 10px 5px;
+	text-decoration: none;
 }

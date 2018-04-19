@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
-                <title>browser-based experiments</title>
+				<title>browser-based experiments</title>
 
 		<!-- fonts from Google fonts -->
 		<link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Noto+Serif:400,700|Playfair+Display:700" rel="stylesheet">
@@ -22,7 +22,7 @@
 		<!-- local js files -->
 		<script src="scripts/main.js"></script>
 		<script src="scripts/experiment.js"></script>
-    	<script src="scripts/helpers.js"></script>
+		<script src="scripts/helpers.js"></script>
 		<script src="scripts/submit_to_server.js"></script>
 
 		<!-- views -->
@@ -47,7 +47,7 @@
 		<script id="intro-view" type="x-tmpl-mustache">
 		<div class='view'> 
 			{{# title }}
-			<h2 class="title">{{ title }}</h2>
+			<h1 class="title">{{ title }}</h1>
 			{{/ title }}
 			{{# text }}
 			<section class="text-container">
@@ -67,7 +67,7 @@
 		<script id="instructions-view" type="x-tmpl-mustache">
 		<div class="view">
 			{{# title }}
-			<h2>{{ title }}</h2>
+			<h1>{{ title }}</h1>
 			{{/ title }}
 			{{# text }}
 			<section class="text-container">
@@ -83,14 +83,12 @@
 		<!-- Practice trial view -->
 		<script id="practice-view" type="x-tmpl-mustache">
 		<div class="view">
-		  
-		  {{# title }}
-		  <h2>{{ title }}</h2>
-		  {{/ title }}
-
-		  <div class="picture", align = "center">
-		    <img <img src= {{picture}} alt= "a picture" height="100" width="100">
-		  </div>
+		 	{{# title }}
+		 	<h1>{{ title }}</h1>
+		 	{{/ title }}
+		 	<div class="picture", align = "center">
+			<img <img src={{picture}} alt="a picture" height="100" width="100">
+			</div>
 		  
 		  <p class="question">
 		  {{# question }}
@@ -98,13 +96,12 @@
 		  {{/ question }}
 		  </p>
 		  
-		  <p class="question">
-		    <label for="yes" class="answer">{{option1}}</label>
-		    <input type="radio" name="question" id="yes" value={{option1}} />
-		    <input type="radio" name="question" id="no" value={{option2}} />
-		    <label for="no" class="answer">{{option2}}</label>
-		  </p>
-		  
+			<p class="answer-container">
+				<label for="yes" class="answer">{{option1}}</label>
+				<input type="radio" name="answer" id="yes" value={{option1}} />
+				<input type="radio" name="answer" id="no" value={{option2}} />
+				<label for="no" class="answer">{{option2}}</label>
+			</p> 
 		</div>
 		</script>
 
@@ -125,7 +122,7 @@
 		<div class="view">
 
 		<div class="picture", align = "center">
-		    <img src= {{picture}} alt= "a picture" height="100" width="100">
+			<img src={{picture}} alt="a picture" height="100" width="100">
 		</div>
 				  
 		<p class="question">
@@ -134,12 +131,12 @@
 		{{/ question }}
 		</p>
 
-		  <p class="question">
-		   <label for="yes" class="answer">{{option1}}</label>
-		   <input type="radio" name="question" id="yes" value={{option1}} />
-		   <input type="radio" name="question" id="no" value={{option2}} />
-		   <label for="no" class="answer">{{option2}}</label>
-		  </p>
+		<p class="answer-container">
+			<label for="yes" class="answer">{{option1}}</label>
+			<input type="radio" name="answer" id="yes" value={{option1}} />
+			<input type="radio" name="answer" id="no" value={{option2}} />
+			<label for="no" class="answer">{{option2}}</label>
+		</p>
 		
 		</div>
 		</script>
@@ -148,7 +145,7 @@
 		<script id="post-test-view" type="x-tmpl-mustache">
 		<div class="view post-test-templ">
 			{{# title }}
-			<h2>{{ title }}</h2>
+			<h1>{{ title }}</h1>
 			{{/ title }}
 			{{# text }}
 			<section class="text-container">
@@ -197,21 +194,21 @@
 		</div>
 		</script>
 
-    <!-- Thanks View -->
-    <script id="thanks-view" type="x-tmpl-mustache">
-        <div class="view thanks-templ">
-            <h4 class="warning-message">Please do not close this tab until you see a <strong>&#10004; Submission Successful</strong> message on the screen.</h4>
-            {{# thanksMessage }}
-            <h1 class="thanks-message nodisplay">{{ thanksMessage }}</h1>
-            {{/ thanksMessage }}
-            {{^ thanksMessage }}
-            <h1 class="thanks-message nodisplay">Thank you for taking part in this experiment!</h1>
-            {{/ thanksMessage }}
-            <h4 class="success-message nodisplay"><strong>&#10004; Submission Successful!</strong></h4>
-            {{# extraMessage }}
-            <h4 class="extra-message nodisplay">{{{ extraMessage }}}</h4>
-            {{/ extraMessage }}
-        </div>
-    </script>
+	<!-- Thanks View -->
+	<script id="thanks-view" type="x-tmpl-mustache">
+		<div class="view thanks-templ">
+			<h4 class="warning-message">Please do not close this tab until you see a <strong>&#10004; Submission Successful</strong> message on the screen.</h4>
+			{{# thanksMessage }}
+			<h1 class="thanks-message nodisplay">{{ thanksMessage }}</h1>
+			{{/ thanksMessage }}
+			{{^ thanksMessage }}
+			<h1 class="thanks-message nodisplay">Thank you for taking part in this experiment!</h1>
+			{{/ thanksMessage }}
+			<h4 class="success-message nodisplay"><strong>&#10004; Submission Successful!</strong></h4>
+			{{# extraMessage }}
+			<h4 class="extra-message nodisplay">{{{ extraMessage }}}</h4>
+			{{/ extraMessage }}
+		</div>
+	</script>
 	</body>
 </html>

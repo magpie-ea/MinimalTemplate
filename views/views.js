@@ -71,7 +71,7 @@ var practiceView = {
         // attaches an event listener to the yes / no radio inputs
         // when an input is selected a response property with a value equal to the answer is added to the trial object
         // as well as a readingTimes property with value - a list containing the reading times of each word
-        $('input[name=question]').on('change', function() {
+        $('input[name=answer]').on('change', function() {
             RT = Date.now() - startingTime; // measure RT before anything else
             trial_data = {
                 trial_type: "practice",
@@ -79,7 +79,7 @@ var practiceView = {
                 question: exp.trial_info.practice_trials[CT].question,
                 option1: exp.trial_info.practice_trials[CT].option1,
                 option2: exp.trial_info.practice_trials[CT].option2,
-                response: $('input[name=question]:checked').val(),
+                response: $('input[name=answer]:checked').val(),
                 RT: RT
             };
             exp.trial_data.push(trial_data)
@@ -116,19 +116,20 @@ var mainTrialView = {
         var view = {};
         view.name = 'trial',
         view.template = $('#trial-view').html();
+        view.response = $('#response').html();
         $('#main').html(Mustache.render(view.template, {
             question: exp.trial_info.trials[CT].question,
             option1: exp.trial_info.trials[CT].option1,
             option2: exp.trial_info.trials[CT].option2,
             picture: exp.trial_info.trials[CT].picture
         }));
-        startingTime = Date.now()
+        startingTime = Date.now();
 
         // attaches an event listener to the yes / no radio inputs
         // when an input is selected a response property with a value equal
         // to the answer is added to the trial object
         // as well as a readingTimes property with value 
-        $('input[name=question]').on('change', function() {
+        $('input[name=answer]').on('change', function() {
             RT = Date.now() - startingTime; // measure RT before anything else
             trial_data = {
                 trial_type: "main",
@@ -136,7 +137,7 @@ var mainTrialView = {
                 question: exp.trial_info.trials[CT].question,
                 option1: exp.trial_info.trials[CT].option1,
                 option2: exp.trial_info.trials[CT].option2,
-                response: $('input[name=question]:checked').val(),
+                response: $('input[name=answer]:checked').val(),
                 RT: RT
             };
             exp.trial_data.push(trial_data);
