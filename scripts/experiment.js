@@ -15,7 +15,8 @@ exp.init = function() {
                   instructionsView,
                   practiceView,
                   beginExpView,
-                  mainTrialView,
+                  mainTrialView_buttonsResponse,
+                  mainTrialView_sliderResponse,
                   postTestView,
                   thanksView]
     // initialize counter structure (normally you do not change this)

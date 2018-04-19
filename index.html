@@ -117,8 +117,8 @@
 		</div>
 		</script>
 
-		<!-- Trial view (actual experiment) -->
-		<script id="trial-view" type="x-tmpl-mustache">
+		<!-- Trial view (buttons response) -->
+		<script id="trial-view-buttons-response" type="x-tmpl-mustache">
 		<div class="view">
 		<div class="progress-bar-container">
 			<p>progress</p>
@@ -140,6 +140,35 @@
 			<input type="radio" name="answer" id="yes" value={{option1}} />
 			<input type="radio" name="answer" id="no" value={{option2}} />
 			<label for="no" class="answer">{{option2}}</label>
+		</p>
+		
+		</div>
+		</script>
+
+		<!-- Trial view (slider response) -->
+		<script id="trial-view-slider-response" type="x-tmpl-mustache">
+		<div class="view">
+		<div class="progress-bar-container">
+			<p>progress</p>
+			<div class="progress-bar"><span id='filled'><span></div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="picture", align = "center">
+			<img src={{picture}} alt="a picture" height="100" width="100">
+		</div>
+				  
+		<p class="question">
+		{{# question }}
+		{{ question }}
+		{{/ question }}
+		</p>
+
+		<p class="answer-container">
+			<span class="unnatural">{{option1}}</span>
+			<input type="range" id="response" class="slider-response" min="0" max="100" value="50"/>
+			<span class="natural">{{option2}}</span>
+			<button id="next">Next</button>
+			<p class="help-text nodisplay">Please move the slider before moving to the next page.</p>
 		</p>
 		
 		</div>

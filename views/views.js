@@ -111,13 +111,13 @@ var beginExpView = {
     trials: 1
 }
 
-var mainTrialView = {
+var mainTrialView_buttonsResponse = {
     render : function(CT) {
         var view = {};
         // what part of the progress bar is filled
         var filled = CT * (180 / exp.views[exp.currentViewCounter].trials);
         view.name = 'trial',
-        view.template = $('#trial-view').html();
+        view.template = $('#trial-view-buttons-response').html();
         view.response = $('#response').html();
         $('#main').html(Mustache.render(view.template, {
             question: exp.trial_info.trials[CT].question,
@@ -151,7 +151,62 @@ var mainTrialView = {
         return view;
     },
     trials: 2
-}
+};
+
+var mainTrialView_sliderResponse = {
+    render : function(CT) {
+        var view = {};
+        // what part of the progress bar is filled
+        var filled = CT * (180 / exp.views[exp.currentViewCounter].trials);
+        view.name = 'trial',
+        view.template = $('#trial-view-slider-response').html();
+        view.response = $('#response').html();
+        var sliderMoved = false;
+        var response;
+        $('#main').html(Mustache.render(view.template, {
+            question: exp.trial_info.trials[CT].question,
+            option1: exp.trial_info.trials[CT].option1,
+            option2: exp.trial_info.trials[CT].option2,
+            picture: exp.trial_info.trials[CT].picture
+        }));
+        startingTime = Date.now();
+        response = $('#response');
+        // updates the progress bar
+        $('#filled').css('width', filled);
+
+        // checks if the slider has been changed
+        response.on('change', function() {
+            sliderMoved = true;
+        });
+        response.on('click', function() {
+            sliderMoved = true;
+        });
+
+        $('#next').on('click', function() {
+            console.log(sliderMoved);
+            // if the slider has been changed, records the value and shows next slide
+            if (sliderMoved === true) {
+                RT = Date.now() - startingTime; // measure RT before anything else
+                trial_data = {
+                    trial_type: "main",
+                    trial_number: CT+1,
+                    option1: exp.trial_info.trials[CT].option1,
+                    option2: exp.trial_info.trials[CT].option2,
+                    question: exp.trial_info.trials[CT].question,
+                    response: response.val(),
+                    RT: RT
+                };
+                exp.trial_data.push(trial_data);
+                exp.findNextView();
+            } else {
+                $('.help-text').removeClass('nodisplay');
+            }
+        });
+
+        return view;
+    },
+    trials: 2
+};
 
 var postTestView = {
     "title": "Additional Info",
@@ -187,7 +242,7 @@ var postTestView = {
         return view;
     },
     trials: 1
-}
+};
 
 var thanksView = {
     "message": "Thank you for taking part in this experiment!",

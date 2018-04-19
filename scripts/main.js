@@ -40,7 +40,7 @@ exp.findNextView = function() {
     }
 };
 
-exp.findNextViewOLD = function() {
+/*exp.findNextViewOLD = function() {
     if (this.currentTrialCounter < config_general.viewSteps[this.currentViewCounter]) {
 	this.currentView = window[config_general.viewFunctions[this.currentViewCounter]](this.currentTrialCounter);
 	this.currentTrialCounter ++; 
@@ -50,6 +50,6 @@ exp.findNextViewOLD = function() {
 	this.currentView = window[config_general.viewFunctions[this.currentViewCounter]](this.currentTrialCounter);
 	this.currentTrialCounter ++;
     }
-};
+};*/
 
 
