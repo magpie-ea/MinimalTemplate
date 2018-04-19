@@ -83,10 +83,10 @@
 		<!-- Practice trial view -->
 		<script id="practice-view" type="x-tmpl-mustache">
 		<div class="view">
-		 	{{# title }}
-		 	<h1>{{ title }}</h1>
-		 	{{/ title }}
-		 	<div class="picture", align = "center">
+			{{# title }}
+			<h1>{{ title }}</h1>
+			{{/ title }}
+			<div class="picture", align = "center">
 			<img <img src={{picture}} alt="a picture" height="100" width="100">
 			</div>
 		  
@@ -120,7 +120,11 @@
 		<!-- Trial view (actual experiment) -->
 		<script id="trial-view" type="x-tmpl-mustache">
 		<div class="view">
-
+		<div class="progress-bar-container">
+			<p>progress</p>
+			<div class="progress-bar"><span id='filled'><span></div>
+		</div>
+		<div class="clearfix"></div>
 		<div class="picture", align = "center">
 			<img src={{picture}} alt="a picture" height="100" width="100">
 		</div>

@@ -67,7 +67,7 @@ var practiceView = {
         option2: exp.trial_info.practice_trials[CT].option2,
         picture: exp.trial_info.practice_trials[CT].picture
         }));
-        startingTime = Date.now()
+        startingTime = Date.now();
         // attaches an event listener to the yes / no radio inputs
         // when an input is selected a response property with a value equal to the answer is added to the trial object
         // as well as a readingTimes property with value - a list containing the reading times of each word
@@ -114,6 +114,8 @@ var beginExpView = {
 var mainTrialView = {
     render : function(CT) {
         var view = {};
+        // what part of the progress bar is filled
+        var filled = CT * (180 / exp.views[exp.currentViewCounter].trials);
         view.name = 'trial',
         view.template = $('#trial-view').html();
         view.response = $('#response').html();
@@ -124,6 +126,8 @@ var mainTrialView = {
             picture: exp.trial_info.trials[CT].picture
         }));
         startingTime = Date.now();
+        // updates the progress bar
+        $('#filled').css('width', filled);
 
         // attaches an event listener to the yes / no radio inputs
         // when an input is selected a response property with a value equal

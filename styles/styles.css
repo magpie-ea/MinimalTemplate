@@ -9,7 +9,13 @@ body {
 /* the container where the views are plugged */
 main {
 	max-width: 960px;
-	margin: 50px auto;
+	margin: 0 auto;
+	min-height: 100%;
+}
+
+.view {
+	box-sizing: border-box;
+	padding: 50px 0;
 }
 
 /* titles */
@@ -72,20 +78,25 @@ button:focus {
 	margin: 0 10px 30px 10px;
 }
 
+.progress-bar-container p {
+	font-size: 15px;
+	text-align: right;
+}
+
 .clearfix {
 	clear: both;
 }
 
 .progress-bar {
 	border: 1px solid #5187BA;
-	height: 20px;
+	height: 12px;
 	width: 180px;
 }
 
 .progress-bar #filled {
 	background-color: #5187BA;
 	display: block;
-	height: 20px;
+	height: 12px;
 }
 
 .stimulus-container {
