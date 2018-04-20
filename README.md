@@ -23,7 +23,7 @@ cd MinimalTemplate
 	+ `experiment.js`       - initializes the experiment (trial structure, input data etc.); user must customize this
 	+ `main.js`             - main functionality to run experiment; usually user will not edit this
     + `helpers.js`          - helper functions specific to each particular experiment; user might edit this
-	+ `submit_to_server.js` - helper functions specific to each particular experiment; user will almost never edit this
+	+ `submit_to_server.js` - functions to process, send or store data; user will almost never edit this
 
 + `config`/    - file(s) with user-supplied information
 	+ `config_deploy.js`    - information about how to deploy (=run, collect data for) the experiment
@@ -39,7 +39,7 @@ cd MinimalTemplate
 
 ## What the user will usually (not) edit
 
-The main files which **must** (usually) be edited to program an experiment are: 
+The main files which must (usually) be edited to program an experiment are: 
 
 + `index.html`    - provide view-templates
 
@@ -95,89 +95,23 @@ var intro = {
 
 ## Experiment
 
+The experiment itself is realized as a Javascript object. It contains four keys that are particularly important for customizing your experiment:
 
-Views are the different blocks that comprise the experiment. The user will usually want specify a sequence of views as separate parts of the experiment (instructions, then practice trials, then main trials etc.). This is done in `scripts/experiment.js`
++ `views` - array of view-objects in the order in which they are to occur
 
-The sequence of views and how many slides/clicks/transitions each block is supposed to have are defined in `config_general.js`.
++ `trial_info` - any information the user may wish to specify to realize particular trials (e.g., URLs to pictures, test sentences, ...)
 
-In this experiment, the view sequence is:
++ `trial_data` - data gathered from each particular trial (this is the main experimental data you collect)
 
-introduction -> instructions -> practice (2 trials) -> begin experiment announcement -> main (2 trials) -> post-test questions -> thanks
++ `global_data` - data that is collected only once, such as MTurk userID, starting time, total experiment time etc.
 
+The sequence of views is defined in `scripts/experiment.js`. The structure of views in the minimal template is:
 
-1. **Introduction view:**
-
-	+ role: contains general information about the experiment
-	+ elements: *title*, *text* and *next button*
-	+ code: 
-	+ displayed: once
-	+ *next button* brings Instructions view
+introduction -> instructions -> practice (2 trials) -> begin experiment announcement -> main (2 trials 2-option forced choice task) -> instructions -> main (2 trials slider rating task) -> post-test questions -> thanks
 
 
-2. **Instruction view:**
+## Configuration of deployment
 
-	+ role: gives instructions about the experiment
-	+ elements: *title*, *text* and *next button*.
-	+ code:
-	+ displayed: once
-	+ *next button* brings Practice Trial view
+The deploy configuration file `config_deploy.js` contains **information about how to deploy** (i.e., run, recruit participants & store data) an experiment. Here, we simply use the `debug` mode in which the experiment runs locally in our own browser and outputs the data collected on the last slides as one huge and unstructured blob of text. Other modes of deployment are possible. (Documentation pending.)
 
 
-3. **Practice Trial view:**
-
-	+ role: shows an example/s of trial/s, does not record the reading times and response
-	+ elements: *image*, *sentence*, *response buttons*
-	+ code: 
-	+ displayed: as many times as the number of trials
-	+ next: *response buttons* (choosing a response) bring either Practice Trial again or Begin Experiment view
-
-
-4. **Begin Experiment view:**
-
-	+ role: informs the partipant the real experiment is about to begin
-	+ elements: *text* and *next button*
-	+ code:
-	+ displayed: once
-	+ next: *next button* brings Trial view
-
-
-5. **Trial view:**
-	
-	+ role: shows a single trial, collects the reading times and response
-	+ elements: *progress bar*, *image*, *sentence*, *response buttons*
-	+ code: index.html lines ..; js/views.js lines ..
-	+ displayed: as many times as the number of trials
-	+ next: *response buttons* (choosing a respone) bring either Trial view or Subject Info view
-
-
-6. **Post-test questionare view:**
-
-	+ role: contains a questionnaire for collecting extra information about the participant
-	+ elements: *question fields*, *next button*
-	+ code:
-	+ displayed: once
-	+ next: *next button* brings Thanks view
-
-
-7. **Thanks view:**
-
-	+ role: displays a thank you message and makes an ajax request with the results
-	+ elements: *text*
-	+ code:
-	+ displayed: once
-
-
-
-## Configuration
-
-### The `config_XXX.js` files
-
-There are two configuration files. `config_deploy.js` contains **information about how to deploy** (i.e., run, recruit participants & store data) an experiment. Here, we simply use the `debug` mode in which the experiment runs locally in our own browser and outputs the data collected on the last slides as one huge and unstructured blob of text. Other modes of deployment are possible. (Documentation pending.)
-
-The file `config_general.js` contains necessary **information about the experiment's structure**. It defines the sequence in which different views (blocks, units, ...) are to be displayed and how many times (e.g., trials) each view consists of.
-
-Each configuration file contains mandatory and optional fields. The fields are explained as comments in the code of each file.
-
-### Configuration of individual views
-
-To supply data necessary for particular views, the experiment maintains a global object `config_views`, which is extended with whatever properties a particular view would like to add. For example, the file `views/01_intro.js`, which defines the first view of the introductory slide, extends `config_views` by an object in `config_views.intro` which contains a title, a text and a button label, each of which is displayed on the slide. This information is picked up and rendered correctly in `index.html`, where the basic structure of each view is defined.
