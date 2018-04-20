@@ -11,14 +11,15 @@ exp.init = function() {
     this.global_data.startTime = Date.now();
     
     // specify view order
-    this.views = [introView, 
-                  instructionsView,
-                  practiceView,
-                  beginExpView,
-                  mainTrialView_buttonsResponse,
-                  mainTrialView_sliderResponse,
-                  postTestView,
-                  thanksView]
+    this.views = [intro, 
+                  instructionsForcedChoice,
+                  practiceForcedChoice,
+                  beginForcedChoice,
+                  mainForcedChoice,
+				  instructionsSliderRating,
+                  mainSliderRating,
+                  postTest,
+                  thanks]
     // initialize counter structure (normally you do not change this)
     this.initializeProcedure();
     

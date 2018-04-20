@@ -1,8 +1,8 @@
-var introView = {
+var intro = {
     // introduction title
     "title": "Welcome!",
     // introduction text
-    "text": "Thank you for participating in our study. In this study, you will answer questions about 24 sentences that describe images. To participate in the experiment, please first accept the HIT. By answering the following questions, you are participating in a study being performed by scientists from the Eberhard Karls University of Tübingen. You must be at least 18 years old to participate. Your participation in this research is voluntary. You may decline to answer any or all of the following questions. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you.",
+    "text": "Thank you for participating in our study. In this study, you will ...",
     // introduction's slide proceeding button text
     "buttonText": "Begin experiment",
     // render function renders the view
@@ -27,7 +27,7 @@ var introView = {
     trials: 1
 }
 
-var instructionsView = {
+var instructionsForcedChoice = {
      // instruction's title
     "title": "Instructions",
     // instruction's text
@@ -54,7 +54,7 @@ var instructionsView = {
     trials: 1
 }
 
-var practiceView = {
+var practiceForcedChoice = {
     "title": "Practice trial",
     render: function (CT) {
         var view = {};
@@ -91,7 +91,7 @@ var practiceView = {
     trials: 2
 }
 
-var beginExpView = {
+var beginForcedChoice = {
     "text": "Now that you have acquainted yourself with the procedure of the task, the actual experiment will begin.",
     render: function() {
         var view = {};
@@ -111,7 +111,7 @@ var beginExpView = {
     trials: 1
 }
 
-var mainTrialView_buttonsResponse = {
+var mainForcedChoice = {
     render : function(CT) {
         var view = {};
         // what part of the progress bar is filled
@@ -136,7 +136,7 @@ var mainTrialView_buttonsResponse = {
         $('input[name=answer]').on('change', function() {
             RT = Date.now() - startingTime; // measure RT before anything else
             trial_data = {
-                trial_type: "main",
+                trial_type: "mainForcedChoice",
                 trial_number: CT+1,
                 question: exp.trial_info.trials[CT].question,
                 option1: exp.trial_info.trials[CT].option1,
@@ -153,7 +153,34 @@ var mainTrialView_buttonsResponse = {
     trials: 2
 };
 
-var mainTrialView_sliderResponse = {
+var instructionsSliderRating = {
+     // instruction's title
+    "title": "Instructions",
+    // instruction's text
+    "text": "You completed the first part. In the next part you will adjust sliders. Training is not necessary. We know you can do it, so we start right away.",
+    // instuction's slide proceeding button text
+    "buttonText": "Start slider task",
+    render: function() {
+        var view = {};
+        view.name = 'instructions';
+        view.template = $("#instructions-view").html();
+        $('#main').html(Mustache.render(view.template, {
+            title: this.title,
+            text: this.text,
+            button: this.buttonText
+        }));
+
+        // moves to the next view
+        $('#next').on('click', function(e) {
+            exp.findNextView();
+        }); 
+
+        return view;
+    },
+    trials: 1
+}
+
+var mainSliderRating = {
     render : function(CT) {
         var view = {};
         // what part of the progress bar is filled
@@ -188,7 +215,7 @@ var mainTrialView_sliderResponse = {
             if (sliderMoved === true) {
                 RT = Date.now() - startingTime; // measure RT before anything else
                 trial_data = {
-                    trial_type: "main",
+                    trial_type: "mainSliderRating",
                     trial_number: CT+1,
                     option1: exp.trial_info.trials[CT].option1,
                     option2: exp.trial_info.trials[CT].option2,
@@ -208,7 +235,7 @@ var mainTrialView_sliderResponse = {
     trials: 2
 };
 
-var postTestView = {
+var postTest = {
     "title": "Additional Info",
     "text": "Answering the following questions is optional, but will help us understand your answers.",
     "buttonText": "Continue",
@@ -244,7 +271,7 @@ var postTestView = {
     trials: 1
 };
 
-var thanksView = {
+var thanks = {
     "message": "Thank you for taking part in this experiment!",
     render: function() {
         var view = {};
