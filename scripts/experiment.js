@@ -52,14 +52,39 @@ var prepareData = function() {
     return data;
 };
 
+// adds columns with NA values
+var addEmptyColumns = function(trialData) {
+    var columns = [];
+
+    for (var i=0; i<trialData.length; i++) {
+        for (prop in trialData[i]) {
+            if ((trialData[i].hasOwnProperty(prop)) && (columns.indexOf(prop) === -1)) {
+                columns.push(prop);
+            }
+        }
+    }
+
+    for (var j=0; j<trialData.length; j++) {
+        for (var k=0; k<columns.length; k++) {
+            if (!trialData[j].hasOwnProperty(columns[k])) {
+                trialData[j][columns[k]] = 'NA';
+            }
+        }
+    }
+
+    return trialData;
+};
+
 // submits the data
 exp.submit = function() {
+
+
     // construct data object for output
     var data = {
         'author': config_deploy.author,
         'experiment_id': config_deploy.experiment_id,
         'description': config_deploy.description,
-        'trials': exp.trial_data
+        'trials': addEmptyColumns(exp.trial_data)
     };
 
     // add more fields depending on the deploy method
