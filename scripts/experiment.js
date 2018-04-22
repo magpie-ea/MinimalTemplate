@@ -16,10 +16,10 @@ exp.init = function() {
                   practiceForcedChoice,
                   beginForcedChoice,
                   mainForcedChoice,
-				  instructionsSliderRating,
+                  instructionsSliderRating,
                   mainSliderRating,
                   postTest,
-                  thanks]
+                  thanks];
     // initialize counter structure (normally you do not change this)
     this.initializeProcedure();
     
@@ -57,7 +57,7 @@ var addEmptyColumns = function(trialData) {
     var columns = [];
 
     for (var i=0; i<trialData.length; i++) {
-        for (prop in trialData[i]) {
+        for (var prop in trialData[i]) {
             if ((trialData[i].hasOwnProperty(prop)) && (columns.indexOf(prop) === -1)) {
                 columns.push(prop);
             }
