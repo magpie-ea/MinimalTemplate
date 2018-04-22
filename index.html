@@ -13,8 +13,9 @@
 		<!-- js dependencies -->
 		<script src="libraries/mustache/mustache.min.js"></script>
 		<script src="libraries/jquery/dist/jquery.min.js"></script>
+    <!-- This doesn't seem to be there on cloudflare -->
+    <script src="libraries/csv-js/csv.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.js"></script>
-
 
 		<!-- config -->
 		<script src="config/config_deploy.js"></script>
@@ -27,12 +28,12 @@
 
 		<!-- views -->
 		<script src="views/views.js"></script>
-		
+
 
 	</head>
 
 	<body>
-		<noscript>This task requires JavaScript. Please enable JavaScript in your browser and reload the page. For more information on how to do that, please refer to 
+		<noscript>This task requires JavaScript. Please enable JavaScript in your browser and reload the page. For more information on how to do that, please refer to
 			<a href='https://enable-javascript.com' target='_blank'>enable-javascript.com</a>
 		</noscript>
 
@@ -45,7 +46,7 @@
 
 		<!-- Introduction view -->
 		<script id="intro-view" type="x-tmpl-mustache">
-		<div class='view'> 
+		<div class='view'>
 			{{# title }}
 			<h1 class="title">{{ title }}</h1>
 			{{/ title }}
@@ -89,19 +90,19 @@
 			<div class="picture", align = "center">
 			<img <img src={{picture}} alt="a picture" height="100" width="100">
 			</div>
-		  
+
 		  <p class="question">
 		  {{# question }}
 		  {{ question }}
 		  {{/ question }}
 		  </p>
-		  
+
 			<p class="answer-container">
 				<label for="yes" class="answer">{{option1}}</label>
 				<input type="radio" name="answer" id="yes" value={{option1}} />
 				<input type="radio" name="answer" id="no" value={{option2}} />
 				<label for="no" class="answer">{{option2}}</label>
-			</p> 
+			</p>
 		</div>
 		</script>
 
@@ -128,7 +129,7 @@
 		<div class="picture", align = "center">
 			<img src={{picture}} alt="a picture" height="100" width="100">
 		</div>
-				  
+
 		<p class="question">
 		{{# question }}
 		{{ question }}
@@ -141,7 +142,7 @@
 			<input type="radio" name="answer" id="no" value={{option2}} />
 			<label for="no" class="answer">{{option2}}</label>
 		</p>
-		
+
 		</div>
 		</script>
 
@@ -156,7 +157,7 @@
 		<div class="picture", align = "center">
 			<img src={{picture}} alt="a picture" height="100" width="100">
 		</div>
-				  
+
 		<p class="question">
 		{{# question }}
 		{{ question }}
@@ -170,7 +171,7 @@
 			<button id="next">Next</button>
 			<p class="help-text nodisplay">Please move the slider before moving to the next page.</p>
 		</p>
-		
+
 		</div>
 		</script>
 
