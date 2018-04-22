@@ -221,7 +221,6 @@ var mainSliderRating = {
                     option2: exp.trial_info.trials[CT].option2,
                     question: exp.trial_info.trials[CT].question,
                     response: response.val(),
-                    testingDifferentProperties: 'test',
                     RT: RT
                 };
                 exp.trial_data.push(trial_data);
