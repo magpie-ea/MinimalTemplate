@@ -83,6 +83,7 @@ var prepareDataFromCSV = function(practiceTrialsFile, trialsFile) {
     $.ajax({
         url: practiceTrialsFile,
         dataType: "text",
+        crossDomain: true,
         success: function(file, textStatus, jqXHR) {
             addToContainer(data, "practice_trials", processTrialsData(CSV.parse(file)));
         }
@@ -91,6 +92,7 @@ var prepareDataFromCSV = function(practiceTrialsFile, trialsFile) {
     $.ajax({
         url: trialsFile,
         dataType: "text",
+        crossDomain: true,
         success: function(file, textStatus, jqXHR) {
             addToContainer(data, "trials", _.shuffle(processTrialsData(CSV.parse(file))));
         }
@@ -99,4 +101,3 @@ var prepareDataFromCSV = function(practiceTrialsFile, trialsFile) {
 
     return data;
 };
-
