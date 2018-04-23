@@ -24,10 +24,10 @@ exp.init = function() {
     this.initializeProcedure();
 
     // prepare information about trials (procedure)
-     this.trial_info = prepareData();
+//     this.trial_info = prepareData();
 
     // This method uses external files instead.
-//    this.trial_info = prepareDataFromCSV("files/practiceTrials.csv", "files/trials.csv");
+    this.trial_info = prepareDataFromCSV("trial_info/practiceTrials.csv", "trial_info/trials.csv");
 	
 };
 
