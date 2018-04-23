@@ -35,18 +35,9 @@ exp.init = function() {
 // include a placeholder exp.out in which to store participants' responses
 var prepareData = function() {
 
-    // this should ideally be read in from a separate file
-    var trials_raw = [
-        {question: "How are you today?", option1: "fine", option2: "great", picture: "images/question_mark_01.png"},
-        {question: "What is the weather like?", option1: "shiny", option2: "rainbow", picture: "images/question_mark_02.png"},
-    ];
-
-    // this should ideally be read in from a separate file
-    var practice_trials = [
-        {question: "Where is your head?", option1: "here", option2: "there", picture: "images/question_mark_03.jpg"},
-        {question: "What's on the bread?", option1: "jam", option2: "ham", picture: "images/question_mark_04.png"},
-    ];
-
+    // variables `trials_raw` and `practice_trials` are defined in separate files
+	// in folder `trial_info`
+    
     var data = {
         'trials': _.shuffle(trials_raw),  // items in data.trials are shuffled randomly upon initialization
         'practice_trials': practice_trials, // practice trials occur in the same order for all participants
