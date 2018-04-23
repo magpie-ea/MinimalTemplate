@@ -24,10 +24,11 @@ exp.init = function() {
     this.initializeProcedure();
 
     // prepare information about trials (procedure)
-    // this.trial_info = prepareData();
+     this.trial_info = prepareData();
 
     // This method uses external files instead.
-    this.trial_info = prepareDataFromCSV("files/practiceTrials.csv", "files/trials.csv");
+//    this.trial_info = prepareDataFromCSV("files/practiceTrials.csv", "files/trials.csv");
+	
 };
 
 // create and return an object ('data') where the experiment's info is stored
@@ -99,25 +100,3 @@ var prepareDataFromCSV = function(practiceTrialsFile, trialsFile) {
     return data;
 };
 
-// adds columns with NA values
-var addEmptyColumns = function(trialData) {
-    var columns = [];
-
-    for (var i=0; i<trialData.length; i++) {
-        for (var prop in trialData[i]) {
-            if ((trialData[i].hasOwnProperty(prop)) && (columns.indexOf(prop) === -1)) {
-                columns.push(prop);
-            }
-        }
-    }
-
-    for (var j=0; j<trialData.length; j++) {
-        for (var k=0; k<columns.length; k++) {
-            if (!trialData[j].hasOwnProperty(columns[k])) {
-                trialData[j][columns[k]] = 'NA';
-            }
-        }
-    }
-
-    return trialData;
-};

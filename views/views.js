@@ -220,7 +220,7 @@ var mainSliderRating = {
                     option1: exp.trial_info.trials[CT].option1,
                     option2: exp.trial_info.trials[CT].option2,
                     question: exp.trial_info.trials[CT].question,
-                    response: response.val(),
+                    rating: response.val(),
                     RT: RT
                 };
                 exp.trial_data.push(trial_data);
@@ -278,29 +278,25 @@ var thanks = {
         view.name = 'thanks';
         view.template = $('#thanks-view').html();
 
-        // construct data object for output
-        var data = {
-        'author': config_deploy.author,
-        'experiment_id': config_deploy.experiment_id,
-        'description': config_deploy.description,
-        'startDateTime': exp.startDate,
-        'total_exp_time_minutes': (Date.now() - exp.global_data.startTime) / 60000,
-        'trials': exp.trial_data
-        // 'worker_id': HITData['workerId'],
-        // 'assignmentId': HITData['assignmentId'],
-        // 'HIT_id': HITData['hitId']
-        };
+//        // construct data object for output
+//        var data = {
+//        'author': config_deploy.author,
+//        'experiment_id': config_deploy.experiment_id,
+//        'description': config_deploy.description,
+//        'startDateTime': exp.startDate,
+//        'total_exp_time_minutes': (Date.now() - exp.global_data.startTime) / 60000,
+//        'trials': exp.trial_data
+//        // 'worker_id': HITData['workerId'],
+//        // 'assignmentId': HITData['assignmentId'],
+//        // 'HIT_id': HITData['hitId']
+//        };
+//
+//        // merge in global data accummulated so far
+//        // this could be unsafe if 'exp.global_data' contains keys used in 'data'!!
+//        data = _.merge(exp.global_data, data)
 
-        // merge in global data accummulated so far
-        // this could be unsafe if 'exp.global_data' contains keys used in 'data'!!
-        data = _.merge(exp.global_data, data)
-
-        // TODO ::: 
-        // hide everything from here on from the user
-        // have a simple function call like 'exp.submit(data)' or 'submit(data)'
-        // some possibilities:
-        // -> move this to "submit_to_server.js" ?
-        // -> include a function 'exp.submit(data)' in 'main.js'?
+        // what is seen on the screen depends on the used deploy method
+		//    normally, you do not need to modify this
         if ((config_deploy.is_MTurk) || (config_deploy.deployMethod === 'directLink')) {
             // updates the fields in the hidden form with info for the MTurk's server
             $('#main').html(Mustache.render(view.template, {
