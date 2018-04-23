@@ -39,7 +39,7 @@ Extensive documentation is provided on the [_babe site](http://babe-project.gith
 + `libraries`    - external libraries
 
 + README.md
-+ LISENCE
++ LICENSE
 
 ## What the user will usually (not) edit
 
@@ -128,5 +128,3 @@ The sequence of views is defined in `scripts/experiment.js`, for example like so
 ## Configuration of deployment
 
 The deploy configuration file `config_deploy.js` contains **information about how to deploy** (i.e., run, recruit participants & store data) an experiment. Here, we simply use the `debug` mode in which the experiment runs locally in our own browser and outputs the data collected on the last slides as one huge and unstructured blob of text. Other modes of deployment are possible.
-
-
