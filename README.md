@@ -12,6 +12,10 @@ cd MinimalTemplate
 # open index.html in the browser to see the experiment
 ```
 
+## Documentation
+
+Extensive documentation is provided on the [_babe site](http://babe-project.github.io/babe_site/index.html).
+
 ## File Organisation
 
 + `index.html` - starting point; to be loaded in the browser; general structure; user must edit this
@@ -105,13 +109,24 @@ The experiment itself is realized as a Javascript object. It contains four keys 
 
 + `global_data` - data that is collected only once, such as MTurk userID, starting time, total experiment time etc.
 
-The sequence of views is defined in `scripts/experiment.js`. The structure of views in the minimal template is:
+The sequence of views is defined in `scripts/experiment.js`, for example like so:
 
-introduction -> instructions -> practice (2 trials) -> begin experiment announcement -> main (2 trials 2-option forced choice task) -> instructions -> main (2 trials slider rating task) -> post-test questions -> thanks
+``` javascript
+    // specify view order
+    this.views = [intro,
+                  instructionsForcedChoice,
+                  practiceForcedChoice,
+                  beginForcedChoice,
+                  mainForcedChoice,
+                  instructionsSliderRating,
+                  mainSliderRating,
+                  postTest,
+                  thanks];
+```
 
 
 ## Configuration of deployment
 
-The deploy configuration file `config_deploy.js` contains **information about how to deploy** (i.e., run, recruit participants & store data) an experiment. Here, we simply use the `debug` mode in which the experiment runs locally in our own browser and outputs the data collected on the last slides as one huge and unstructured blob of text. Other modes of deployment are possible. (Documentation pending.)
+The deploy configuration file `config_deploy.js` contains **information about how to deploy** (i.e., run, recruit participants & store data) an experiment. Here, we simply use the `debug` mode in which the experiment runs locally in our own browser and outputs the data collected on the last slides as one huge and unstructured blob of text. Other modes of deployment are possible.
 
 
