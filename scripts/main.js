@@ -43,6 +43,7 @@ exp.findNextView = function() {
 // submits the data
 exp.submit = function() {
 
+
     // construct data object for output
     var data = {
         'author': config_deploy.author,
@@ -107,25 +108,3 @@ exp.submit = function() {
     }
 };
 
-// adds columns with NA values
-var addEmptyColumns = function(trialData) {
-    var columns = [];
-
-    for (var i=0; i<trialData.length; i++) {
-        for (var prop in trialData[i]) {
-            if ((trialData[i].hasOwnProperty(prop)) && (columns.indexOf(prop) === -1)) {
-                columns.push(prop);
-            }
-        }
-    }
-
-    for (var j=0; j<trialData.length; j++) {
-        for (var k=0; k<columns.length; k++) {
-            if (!trialData[j].hasOwnProperty(columns[k])) {
-                trialData[j][columns[k]] = 'NA';
-            }
-        }
-    }
-
-    return trialData;
-};

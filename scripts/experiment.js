@@ -7,7 +7,6 @@ exp.init = function() {
 
     // record current date and time
     this.global_data.startDate = Date();
-    this.global_data.userAgent;
     this.global_data.startTime = Date.now();
 
     // specify view order
@@ -20,7 +19,8 @@ exp.init = function() {
                   mainSliderRating,
                   postTest,
                   thanks];
-    // initialize counter structure (normally you do not change this)
+
+	// initialize counter structure (normally you do not change this)
     this.initializeProcedure();
 
     // prepare information about trials (procedure)
