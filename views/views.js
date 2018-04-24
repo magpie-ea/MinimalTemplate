@@ -178,7 +178,7 @@ var instructionsSliderRating = {
         return view;
     },
     trials: 1
-}
+};
 
 var mainSliderRating = {
     render : function(CT) {
@@ -228,6 +228,78 @@ var mainSliderRating = {
             } else {
                 $('.help-text').removeClass('nodisplay');
             }
+        });
+
+        return view;
+    },
+    trials: 2
+};
+
+var instructionsDropdownChoice = {
+     // instruction's title
+    "title": "Instructions",
+    // instruction's text
+    "text": "You completed the first part. In the next part you will choose a word from a dropdown menu.",
+    // instuction's slide proceeding button text
+    "buttonText": "Start dropdown task",
+    render: function() {
+        var view = {};
+        view.name = 'instructions';
+        view.template = $("#instructions-view").html();
+        $('#main').html(Mustache.render(view.template, {
+            title: this.title,
+            text: this.text,
+            button: this.buttonText
+        }));
+
+        // moves to the next view
+        $('#next').on('click', function(e) {
+            exp.findNextView();
+        }); 
+
+        return view;
+    },
+    trials: 1
+}
+
+var mainDropdownChoice = {
+    render : function(CT) {
+        var view = {};
+        // what part of the progress bar is filled
+        var filled = CT * (180 / exp.views[exp.currentViewCounter].trials);
+        view.name = 'trial',
+        view.template = $('#trial-view-dropdown-response').html();
+        view.response = $('#response').html();
+        var response;
+        var resonded = false;
+        $('#main').html(Mustache.render(view.template, {
+            question: exp.trial_info.trials[CT].question,
+            option1: exp.trial_info.trials[CT].option1,
+            option2: exp.trial_info.trials[CT].option2,
+            picture: exp.trial_info.trials[CT].picture
+        }));
+        startingTime = Date.now();
+        response = $('#response');
+        // updates the progress bar
+        $('#filled').css('width', filled);
+
+        response.on('change', function() {
+            $('#next').removeClass('nodisplay');
+        });
+
+        $('#next').on('click', function() {
+            RT = Date.now() - startingTime; // measure RT before anything else
+            trial_data = {
+                trial_type: "mainDropdownChoice",
+                trial_number: CT+1,
+                option1: exp.trial_info.trials[CT].option1,
+                option2: exp.trial_info.trials[CT].option2,
+                question: exp.trial_info.trials[CT].question,
+                dropdown_choice: $(response).val(),
+                RT: RT
+            };
+            exp.trial_data.push(trial_data);
+            exp.findNextView();
         });
 
         return view;

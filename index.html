@@ -14,10 +14,10 @@
 		<!-- js dependencies -->
 		<script src="libraries/mustache/mustache.min.js"></script>
 		<script src="libraries/jquery/dist/jquery.min.js"></script>
-    	<!-- This doesn't seem to be there on cloudflare -->
-    	<script src="libraries/csv-js/csv.js"></script>
+		<!-- This doesn't seem to be there on cloudflare -->
+		<script src="libraries/csv-js/csv.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.js"></script>
-
+		
 		<!-- config -->
 		<script src="config/config_deploy.js"></script>
 
@@ -160,7 +160,7 @@
 		</div>
 		<div class="clearfix"></div>
 		<div class="picture", align = "center">
-			<img src={{picture}} alt="a picture" height="100" width="100">
+			<img src={{ picture }} alt="a picture" height="100" width="100">
 		</div>
 
 		<p class="question">
@@ -170,11 +170,41 @@
 		</p>
 
 		<p class="answer-container">
-			<span class="unnatural">{{option1}}</span>
+			<span class="unnatural">{{ option1 }}</span>
 			<input type="range" id="response" class="slider-response" min="0" max="100" value="50"/>
-			<span class="natural">{{option2}}</span>
+			<span class="natural">{{ option2 }}</span>
 			<button id="next">Next</button>
 			<p class="help-text nodisplay">Please move the slider before moving to the next page.</p>
+		</p>
+
+		</div>
+		</script>
+
+		<!-- Trial view (select from dropdown response) -->
+		<script id="trial-view-dropdown-response" type="x-tmpl-mustache">
+		<div class="view">
+		<div class="progress-bar-container">
+			<p>progress</p>
+			<div class="progress-bar"><span id='filled'><span></div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="picture", align = "center">
+			<img src={{ picture }} alt="a picture" height="100" width="100">
+		</div>
+
+		<p class="question">
+		{{# question }}
+		{{ question }}
+		{{/ question }}
+		</p>
+
+		<p class="answer-container">
+			<select id="response" name="answer">
+				<option disabled selected></option>
+				<option value={{ option1 }}>{{ option1 }}</option>
+				<option value={{ option2 }}>{{ option2 }}</option>
+			</select>
+			<button id="next" class="nodisplay">Next</button>
 		</p>
 
 		</div>

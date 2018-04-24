@@ -17,6 +17,8 @@ exp.init = function() {
                   mainForcedChoice,
                   instructionsSliderRating,
                   mainSliderRating,
+                  instructionsDropdownChoice,
+                  mainDropdownChoice,
                   postTest,
                   thanks];
 
