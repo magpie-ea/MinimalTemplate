@@ -115,9 +115,9 @@ var main = {
     render : function(CT) {
         var view = {};
         // what part of the progress bar is filled
-        var filled = CT * (180 / exp.views[exp.currentViewCounter].trials);
+        var filled = CT * (180 / exp.views_seq[exp.currentViewCounter].trials);
         view.name = 'trial',
-        view.template = $('#trial-view-buttons-response').html();
+        view.template = $('#main-view').html();
         view.response = $('#response').html();
         $('#main').html(Mustache.render(view.template, {
             question: exp.trial_info.main_trials[CT].question,
