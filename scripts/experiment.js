@@ -1,13 +1,5 @@
-// initialize the experiment
-exp.init = function() {
-
-    // allocate storage room for global and trial data
-    this.global_data = {};
-    this.trial_data = [];
-
-    // record current date and time
-    this.global_data.startDate = Date();
-    this.global_data.startTime = Date.now();
+// customize the experiment by specifying a view order and a trial structure
+exp.customize = function() {
 
     // specify view order
     this.views = [intro,
@@ -25,9 +17,6 @@ exp.init = function() {
                   postTest,
                   thanks];
 
-	// initialize counter structure (normally you do not change this)
-    this.initializeProcedure();
-
     // prepare information about trials (procedure)
     this.trial_info = prepareData();
 
@@ -42,6 +31,8 @@ var prepareData = function() {
     var trials = {};
     var shuffled;
 
+	console.log(trials_raw)
+	
     for (prop in trials_raw) {
         if (trials_raw.hasOwnProperty(prop)) {
             shuffled = _.shuffle(trials_raw[prop]);
