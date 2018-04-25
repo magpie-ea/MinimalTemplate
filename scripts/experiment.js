@@ -21,6 +21,7 @@ exp.init = function() {
                   mainDropdownChoice,
                   instructionsImageSelection,
                   mainImageSelection,
+                  mainKeyPress,
                   postTest,
                   thanks];
 

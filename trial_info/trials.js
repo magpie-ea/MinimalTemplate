@@ -29,5 +29,10 @@ var trials_raw = {
     imageSelection: [
         {question: "How are you today?", option1: "fine", picture1: "images/question_mark_02.png", option2: "great", picture2: "images/question_mark_01.png"},
         {question: "What is the weather like?", option1: "shiny", picture1: "images/question_mark_03.jpg", option2: "rainbow", picture2: "images/question_mark_04.png"}
+    ],
+    keyPress: [
+        {picture: "images/question_mark_02.png", key1: "f", key2: "j", f: "fine", j: "great", expected: "great"},
+        {question: "What is the weather like?", key1: "f", key2: "j", f: "shiny", j: "rainbow", expected: "shiny"},
+        {question: "What's on the bread?", picture: "images/question_mark_04.png", key1: "f", key2: "j", f: "ham", j: "jam", expected: "jam"}
     ]
 };

@@ -373,6 +373,69 @@ var mainImageSelection = {
     trials: 2
 };
 
+var mainKeyPress = {
+    render : function(CT) {
+        var view = {};
+        // what part of the progress bar is filled
+        var filled = CT * (180 / exp.views[exp.currentViewCounter].trials);
+        view.name = 'trial',
+        view.template = $('#trial-view-key-press').html();
+        console.log(exp.trial_info.trials.keyPress[CT]);
+        var key1 = exp.trial_info.trials.keyPress[CT].key1;
+        var key2 = exp.trial_info.trials.keyPress[CT].key2;
+        $('#main').html(Mustache.render(view.template, {
+            question: exp.trial_info.trials.keyPress[CT].question,
+            picture: exp.trial_info.trials.keyPress[CT].picture,
+            key1: key1,
+            key2: key2,
+            value1: exp.trial_info.trials.keyPress[CT][key1],
+            value2: exp.trial_info.trials.keyPress[CT][key2]
+        }));
+        startingTime = Date.now();
+        // updates the progress bar
+        $('#filled').css('width', filled);
+
+        var handleKeyPress = function(e) {
+            var keyPressed = String.fromCharCode(e.which).toUpperCase();
+
+            if (keyPressed === key1.toUpperCase() || keyPressed === key2.toUpperCase()) {
+                var corectness;
+                console.log(keyPressed);
+                var RT = Date.now() - startingTime; // measure RT before anything else
+
+                if (exp.trial_info.trials.keyPress[CT].expected === exp.trial_info.trials.keyPress[CT][key1.toLowerCase()]) {
+                    correctness = 'correct';
+                } else {
+                    correctness = 'incorrect';
+                };
+
+                trial_data = {
+                    trial_type: "mainKeyPress",
+                    trial_number: CT+1,
+                    question: exp.trial_info.trials.keyPress[CT].question,
+                    picture: exp.trial_info.trials.keyPress[CT].picture,
+                    expected: exp.trial_info.trials.keyPress[CT].expected,
+                    key_pressed: keyPressed,
+                    correctness: correctness,
+                    RT: RT
+                };
+                trial_data[key1] = exp.trial_info.trials.keyPress[CT][key1];
+                trial_data[key2] = exp.trial_info.trials.keyPress[CT][key2];
+
+                console.log(trial_data);
+                exp.trial_data.push(trial_data);
+                $('body').off('keyup', handleKeyPress);
+                exp.findNextView();
+            }   
+        };
+
+        $('body').on('keyup', handleKeyPress);
+
+        return view;
+    },
+    trials: 3
+};
+
 var postTest = {
     "title": "Additional Info",
     "text": "Answering the following questions is optional, but will help us understand your answers.",

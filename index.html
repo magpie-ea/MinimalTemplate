@@ -235,6 +235,32 @@
 		</div>
 		</script>
 
+		<!-- Trial view (select from image selection response) -->
+		<script id="trial-view-key-press" type="x-tmpl-mustache">
+		<div class="view">
+		<div class="progress-bar-container">
+			<p>progress</p>
+			<div class="progress-bar"><span id='filled'><span></div>
+		</div>
+		<div class="clearfix"></div>
+
+		<h3>{{ key1 }} = {{ value1 }}, {{ key2 }} = {{ value2 }}</h3>
+
+		<p class="question">
+		{{# question }}
+		{{/ question }}
+		{{ question }}
+		</p>
+
+		{{# picture }}
+		<div class="picture", align = "center">
+			<img src={{ picture }} alt="picture" height="100" width="100">
+		</div>
+		{{/ picture }}
+
+		</div>
+		</script>
+
 		<!-- post test view -->
 		<script id="post-test-view" type="x-tmpl-mustache">
 		<div class="view post-test-templ">
