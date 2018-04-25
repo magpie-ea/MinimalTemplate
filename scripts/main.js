@@ -80,7 +80,7 @@ exp.submit = function() {
     };
 
     var formatDebugData = function(data) {
-        var output = "<table>";
+        var output = "<table id = 'debugresults'>";
 
         var trials = data.trials;
         delete data.trials;
@@ -91,13 +91,13 @@ exp.submit = function() {
 
         for (var kt in t) {
             if (t.hasOwnProperty(kt)) {
-                output += "<th>" + kt + "</th>";
+                output += "<th>" + kt.replace(/foo/g, "bar") + "</th>";
             }
         }
 
         for (var kd in data) {
             if (data.hasOwnProperty(kd)) {
-                output += "<th>" + kd + "</th>";
+                output += "<th>" + kd.replace(/foo/g, "bar") + "</th>";
             }
         }
 
@@ -109,13 +109,15 @@ exp.submit = function() {
             var currentTrial = trials[i];
             for (var trialKey in currentTrial) {
                 if (t.hasOwnProperty(trialKey)) {
-                    output += "<td>" + currentTrial[trialKey] + "</td>";
+					entry = String(currentTrial[trialKey])
+                    output += "<td>" + entry.replace(/ /g, "&nbsp;") + "</td>";
                 }
             }
 
             for (var dataKey in data) {
                 if (data.hasOwnProperty(dataKey)) {
-                    output += "<td>" + data[dataKey] + "</td>";
+					entry = String(data[dataKey])
+                    output += "<td>" + entry.replace(/ /g, "&nbsp;") + "</td>";
                 }
             }
 

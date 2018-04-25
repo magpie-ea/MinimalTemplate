@@ -292,3 +292,27 @@ input[type="range"]:focus::-moz-range-thumb {
 	margin: 10px 5px;
 	text-decoration: none;
 }
+
+#debugresults {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: small;
+}
+
+#debugresults td, #debugresults th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#debugresults tr:nth-child(even){background-color: #f2f2f2;}
+
+#debugresults tr:hover {background-color: #ddd;}
+
+#debugresults th {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: left;
+    background-color: #5187BA;
+    color: white;
+}
