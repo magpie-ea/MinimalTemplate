@@ -10,10 +10,8 @@ $('document').ready(function() {
     };
 });
 
-// empty shells for 'exp' and 'config_views' objects;
-// to be filled with life later
+// empty shell for 'exp' object; to be filled with life by the init() function
 var exp = {};
-var config_views = {};
 
 exp.init = function(){
 
@@ -41,13 +39,13 @@ exp.init = function(){
 // shows each view (in the order defined in 'config_general') for
 // the given number of steps (as defined in 'config_general')
 exp.findNextView = function() {
-    var currentView = this.views[this.currentViewCounter];
+    var currentView = this.views_seq[this.currentViewCounter];
     if (this.currentTrialCounter < currentView.trials) {
         this.currentView = currentView.render(this.currentTrialCounter);
 		this.currentTrialCounter ++;
     } else {
 		this.currentViewCounter ++;
-        var currentView = this.views[this.currentViewCounter];
+        var currentView = this.views_seq[this.currentViewCounter];
         this.currentTrialCounter = 0;
         this.currentView = currentView.render(this.currentTrialCounter);
         this.currentTrialCounter ++;
