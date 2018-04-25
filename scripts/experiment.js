@@ -30,8 +30,6 @@ exp.customize = function() {
 var prepareData = function() {
     var trials = {};
     var shuffled;
-
-	console.log(trials_raw)
 	
     for (prop in trials_raw) {
         if (trials_raw.hasOwnProperty(prop)) {
