@@ -3,9 +3,9 @@ exp.customize = function() {
 
     // specify view order
     this.views = [intro,
-//                  instructions,
-//                  practice,
-//                  beginMainExp,
+                  instructions,
+                  practice,
+                  beginMainExp,
                   main,
                   postTest,
                   thanks];
