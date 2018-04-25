@@ -27,7 +27,7 @@ var intro = {
     trials: 1
 }
 
-var instructionsForcedChoice = {
+var instructions = {
      // instruction's title
     "title": "Instructions",
     // instruction's text
@@ -54,7 +54,7 @@ var instructionsForcedChoice = {
     trials: 1
 }
 
-var practiceForcedChoice = {
+var practice = {
     "title": "Practice trial",
     render: function (CT) {
         var view = {};
@@ -91,7 +91,7 @@ var practiceForcedChoice = {
     trials: 2
 }
 
-var beginForcedChoice = {
+var beginMainExp = {
     "text": "Now that you have acquainted yourself with the procedure of the task, the actual experiment will begin.",
     render: function() {
         var view = {};
@@ -111,7 +111,7 @@ var beginForcedChoice = {
     trials: 1
 }
 
-var mainForcedChoice = {
+var main = {
     render : function(CT) {
         var view = {};
         // what part of the progress bar is filled
@@ -151,289 +151,6 @@ var mainForcedChoice = {
         return view;
     },
     trials: 2
-};
-
-var instructionsSliderRating = {
-     // instruction's title
-    "title": "Instructions",
-    // instruction's text
-    "text": "You completed the first part. In the next part you will adjust sliders. Training is not necessary. We know you can do it, so we start right away.",
-    // instuction's slide proceeding button text
-    "buttonText": "Start slider task",
-    render: function() {
-        var view = {};
-        view.name = 'instructions';
-        view.template = $("#instructions-view").html();
-        $('#main').html(Mustache.render(view.template, {
-            title: this.title,
-            text: this.text,
-            button: this.buttonText
-        }));
-
-        // moves to the next view
-        $('#next').on('click', function(e) {
-            exp.findNextView();
-        }); 
-
-        return view;
-    },
-    trials: 1
-};
-
-var mainSliderRating = {
-    render : function(CT) {
-        var view = {};
-        // what part of the progress bar is filled
-        var filled = CT * (180 / exp.views[exp.currentViewCounter].trials);
-        view.name = 'trial',
-        view.template = $('#trial-view-slider-response').html();
-        view.response = $('#response').html();
-        var sliderMoved = false;
-        var response;
-        $('#main').html(Mustache.render(view.template, {
-            question: exp.trial_info.trials.sliderRating[CT].question,
-            option1: exp.trial_info.trials.sliderRating[CT].option1,
-            option2: exp.trial_info.trials.sliderRating[CT].option2,
-            picture: exp.trial_info.trials.sliderRating[CT].picture
-        }));
-        startingTime = Date.now();
-        response = $('#response');
-        // updates the progress bar
-        $('#filled').css('width', filled);
-
-        // checks if the slider has been changed
-        response.on('change', function() {
-            sliderMoved = true;
-        });
-        response.on('click', function() {
-            sliderMoved = true;
-        });
-
-        $('#next').on('click', function() {
-            console.log(sliderMoved);
-            // if the slider has been changed, records the value and shows next slide
-            if (sliderMoved === true) {
-                RT = Date.now() - startingTime; // measure RT before anything else
-                trial_data = {
-                    trial_type: "mainSliderRating",
-                    trial_number: CT+1,
-                    question: exp.trial_info.trials.sliderRating[CT].question,
-                    option1: exp.trial_info.trials.sliderRating[CT].option1,
-                    option2: exp.trial_info.trials.sliderRating[CT].option2,
-                    rating_slider: response.val(),
-                    RT: RT
-                };
-                exp.trial_data.push(trial_data);
-                exp.findNextView();
-            } else {
-                $('.help-text').removeClass('nodisplay');
-            }
-        });
-
-        return view;
-    },
-    trials: 2
-};
-
-var instructionsDropdownChoice = {
-     // instruction's title
-    "title": "Instructions",
-    // instruction's text
-    "text": "You completed the first part. In the next part you will choose a word from a dropdown menu.",
-    // instuction's slide proceeding button text
-    "buttonText": "Start dropdown task",
-    render: function() {
-        var view = {};
-        view.name = 'instructions';
-        view.template = $("#instructions-view").html();
-        $('#main').html(Mustache.render(view.template, {
-            title: this.title,
-            text: this.text,
-            button: this.buttonText
-        }));
-
-        // moves to the next view
-        $('#next').on('click', function(e) {
-            exp.findNextView();
-        }); 
-
-        return view;
-    },
-    trials: 1
-};
-
-var mainDropdownChoice = {
-    render : function(CT) {
-        var view = {};
-        // what part of the progress bar is filled
-        var filled = CT * (180 / exp.views[exp.currentViewCounter].trials);
-        view.name = 'trial',
-        view.template = $('#trial-view-dropdown-response').html();
-        view.response = $('#response').html();
-        var response;
-        $('#main').html(Mustache.render(view.template, {
-            question: exp.trial_info.trials.dropdownChoice[CT].question,
-            option1: exp.trial_info.trials.dropdownChoice[CT].option1,
-            option2: exp.trial_info.trials.dropdownChoice[CT].option2,
-            picture: exp.trial_info.trials.dropdownChoice[CT].picture
-        }));
-        startingTime = Date.now();
-        response = $('#response');
-        // updates the progress bar
-        $('#filled').css('width', filled);
-
-        response.on('change', function() {
-            $('#next').removeClass('nodisplay');
-        });
-
-        $('#next').on('click', function() {
-            RT = Date.now() - startingTime; // measure RT before anything else
-            trial_data = {
-                trial_type: "mainDropdownChoice",
-                trial_number: CT+1,
-                question: exp.trial_info.trials.dropdownChoice[CT].question,
-                option1: exp.trial_info.trials.dropdownChoice[CT].option1,
-                option2: exp.trial_info.trials.dropdownChoice[CT].option2,
-                dropdown_choice: $(response).val(),
-                RT: RT
-            };
-            exp.trial_data.push(trial_data);
-            exp.findNextView();
-        });
-
-        return view;
-    },
-    trials: 2
-};
-
-var instructionsImageSelection = {
-     // instruction's title
-    "title": "Instructions",
-    // instruction's text
-    "text": "In the next part you will read a sentence and... (choose the picture that better fits the sentence?)",
-    // instuction's slide proceeding button text
-    "buttonText": "Start picture task",
-    render: function() {
-        var view = {};
-        view.name = 'instructions';
-        view.template = $("#instructions-view").html();
-        $('#main').html(Mustache.render(view.template, {
-            title: this.title,
-            text: this.text,
-            button: this.buttonText
-        }));
-
-        // moves to the next view
-        $('#next').on('click', function(e) {
-            exp.findNextView();
-        }); 
-
-        return view;
-    },
-    trials: 1
-};
-
-var mainImageSelection = {
-    render : function(CT) {
-        var view = {};
-        // what part of the progress bar is filled
-        var filled = CT * (180 / exp.views[exp.currentViewCounter].trials);
-        view.name = 'trial',
-        view.template = $('#trial-view-image-selection').html();
-        $('#main').html(Mustache.render(view.template, {
-            question: exp.trial_info.trials.imageSelection[CT].question,
-            option1: exp.trial_info.trials.imageSelection[CT].option1,
-            option2: exp.trial_info.trials.imageSelection[CT].option2,
-            picture1: exp.trial_info.trials.imageSelection[CT].picture1,
-            picture2: exp.trial_info.trials.imageSelection[CT].picture2
-        }));
-        startingTime = Date.now();
-        // updates the progress bar
-        $('#filled').css('width', filled);
-
-        $('input[name=answer]').on('change', function() {
-            RT = Date.now() - startingTime; // measure RT before anything else
-            trial_data = {
-                trial_type: "mainImageSelection",
-                trial_number: CT+1,
-                question: exp.trial_info.trials.imageSelection[CT].question,
-                option1: exp.trial_info.trials.imageSelection[CT].option1,
-                option2: exp.trial_info.trials.imageSelection[CT].option2,
-                picture1: exp.trial_info.trials.imageSelection[CT].picture1,
-                picture2: exp.trial_info.trials.imageSelection[CT].picture2,
-                image_selected: $('input[name=answer]:checked').val(),
-                RT: RT
-            };
-            exp.trial_data.push(trial_data);
-            exp.findNextView();
-        });
-
-        return view;
-    },
-    trials: 2
-};
-
-var mainKeyPress = {
-    render : function(CT) {
-        var view = {};
-        // what part of the progress bar is filled
-        var filled = CT * (180 / exp.views[exp.currentViewCounter].trials);
-        view.name = 'trial',
-        view.template = $('#trial-view-key-press').html();
-        console.log(exp.trial_info.trials.keyPress[CT]);
-        var key1 = exp.trial_info.trials.keyPress[CT].key1;
-        var key2 = exp.trial_info.trials.keyPress[CT].key2;
-        $('#main').html(Mustache.render(view.template, {
-            question: exp.trial_info.trials.keyPress[CT].question,
-            picture: exp.trial_info.trials.keyPress[CT].picture,
-            key1: key1,
-            key2: key2,
-            value1: exp.trial_info.trials.keyPress[CT][key1],
-            value2: exp.trial_info.trials.keyPress[CT][key2]
-        }));
-        startingTime = Date.now();
-        // updates the progress bar
-        $('#filled').css('width', filled);
-
-        var handleKeyPress = function(e) {
-            var keyPressed = String.fromCharCode(e.which).toUpperCase();
-
-            if (keyPressed === key1.toUpperCase() || keyPressed === key2.toUpperCase()) {
-                var corectness;
-                console.log(keyPressed);
-                var RT = Date.now() - startingTime; // measure RT before anything else
-
-                if (exp.trial_info.trials.keyPress[CT].expected === exp.trial_info.trials.keyPress[CT][key1.toLowerCase()]) {
-                    correctness = 'correct';
-                } else {
-                    correctness = 'incorrect';
-                };
-
-                trial_data = {
-                    trial_type: "mainKeyPress",
-                    trial_number: CT+1,
-                    question: exp.trial_info.trials.keyPress[CT].question,
-                    picture: exp.trial_info.trials.keyPress[CT].picture,
-                    expected: exp.trial_info.trials.keyPress[CT].expected,
-                    key_pressed: keyPressed,
-                    correctness: correctness,
-                    RT: RT
-                };
-                trial_data[key1] = exp.trial_info.trials.keyPress[CT][key1];
-                trial_data[key2] = exp.trial_info.trials.keyPress[CT][key2];
-
-                console.log(trial_data);
-                exp.trial_data.push(trial_data);
-                $('body').off('keyup', handleKeyPress);
-                exp.findNextView();
-            }   
-        };
-
-        $('body').on('keyup', handleKeyPress);
-
-        return view;
-    },
-    trials: 3
 };
 
 var postTest = {

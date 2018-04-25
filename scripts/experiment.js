@@ -3,22 +3,16 @@ exp.customize = function() {
 
     // specify view order
     this.views = [intro,
-                  instructionsForcedChoice,
-                  practiceForcedChoice,
-                  beginForcedChoice,
-                  mainForcedChoice,
-                  instructionsSliderRating,
-                  mainSliderRating,
-                  instructionsDropdownChoice,
-                  mainDropdownChoice,
-                  instructionsImageSelection,
-                  mainImageSelection,
-                  mainKeyPress,
+                  instructions,
+                  practice,
+                  beginMainExp,
+                  main,
                   postTest,
                   thanks];
 
     // prepare information about trials (procedure)
-    this.trial_info = prepareData();
+    this.trial_info.main_trials = _.shuffle(main_trials)
+	this.trial_info.practice_trials = _.shuffle(practice_trials)
 
     // This method uses external files instead.
     // this.trial_info = prepareDataFromCSV("trial_info/practiceTrials.csv", "trial_info/trials.csv");
