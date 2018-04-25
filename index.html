@@ -17,7 +17,7 @@
 		<!-- This doesn't seem to be there on cloudflare -->
 		<script src="libraries/csv-js/csv.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.js"></script>
-		
+
 		<!-- config -->
 		<script src="config/config_deploy.js"></script>
 
@@ -103,10 +103,10 @@
 		  </p>
 
 			<p class="answer-container">
-				<label for="yes" class="answer">{{option1}}</label>
+				<label for="yes" class="button-answer">{{option1}}</label>
 				<input type="radio" name="answer" id="yes" value={{option1}} />
 				<input type="radio" name="answer" id="no" value={{option2}} />
-				<label for="no" class="answer">{{option2}}</label>
+				<label for="no" class="button-answer">{{option2}}</label>
 			</p>
 		</div>
 		</script>
@@ -142,10 +142,10 @@
 		</p>
 
 		<p class="answer-container">
-			<label for="yes" class="answer">{{option1}}</label>
-			<input type="radio" name="answer" id="yes" value={{option1}} />
-			<input type="radio" name="answer" id="no" value={{option2}} />
-			<label for="no" class="answer">{{option2}}</label>
+			<label for="yes" class="button-answer">{{ option1 }}</label>
+			<input type="radio" name="answer" id="yes" value={{ option1 }} />
+			<input type="radio" name="answer" id="no" value={{ option2 }} />
+			<label for="no" class="button-answer">{{option2}}</label>
 		</p>
 
 		</div>
@@ -205,6 +205,31 @@
 				<option value={{ option2 }}>{{ option2 }}</option>
 			</select>
 			<button id="next" class="nodisplay">Next</button>
+		</p>
+
+		</div>
+		</script>
+
+		<!-- Trial view (select from image selection response) -->
+		<script id="trial-view-image-selection" type="x-tmpl-mustache">
+		<div class="view">
+		<div class="progress-bar-container">
+			<p>progress</p>
+			<div class="progress-bar"><span id='filled'><span></div>
+		</div>
+		<div class="clearfix"></div>
+
+		<p class="question">
+		{{# question }}
+		{{ question }}
+		{{/ question }}
+		</p>
+
+		<p class="answer-container">
+			<label for="img1" class="img-answer"><img src={{ picture1 }} alt="picture" height="100" width="100"></label>
+			<input type="radio" name="answer" id="img1" value={{  option1 }} />
+			<input type="radio" name="answer" id="img2" value={{ option2 }} />
+			<label for="img2" class="img-answer"><img src={{ picture2 }} alt="picture" height="100" width="100"></label>
 		</p>
 
 		</div>

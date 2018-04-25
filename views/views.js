@@ -79,7 +79,7 @@ var practiceForcedChoice = {
                 question: exp.trial_info.practice_trials[CT].question,
                 option1: exp.trial_info.practice_trials[CT].option1,
                 option2: exp.trial_info.practice_trials[CT].option2,
-                response: $('input[name=answer]:checked').val(),
+                option_chosen: $('input[name=answer]:checked').val(),
                 RT: RT
             };
             exp.trial_data.push(trial_data)
@@ -120,10 +120,10 @@ var mainForcedChoice = {
         view.template = $('#trial-view-buttons-response').html();
         view.response = $('#response').html();
         $('#main').html(Mustache.render(view.template, {
-            question: exp.trial_info.trials[CT].question,
-            option1: exp.trial_info.trials[CT].option1,
-            option2: exp.trial_info.trials[CT].option2,
-            picture: exp.trial_info.trials[CT].picture
+            question: exp.trial_info.trials.forcedChoice[CT].question,
+            option1: exp.trial_info.trials.forcedChoice[CT].option1,
+            option2: exp.trial_info.trials.forcedChoice[CT].option2,
+            picture: exp.trial_info.trials.forcedChoice[CT].picture
         }));
         startingTime = Date.now();
         // updates the progress bar
@@ -138,10 +138,10 @@ var mainForcedChoice = {
             trial_data = {
                 trial_type: "mainForcedChoice",
                 trial_number: CT+1,
-                question: exp.trial_info.trials[CT].question,
-                option1: exp.trial_info.trials[CT].option1,
-                option2: exp.trial_info.trials[CT].option2,
-                response: $('input[name=answer]:checked').val(),
+                question: exp.trial_info.trials.forcedChoice[CT].question,
+                option1: exp.trial_info.trials.forcedChoice[CT].option1,
+                option2: exp.trial_info.trials.forcedChoice[CT].option2,
+                option_chosen: $('input[name=answer]:checked').val(),
                 RT: RT
             };
             exp.trial_data.push(trial_data);
@@ -191,10 +191,10 @@ var mainSliderRating = {
         var sliderMoved = false;
         var response;
         $('#main').html(Mustache.render(view.template, {
-            question: exp.trial_info.trials[CT].question,
-            option1: exp.trial_info.trials[CT].option1,
-            option2: exp.trial_info.trials[CT].option2,
-            picture: exp.trial_info.trials[CT].picture
+            question: exp.trial_info.trials.sliderRating[CT].question,
+            option1: exp.trial_info.trials.sliderRating[CT].option1,
+            option2: exp.trial_info.trials.sliderRating[CT].option2,
+            picture: exp.trial_info.trials.sliderRating[CT].picture
         }));
         startingTime = Date.now();
         response = $('#response');
@@ -217,9 +217,9 @@ var mainSliderRating = {
                 trial_data = {
                     trial_type: "mainSliderRating",
                     trial_number: CT+1,
-                    option1: exp.trial_info.trials[CT].option1,
-                    option2: exp.trial_info.trials[CT].option2,
-                    question: exp.trial_info.trials[CT].question,
+                    question: exp.trial_info.trials.sliderRating[CT].question,
+                    option1: exp.trial_info.trials.sliderRating[CT].option1,
+                    option2: exp.trial_info.trials.sliderRating[CT].option2,
                     rating_slider: response.val(),
                     RT: RT
                 };
@@ -260,7 +260,7 @@ var instructionsDropdownChoice = {
         return view;
     },
     trials: 1
-}
+};
 
 var mainDropdownChoice = {
     render : function(CT) {
@@ -271,12 +271,11 @@ var mainDropdownChoice = {
         view.template = $('#trial-view-dropdown-response').html();
         view.response = $('#response').html();
         var response;
-        var resonded = false;
         $('#main').html(Mustache.render(view.template, {
-            question: exp.trial_info.trials[CT].question,
-            option1: exp.trial_info.trials[CT].option1,
-            option2: exp.trial_info.trials[CT].option2,
-            picture: exp.trial_info.trials[CT].picture
+            question: exp.trial_info.trials.dropdownChoice[CT].question,
+            option1: exp.trial_info.trials.dropdownChoice[CT].option1,
+            option2: exp.trial_info.trials.dropdownChoice[CT].option2,
+            picture: exp.trial_info.trials.dropdownChoice[CT].picture
         }));
         startingTime = Date.now();
         response = $('#response');
@@ -292,10 +291,77 @@ var mainDropdownChoice = {
             trial_data = {
                 trial_type: "mainDropdownChoice",
                 trial_number: CT+1,
-                option1: exp.trial_info.trials[CT].option1,
-                option2: exp.trial_info.trials[CT].option2,
-                question: exp.trial_info.trials[CT].question,
+                question: exp.trial_info.trials.dropdownChoice[CT].question,
+                option1: exp.trial_info.trials.dropdownChoice[CT].option1,
+                option2: exp.trial_info.trials.dropdownChoice[CT].option2,
                 dropdown_choice: $(response).val(),
+                RT: RT
+            };
+            exp.trial_data.push(trial_data);
+            exp.findNextView();
+        });
+
+        return view;
+    },
+    trials: 2
+};
+
+var instructionsImageSelection = {
+     // instruction's title
+    "title": "Instructions",
+    // instruction's text
+    "text": "In the next part you will read a sentence and... (choose the picture that better fits the sentence?)",
+    // instuction's slide proceeding button text
+    "buttonText": "Start picture task",
+    render: function() {
+        var view = {};
+        view.name = 'instructions';
+        view.template = $("#instructions-view").html();
+        $('#main').html(Mustache.render(view.template, {
+            title: this.title,
+            text: this.text,
+            button: this.buttonText
+        }));
+
+        // moves to the next view
+        $('#next').on('click', function(e) {
+            exp.findNextView();
+        }); 
+
+        return view;
+    },
+    trials: 1
+};
+
+var mainImageSelection = {
+    render : function(CT) {
+        var view = {};
+        // what part of the progress bar is filled
+        var filled = CT * (180 / exp.views[exp.currentViewCounter].trials);
+        view.name = 'trial',
+        view.template = $('#trial-view-image-selection').html();
+        $('#main').html(Mustache.render(view.template, {
+            question: exp.trial_info.trials.imageSelection[CT].question,
+            option1: exp.trial_info.trials.imageSelection[CT].option1,
+            option2: exp.trial_info.trials.imageSelection[CT].option2,
+            picture1: exp.trial_info.trials.imageSelection[CT].picture1,
+            picture2: exp.trial_info.trials.imageSelection[CT].picture2
+        }));
+        startingTime = Date.now();
+        // updates the progress bar
+        $('#filled').css('width', filled);
+
+        $('input[name=answer]').on('change', function() {
+            RT = Date.now() - startingTime; // measure RT before anything else
+            trial_data = {
+                trial_type: "mainImageSelection",
+                trial_number: CT+1,
+                question: exp.trial_info.trials.imageSelection[CT].question,
+                option1: exp.trial_info.trials.imageSelection[CT].option1,
+                option2: exp.trial_info.trials.imageSelection[CT].option2,
+                picture1: exp.trial_info.trials.imageSelection[CT].picture1,
+                picture2: exp.trial_info.trials.imageSelection[CT].picture2,
+                image_selected: $('input[name=answer]:checked').val(),
                 RT: RT
             };
             exp.trial_data.push(trial_data);

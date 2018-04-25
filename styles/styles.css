@@ -129,7 +129,7 @@ button:focus {
 	display: none;
 }
 
-.answer-container label {
+.answer-container .button-answer {
 	background-color: #5187BA;
 	border: none;
 	border-radius: 2px;
@@ -147,8 +147,12 @@ button:focus {
 	text-transform: uppercase;
 }
 
-.answer-container label:hover {
+.answer-container .button-answer:hover {
 	background-color: #324D93;
+}
+
+.answer-container .img-answer {
+	margin: 20px;
 }
 
 /* slider response */
