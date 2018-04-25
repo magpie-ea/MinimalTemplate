@@ -192,3 +192,49 @@ exp.submit = function() {
         }).appendTo($('.view'));
     }
 };
+
+var processTrialsData = function(rows) {
+    var toReturn = [];
+    var headers = rows[0];
+    for (var indexTrial = 1; indexTrial < rows.length; indexTrial++) {
+        var thisTrial = {};
+        for (var indexKey = 0; indexKey < headers.length; indexKey++) {
+            thisTrial[headers[indexKey]] = rows[indexTrial][indexKey];
+        }
+        toReturn.push(thisTrial);
+    }
+    return toReturn;
+};
+
+var prepareDataFromCSV = function(practiceTrialsFile, trialsFile) {
+    var data = {
+        'out': [] // mandatory field to store results in during experimental trials
+    };
+
+    // Need to use such a callback since AJAX is async.
+    var addToContainer = function(container, name, results) {
+        container[name] = results;
+    };
+
+
+    $.ajax({
+        url: practiceTrialsFile,
+        dataType: "text",
+        crossDomain: true,
+        success: function(file, textStatus, jqXHR) {
+            addToContainer(data, "practice_trials", processTrialsData(CSV.parse(file)));
+        }
+    });
+
+    $.ajax({
+        url: trialsFile,
+        dataType: "text",
+        crossDomain: true,
+        success: function(file, textStatus, jqXHR) {
+            addToContainer(data, "trials", _.shuffle(processTrialsData(CSV.parse(file))));
+        }
+    });
+
+
+    return data;
+};
