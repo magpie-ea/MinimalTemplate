@@ -16,7 +16,7 @@ cd ExampleResponseMeasures
 
 This is an example of a browser-based psychological experiment using
 [_babe](https://babe-project.github.io/babe_site/) which extends the [Minimal
-Template](http://babe-project.github.io/MinimalTemplate). This experiment adds a
+Template](https://github.com/babe-project/MinimalTemplate). This experiment adds a
 bunch of response measures as examples for future reuse. It includes:
 
 + forced-choice task
