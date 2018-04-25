@@ -120,10 +120,10 @@ var main = {
         view.template = $('#trial-view-buttons-response').html();
         view.response = $('#response').html();
         $('#main').html(Mustache.render(view.template, {
-            question: exp.trial_info.trials.forcedChoice[CT].question,
-            option1: exp.trial_info.trials.forcedChoice[CT].option1,
-            option2: exp.trial_info.trials.forcedChoice[CT].option2,
-            picture: exp.trial_info.trials.forcedChoice[CT].picture
+            question: exp.trial_info.main_trials[CT].question,
+            option1: exp.trial_info.main_trials[CT].option1,
+            option2: exp.trial_info.main_trials[CT].option2,
+            picture: exp.trial_info.main_trials[CT].picture
         }));
         startingTime = Date.now();
         // updates the progress bar
@@ -138,9 +138,9 @@ var main = {
             trial_data = {
                 trial_type: "mainForcedChoice",
                 trial_number: CT+1,
-                question: exp.trial_info.trials.forcedChoice[CT].question,
-                option1: exp.trial_info.trials.forcedChoice[CT].option1,
-                option2: exp.trial_info.trials.forcedChoice[CT].option2,
+                question: exp.trial_info.main_trials[CT].question,
+                option1: exp.trial_info.main_trials[CT].option1,
+                option2: exp.trial_info.main_trials[CT].option2,
                 option_chosen: $('input[name=answer]:checked').val(),
                 RT: RT
             };

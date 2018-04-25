@@ -17,9 +17,10 @@ var config_views = {};
 
 exp.init = function(){
 
-	// allocate storage room for global and trial data
+	// allocate storage room for global data, trial data, and trial info
     this.global_data = {};
     this.trial_data = [];
+	this.trial_info = {};
 
     // record current date and time
     this.global_data.startDate = Date();
