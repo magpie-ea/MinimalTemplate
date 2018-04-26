@@ -3,13 +3,12 @@
 ## Cloning and running the experiment
 
 ```
-# cloning
+# clone the repo, e.g.:
 git clone https://github.com/babe-project/MinimalTemplate
 
-# running
-cd MinimalTemplate
+# go to 'MinimalTemplate'
 
-# open index.html in the browser to see the experiment
+# open 'index.html' in the browser to see the experiment
 ```
 
 ## Documentation
