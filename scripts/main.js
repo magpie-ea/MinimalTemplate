@@ -41,15 +41,16 @@ exp.init = function(){
 exp.findNextView = function() {
     var currentView = this.views_seq[this.currentViewCounter];
     if (this.currentTrialCounter < currentView.trials) {
-        this.currentView = currentView.render(this.currentTrialCounter);
+        currentView.render(this.currentTrialCounter);
 		this.currentTrialCounter ++;
     } else {
 		this.currentViewCounter ++;
-        var currentView = this.views_seq[this.currentViewCounter];
+        currentView = this.views_seq[this.currentViewCounter];
         this.currentTrialCounter = 0;
-        this.currentView = currentView.render(this.currentTrialCounter);
+        currentView.render(this.currentTrialCounter);
         this.currentTrialCounter ++;
     }
+	return currentView;
 };
 
 // submits the data

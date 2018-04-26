@@ -1,16 +1,22 @@
-// user enters information about deployment method here
 var config_deploy = {
     
     // obligatory fields
-    "author": "RandomJane",  // needed to recover data from server app
-    "experiment_id": "MinimalTemplateDEMO", // needed to recover data from server app
+	
+    // needed to recover data from server app
+    "author": "RandomJane",
+    // needed to recover data from server app
+    "experiment_id": "MinimalTemplateDEMO", 
     "description": "A minimal template for a browser-based experiment",
-    "deployMethod" : "debug", // set deployment method; use one of:
-	                          //'debug', 'localServer', 'MTurk', 
-	                          // 'MTurkSandbox', 'Prolific', 'directLink'
+
+    // set deployment method; use one of:
+    //'debug', 'localServer', 'MTurk', 
+    // 'MTurkSandbox', 'Prolific', 'directLink'
+    "deployMethod" : "debug", 
     
     // optional fields
-    "contact_email": "YOUREMAIL@wherelifeisgreat.you", // who to contact in case of trouble
+    
+    // who to contact in case of trouble
+    "contact_email": "YOUREMAIL@wherelifeisgreat.you", 
 };
 
 // user does not (should not) change the following information
