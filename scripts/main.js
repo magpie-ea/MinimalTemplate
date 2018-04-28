@@ -26,11 +26,16 @@ exp.init = function(){
 
 	// call user-defined costumization function
 	exp.customize()
-
+	
+	// flatten views_seq after possible 'loop' insertions
+	exp.views_seq = _.flatten(exp.views_seq)
+	
 	// initialize procedure
 	this.currentViewCounter = 0;
     this.currentTrialCounter = 0;
     this.currentView = this.findNextView();
+	
+	
 }
 
 
@@ -239,3 +244,8 @@ var prepareDataFromCSV = function(practiceTrialsFile, trialsFile) {
 
     return data;
 };
+
+// function to expand 'loop' statements `from views_seq`
+var loop = function(arr, count) { 
+	return _.flatMapDeep(_.range(count), function(i) {return arr})
+}
