@@ -245,7 +245,11 @@ var prepareDataFromCSV = function(practiceTrialsFile, trialsFile) {
     return data;
 };
 
-// function to expand 'loop' statements `from views_seq`
-var loop = function(arr, count) { 
+// functions to expand 'loop' statements `from views_seq`
+var loop = function(arr, count, shuffleFlag) {
 	return _.flatMapDeep(_.range(count), function(i) {return arr})
+}
+var loopShuffled = function(arr, count) {
+	return _.flatMapDeep(_.range(count), function(i) {return _.shuffle(arr)})		
+	
 }
