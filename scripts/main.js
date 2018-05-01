@@ -30,9 +30,13 @@ exp.init = function(){
 	// flatten views_seq after possible 'loop' insertions
 	exp.views_seq = _.flatten(exp.views_seq)
 	
+	// insert a Current Trial counter for each view
+	_.map(exp.views_seq, function(i) {i.CT = 0})
+	
 	// initialize procedure
 	this.currentViewCounter = 0;
     this.currentTrialCounter = 0;
+	this.currentTrialInViewCounter = 0;
     this.currentView = this.findNextView();
 	
 	// user does not (should not) change the following information
@@ -60,16 +64,21 @@ exp.init = function(){
 // the given number of steps (as defined in 'config_general')
 exp.findNextView = function() {
     var currentView = this.views_seq[this.currentViewCounter];
-    if (this.currentTrialCounter < currentView.trials) {
-        currentView.render(this.currentTrialCounter);
-		this.currentTrialCounter ++;
+    if (this.currentTrialInViewCounter < currentView.trials) {
+        currentView.render(this.currentTrialInViewCounter);
     } else {
 		this.currentViewCounter ++;
         currentView = this.views_seq[this.currentViewCounter];
-        this.currentTrialCounter = 0;
-        currentView.render(this.currentTrialCounter);
-        this.currentTrialCounter ++;
+        this.currentTrialInViewCounter = 0;
+        currentView.render(this.currentTrialInViewCounter);
     }
+	// increment counter for how many trials we have seen of THIS view during THIS occurrence of it
+	this.currentTrialInViewCounter ++;
+	// increment counter for how many trials we have seen in the whole experiment
+	this.currentTrialCounter ++;
+	// increment counter for how many trials we have seen of THIS view during the whole experiment
+	this.views_seq[this.currentViewCounter].CT ++;
+	
 	return currentView;
 };
 

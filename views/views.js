@@ -108,7 +108,8 @@ var main = {
 	trials : 2,
 	
     render : function(CT) {
-		
+		console.log(this.CT)
+		CT = this.CT
 		// fill variables in view-template
         var viewTemplate = $('#main-view').html();
         $('#main').html(Mustache.render(viewTemplate, {
@@ -118,8 +119,8 @@ var main = {
             picture:  exp.trial_info.main_trials[CT].picture
         }));
 		
-		// update the progress bar
-        var filled = CT * (180 / exp.views_seq[exp.currentViewCounter].trials);
+		// update the progress bar based on how many trials there are in this round
+        var filled = exp.currentTrialInViewCounter * (180 / exp.views_seq[exp.currentViewCounter].trials);
         $('#filled').css('width', filled);
 
         // event listener for buttons; when an input is selected, the response
@@ -128,7 +129,7 @@ var main = {
             RT = Date.now() - startingTime; // measure RT before anything else
             trial_data = {
                 trial_type: "mainForcedChoice",
-                trial_number: CT+1,
+                trial_number: CT + 1,
                 question: exp.trial_info.main_trials[CT].question,
                 option1:  exp.trial_info.main_trials[CT].option1,
                 option2:  exp.trial_info.main_trials[CT].option2,
