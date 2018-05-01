@@ -108,7 +108,6 @@ var main = {
 	trials : 2,
 	
     render : function(CT) {
-		console.log(this.CT)
 		CT = this.CT
 		// fill variables in view-template
         var viewTemplate = $('#main-view').html();
