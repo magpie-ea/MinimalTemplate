@@ -65,12 +65,12 @@ exp.init = function(){
 exp.findNextView = function() {
     var currentView = this.views_seq[this.currentViewCounter];
     if (this.currentTrialInViewCounter < currentView.trials) {
-        currentView.render(this.currentTrialInViewCounter);
+        currentView.render(currentView.CT);
     } else {
 		this.currentViewCounter ++;
         currentView = this.views_seq[this.currentViewCounter];
         this.currentTrialInViewCounter = 0;
-        currentView.render(this.currentTrialInViewCounter);
+        currentView.render(currentView.CT);
     }
 	// increment counter for how many trials we have seen of THIS view during THIS occurrence of it
 	this.currentTrialInViewCounter ++;

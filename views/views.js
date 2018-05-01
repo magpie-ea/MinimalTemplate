@@ -108,7 +108,7 @@ var main = {
 	trials : 2,
 	
     render : function(CT) {
-		CT = this.CT
+		
 		// fill variables in view-template
         var viewTemplate = $('#main-view').html();
         $('#main').html(Mustache.render(viewTemplate, {
