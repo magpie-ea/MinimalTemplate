@@ -51,6 +51,7 @@ exp.init = function(){
 	config_deploy.liveExperiment = config_deploy.deployMethod !== "debug";
 	config_deploy.prolificCode = '9BTAOPQD';
 	config_deploy.is_MTurk = config_deploy.MTurk_server !== "";
+  config_deploy.submissionURL = config_deploy.deployMethod == "localServer"? "http://localhost:4000/api/submit_experiment": "https://procomprag.herokuapp.com/api/submit_experiment"
 	console.log("deployMethod: " + config_deploy.deployMethod);
 	console.log("live experiment: " + config_deploy.liveExperiment);
 	console.log("runs on MTurk: " + config_deploy.is_MTurk);
@@ -208,7 +209,7 @@ exp.submit = function() {
     // the results are displayed on the thanks slide
     if (config_deploy.liveExperiment) {
         console.log('submits');
-        submitResults(config_deploy.contact_email, data);
+        submitResults(config_deploy.contact_email, config_deploy.submissionURL, data);
     } else {
         // hides the 'Please do not close the tab.. ' message in debug mode
 		console.log(data)
