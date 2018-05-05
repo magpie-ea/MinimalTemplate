@@ -79,7 +79,7 @@ exp.submit = function() {
     };
 
     var formatDebugData = function(data) {
-        var output = "<table id = 'debugresults'>";
+        var output = "<table id='debugresults'>";
 
         var trials = data.trials;
         delete data.trials;
