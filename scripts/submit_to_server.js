@@ -3,7 +3,7 @@
 // 1) isMTurk - boolean; true if the experiment runs on MTurk
 // 2) contactEmail - string
 // 3) trials
-var submitResults = function(contactEmail, data) {
+var submitResults = function(contactEmail, submissionURL, data) {
     // if isMTurk is not given, sets it to false
     isMTurk = typeof isMTurk !== 'undefined' ? isMTurk : false;
     // set a default contact email
@@ -11,7 +11,7 @@ var submitResults = function(contactEmail, data) {
 
     $.ajax({
         type: 'POST',
-        url: 'https://procomprag.herokuapp.com/api/submit_experiment',
+        url: submissionURL,
         crossDomain: true,
         contentType: 'application/json',
         data: JSON.stringify(data),
@@ -45,7 +45,7 @@ var submitResults = function(contactEmail, data) {
                 if (textStatus == "timeout") {
                     alert("Oops, the submission timed out. Please try again. If the problem persists, please contact " + contactEmail + ", including your ID");
                 } else {
-                    alert("Oops, the submission failed. Please try again. If the problem persists, please contact " + contactEmail + ", including your ID");
+                    alert("Oops, the submission failed. The server says: " + responseData.responseText + "\nPlease try again. If the problem persists, please contact " + contactEmail + "with this error message, including your ID");
                 }
             }
         }
