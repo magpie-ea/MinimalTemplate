@@ -120,13 +120,13 @@ exp.submit = function() {
 
         for (var kt in t) {
             if (t.hasOwnProperty(kt)) {
-                output += "<th>" + kt.replace(/foo/g, "bar") + "</th>";
+                output += "<th>" + kt + "</th>";
             }
         }
 
         for (var kd in data) {
             if (data.hasOwnProperty(kd)) {
-                output += "<th>" + kd.replace(/foo/g, "bar") + "</th>";
+                output += "<th>" + kd + "</th>";
             }
         }
 
