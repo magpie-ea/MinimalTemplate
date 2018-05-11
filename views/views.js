@@ -52,6 +52,9 @@ var instructions = {
 
 var practice = {
     "title": "Practice trial",
+
+    trials: 1,
+
     render: function (CT) {
 
 		viewTemplate = $("#practice-view").html();
@@ -81,8 +84,7 @@ var practice = {
             exp.findNextView();
         });
 
-    },
-    trials: 2
+    }
 }
 
 var beginMainExp = {
