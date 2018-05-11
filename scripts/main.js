@@ -120,13 +120,13 @@ exp.submit = function() {
 
         for (var kt in t) {
             if (t.hasOwnProperty(kt)) {
-                output += "<th>" + kt.replace(/foo/g, "bar") + "</th>";
+                output += "<th>" + kt + "</th>";
             }
         }
 
         for (var kd in data) {
             if (data.hasOwnProperty(kd)) {
-                output += "<th>" + kd.replace(/foo/g, "bar") + "</th>";
+                output += "<th>" + kd + "</th>";
             }
         }
 
@@ -158,15 +158,21 @@ exp.submit = function() {
         return output;
     };
 
+	var flattenData = function(data, trials){
+		var trials = data.trials;
+		delete data.trials;
+		var out = _.map(trials, function(t) {return _.merge(data, t)});
+		return out
+	};
 
     // construct data object for output
     var data = {
         'author': config_deploy.author,
         'experiment_id': config_deploy.experiment_id,
         'description': config_deploy.description,
-        'trials': addEmptyColumns(exp.trial_data)
+		'trials': addEmptyColumns(exp.trial_data)
     };
-
+	
     // add more fields depending on the deploy method
     if (config_deploy.is_MTurk) {
         var HITData = getHITData();
@@ -188,7 +194,7 @@ exp.submit = function() {
     // merge in global data accummulated so far
     // this could be unsafe if 'exp.global_data' contains keys used in 'data'!!
     data = _.merge(exp.global_data, data);
-
+	
     // parses the url to get thr assignmentId and workerId
     var getHITData = function() {
         var url = window.location.href;
@@ -210,6 +216,7 @@ exp.submit = function() {
     if (config_deploy.liveExperiment) {
         console.log('submits');
         submitResults(config_deploy.contact_email, config_deploy.submissionURL, data);
+//		submitResults(config_deploy.contact_email, config_deploy.submissionURL, flattenData(data));
     } else {
         // hides the 'Please do not close the tab.. ' message in debug mode
 		console.log(data)
