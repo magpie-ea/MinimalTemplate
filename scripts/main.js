@@ -122,7 +122,7 @@ exp.submit = function() {
 	};
 
 	var formatDebugData = function(data) {
-		var output = "<table id='debugresults'>";
+		var output = "<table id = 'debugresults'>";
 
 		var trials = data.trials;
 		delete data.trials;
@@ -133,13 +133,13 @@ exp.submit = function() {
 
 		for (var kt in t) {
 			if (t.hasOwnProperty(kt)) {
-				output += "<th>" + kt.replace(/foo/g, "bar") + "</th>";
+				output += "<th>" + kt + "</th>";
 			}
 		}
 
 		for (var kd in data) {
 			if (data.hasOwnProperty(kd)) {
-				output += "<th>" + kd.replace(/foo/g, "bar") + "</th>";
+				output += "<th>" + kd + "</th>";
 			}
 		}
 
@@ -171,6 +171,12 @@ exp.submit = function() {
 		return output;
 	};
 
+	var flattenData = function(data, trials){
+		var trials = data.trials;
+		delete data.trials;
+		var out = _.map(trials, function(t) {return _.merge(data, t)});
+		return out
+	};
 
 	// construct data object for output
 	var data = {
@@ -179,7 +185,7 @@ exp.submit = function() {
 		'description': config_deploy.description,
 		'trials': addEmptyColumns(exp.trial_data)
 	};
-
+	
 	// add more fields depending on the deploy method
 	if (config_deploy.is_MTurk) {
 		var HITData = getHITData();
@@ -201,7 +207,7 @@ exp.submit = function() {
 	// merge in global data accummulated so far
 	// this could be unsafe if 'exp.global_data' contains keys used in 'data'!!
 	data = _.merge(exp.global_data, data);
-
+	
 	// parses the url to get thr assignmentId and workerId
 	var getHITData = function() {
 		var url = window.location.href;
@@ -223,6 +229,7 @@ exp.submit = function() {
 	if (config_deploy.liveExperiment) {
 		console.log('submits');
 		submitResults(config_deploy.contact_email, config_deploy.submissionURL, data);
+//      submitResults(config_deploy.contact_email, config_deploy.submissionURL, flattenData(data));
 	} else {
 		// hides the 'Please do not close the tab.. ' message in debug mode
 		console.log(data)
@@ -240,7 +247,6 @@ exp.submit = function() {
 var processTrialsData = function(rows) {
 	var toReturn = [];
 	var headers = rows[0];
-
 	for (var indexTrial = 1; indexTrial < rows.length; indexTrial++) {
 		var thisTrial = {};
 		for (var indexKey = 0; indexKey < headers.length; indexKey++) {
@@ -280,18 +286,14 @@ var prepareDataFromCSV = function(practiceTrialsFile, trialsFile) {
 		}
 	});
 
-
 	return data;
 };
 
 // functions to expand 'loop' statements `from views_seq`
 var loop = function(arr, count, shuffleFlag) {
-	arr[arr.length - 1].updateProgress = true;
 	return _.flatMapDeep(_.range(count), function(i) {return arr})
 };
 
 var loopShuffled = function(arr, count) {
-	arr[arr.length - 1].updateProgress = true;
-	return _.flatMapDeep(_.range(count), function(i) {return _.shuffle(arr)})		
-	
+	return _.flatMapDeep(_.range(count), function(i) {return _.shuffle(arr)})
 };
