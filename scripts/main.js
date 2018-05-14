@@ -158,11 +158,11 @@ exp.submit = function() {
         return output;
     };
 
-	var flattenData = function(data, trials){
+	var flattenData = function(data){
 		var trials = data.trials;
 		delete data.trials;
-		var out = _.map(trials, function(t) {return _.merge(data, t)});
-		return out
+		var out = _.map(trials, function(t) {return _.merge(t, data);});
+		return out;
 	};
 
     // construct data object for output
