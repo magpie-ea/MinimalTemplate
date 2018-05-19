@@ -31,4 +31,8 @@ var main_trials = [
      option1: "shiny", 
      option2: "rainbow", 
      picture: "images/question_mark_02.png"},
+    {question: "What is the weather like?", 
+     option1: "shiny", 
+     option2: "ham", 
+     picture: "images/question_mark_01.png"}
 ];

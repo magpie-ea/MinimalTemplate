@@ -10,7 +10,7 @@ exp.customize = function() {
 					 instructions,
                      helpers.loop([practice,
                      beginMainExp,
-					 main], 4),
+					 main], 2),
                      postTest,
                      thanks];
 
@@ -19,5 +19,10 @@ exp.customize = function() {
     this.trial_info.main_trials = _.shuffle(main_trials.concat(practice_trials));
 	this.trial_info.practice_trials = practice_trials;
 
-    this.addProgressBarTo = 'main';
+    // adds progress bars to the views listed
+    // view's name coinsides with object's name
+    this.progress_bar_in = ['practice', 'main'];
+    // this.addProgressBarTo = ['main'];
+    // styles: chunks or default
+    this.progress_bar_style = 'default';
 };

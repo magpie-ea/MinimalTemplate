@@ -29,16 +29,7 @@ exp.init = function(){
 	
 	// flatten views_seq after possible 'loop' insertions
 	this.views_seq = _.flatten(this.views_seq);
-
-	this.progressChunks = 0;
-	this.currentProgressChunk = 0;
-
-	for (var i=0; i<this.views_seq.length; i++) {
-		if (this.views_seq[i].name === this.addProgressBarTo) {
-			this.progressChunks++;
-			this.views_seq[i].progressBar = true;
-		}
-	}
+	this.addProgressBars();
 
 	// insert a Current Trial counter for each view
 	_.map(this.views_seq, function(i) {i.CT = 0});
@@ -91,11 +82,10 @@ exp.findNextView = function() {
 	this.currentTrialCounter++;
 	// increment counter for how many trials we have seen of THIS view during the whole experiment
 	currentView.CT++;
-	
 	if (currentView.progressBar) {
-		createProgressBarChunks(exp.progressChunks);
-		updateProgressBar(this.currentProgressChunk);
+		updateProgressBar(exp.progressChunks);
 	}
+
 	return currentView;
 };
 

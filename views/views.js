@@ -86,7 +86,7 @@ var practice = {
         });
 
     },
-    trials: 1
+    trials: 2
 };
 
 var beginMainExp = {
@@ -150,7 +150,7 @@ var main = {
         startingTime = Date.now();
         
     },
-	trials : 2
+	trials : 4
 };
 
 var postTest = {

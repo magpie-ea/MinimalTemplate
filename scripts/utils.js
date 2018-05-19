@@ -1,4 +1,4 @@
-var createProgressBarChunks = function(numberOfChunks) {
+var createProgressBar = function(numberOfChunks) {
     var view = $('.view');
     var clearfix = jQuery('<div/>', {
         class: 'clearfix'
@@ -22,9 +22,12 @@ var createProgressBarChunks = function(numberOfChunks) {
     view.prepend(container);
 };
 
-var updateProgressBar = function() {
+var updateProgressBar = function(numberOfChunks) {
+    createProgressBar(numberOfChunks);
+
     var progressBars = $('.progress-bar');
-    var filledPart = exp.currentTrialInViewCounter * ($('.progress-bar').width() / exp.views_seq[exp.currentViewCounter].trials);
+    var div = $('.progress-bar').width() / exp.views_seq[exp.currentViewCounter].trials;
+    var filledPart = (exp.currentTrialInViewCounter) * div;
     var filledElem = jQuery('<span/>', {
         id: 'filled'
     }).appendTo(progressBars[exp.currentProgressChunk]);
@@ -36,5 +39,19 @@ var updateProgressBar = function() {
 
     for(var i=0; i<exp.currentProgressChunk; i++) {
         progressBars[i].style.backgroundColor = '#5187BA';
+    }
+};
+
+exp.addProgressBars = function() {
+    this.progressChunks = 0;
+    this.currentProgressChunk = 0;
+
+    for (var i=0; i<this.views_seq.length; i++) {
+        for (var j=0; j<this.progress_bar_in.length; j++) {
+            if (this.views_seq[i].name === this.progress_bar_in[j]) {
+                this.progressChunks++;
+                this.views_seq[i].progressBar = true;
+            }
+        }
     }
 };
