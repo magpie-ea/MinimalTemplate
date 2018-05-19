@@ -8,9 +8,9 @@ exp.customize = function() {
     // specify view order
     this.views_seq = [intro, 
 					 instructions,
-                     loop([practice,
+                     helpers.loop([practice,
                      beginMainExp,
-					 main], 1),
+					 main], 4),
                      postTest,
                      thanks];
 
@@ -19,6 +19,5 @@ exp.customize = function() {
     this.trial_info.main_trials = _.shuffle(main_trials.concat(practice_trials));
 	this.trial_info.practice_trials = practice_trials;
 
-    this.progressBarType = 'default';
-    this.progressBarCount = '';
+    this.addProgressBarTo = 'main';
 };

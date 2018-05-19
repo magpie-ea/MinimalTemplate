@@ -25,6 +25,7 @@
 		<script src="scripts/main.js"></script>
 		<script src="scripts/experiment.js"></script>
 		<script src="scripts/helpers.js"></script>
+		<script src="scripts/utils.js"></script>
 		<script src="scripts/submit_to_server.js"></script>
 		
 		<!-- local trial_info files -->
@@ -113,6 +114,7 @@
 
 		<!-- Begin Experiment view -->
 		<script id="begin-exp-view" type="x-tmpl-mustache">
+
 		<div class="view">
 			{{# text }}
 			<section class="text-container">
@@ -126,11 +128,6 @@
 		<!-- main view (buttons response) -->
 		<script id="main-view" type="x-tmpl-mustache">
 		<div class="view">
-		<div class="progress-bar-container">
-			<p>progress</p>
-			<div class="progress-bar"><span id='filled'><span></div>
-		</div>
-		<div class="clearfix"></div>
 		<div class="picture", align = "center">
 			<img src={{picture}} alt="a picture" height="100" width="100">
 		</div>

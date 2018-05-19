@@ -28,21 +28,20 @@ exp.init = function(){
 	this.customize();
 	
 	// flatten views_seq after possible 'loop' insertions
-	this.views_seq = _.flatten(this.views_seq)
-	
-	// insert a Current Trial counter for each view
-	_.map(exp.views_seq, function(i) {i.CT = 0});
+	this.views_seq = _.flatten(this.views_seq);
 
-	// progress bar parts
-	this.progressChunks = _.reduce(this.views_seq, function(result, view) {
-		if (view.hasOwnProperty('updateProgress') && view.updateProgress === true) {
-			return result + 1;
-		} else {
-			return result;
+	this.progressChunks = 0;
+	this.currentProgressChunk = 0;
+
+	for (var i=0; i<this.views_seq.length; i++) {
+		if (this.views_seq[i].name === this.addProgressBarTo) {
+			this.progressChunks++;
+			this.views_seq[i].progressBar = true;
 		}
-	}, 0);
+	}
 
-	console.log('pc ' + this.progressChunks);
+	// insert a Current Trial counter for each view
+	_.map(this.views_seq, function(i) {i.CT = 0});
 
 	// initialize procedure
 	this.currentViewCounter = 0;
@@ -77,7 +76,7 @@ exp.init = function(){
 // the given number of steps (as defined in 'config_general')
 exp.findNextView = function() {
 	var currentView = this.views_seq[this.currentViewCounter];
-	updateProgressBar(2, this.progressChunks, currentView);
+	console.log('ctivc ' + this.currentTrialInViewCounter);	
 	if (this.currentTrialInViewCounter < currentView.trials) {
 		currentView.render(currentView.CT, this.currentTrialInViewCounter);
 	} else {
@@ -93,6 +92,10 @@ exp.findNextView = function() {
 	// increment counter for how many trials we have seen of THIS view during the whole experiment
 	currentView.CT++;
 	
+	if (currentView.progressBar) {
+		createProgressBarChunks(exp.progressChunks);
+		updateProgressBar(this.currentProgressChunk);
+	}
 	return currentView;
 };
 
@@ -229,7 +232,7 @@ exp.submit = function() {
 	if (config_deploy.liveExperiment) {
 		console.log('submits');
 		submitResults(config_deploy.contact_email, config_deploy.submissionURL, data);
-//      submitResults(config_deploy.contact_email, config_deploy.submissionURL, flattenData(data));
+	//submitResults(config_deploy.contact_email, config_deploy.submissionURL, flattenData(data));
 	} else {
 		// hides the 'Please do not close the tab.. ' message in debug mode
 		console.log(data)
@@ -289,11 +292,15 @@ var prepareDataFromCSV = function(practiceTrialsFile, trialsFile) {
 	return data;
 };
 
+// it is not a good idea to have a global function named loop
+// because it might clash with some other function with the same name added later
+this.helpers = {};
+
 // functions to expand 'loop' statements `from views_seq`
-var loop = function(arr, count, shuffleFlag) {
+helpers.loop = function(arr, count, shuffleFlag) {
 	return _.flatMapDeep(_.range(count), function(i) {return arr})
 };
 
-var loopShuffled = function(arr, count) {
+helpers.loopShuffled = function(arr, count) {
 	return _.flatMapDeep(_.range(count), function(i) {return _.shuffle(arr)})
 };

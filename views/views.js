@@ -1,4 +1,5 @@
 var intro = {
+    name: 'intro',
     // introduction title
     "title": "Welcome!",
     // introduction text
@@ -23,10 +24,11 @@ var intro = {
     },
     // for how many trials should this view be repeated?
     trials: 1
-}
+};
 
 var instructions = {
-     // instruction's title
+    name: 'instructions',
+    // instruction's title
     "title": "Instructions",
     // instruction's text
     "text": "On each trial, you will see a question and two response options. Please select the response option you like most. We start with two practice trials.",
@@ -48,16 +50,15 @@ var instructions = {
 
     },
     trials: 1
-}
+};
 
 var practice = {
+    name: 'practice',
     "title": "Practice trial",
-
-    trials: 1,
-
+    // render function renders the view
     render: function (CT) {
 
-		viewTemplate = $("#practice-view").html();
+        viewTemplate = $("#practice-view").html();
         $('#main').html(Mustache.render(viewTemplate, {
         title: this.title,
         question: exp.trial_info.practice_trials[CT].question,
@@ -84,11 +85,14 @@ var practice = {
             exp.findNextView();
         });
 
-    }
-}
+    },
+    trials: 1
+};
 
 var beginMainExp = {
+    name: 'beginMainExp',
     "text": "Now that you have acquainted yourself with the procedure of the task, the actual experiment will begin.",
+    // render function renders the view
     render: function() {
 
         viewTemplate = $('#begin-exp-view').html();
@@ -103,15 +107,14 @@ var beginMainExp = {
 
     },
     trials: 1
-}
+};
 
 var main = {
-	
-	trials : 2,
-	
+    name: 'main',
+    // render function renders the view
     render : function(CT) {
-		
-		// fill variables in view-template
+        
+        // fill variables in view-template
         var viewTemplate = $('#main-view').html();
         $('#main').html(Mustache.render(viewTemplate, {
             question: exp.trial_info.main_trials[CT].question,
@@ -119,13 +122,15 @@ var main = {
             option2:  exp.trial_info.main_trials[CT].option2,
             picture:  exp.trial_info.main_trials[CT].picture
         }));
-		
-		// update the progress bar based on how many trials there are in this round
+        
+        console.log(CT);
+        console.log( exp.trial_info.main_trials[CT]);
+        // update the progress bar based on how many trials there are in this round
         var filled = exp.currentTrialInViewCounter * (180 / exp.views_seq[exp.currentViewCounter].trials);
         $('#filled').css('width', filled);
 
         // event listener for buttons; when an input is selected, the response
-		// and additional information are stored in exp.trial_info
+        // and additional information are stored in exp.trial_info
         $('input[name=answer]').on('change', function() {
             RT = Date.now() - startingTime; // measure RT before anything else
             trial_data = {
@@ -140,17 +145,20 @@ var main = {
             exp.trial_data.push(trial_data);
             exp.findNextView();
         });
-		
+        
         // record trial starting time
         startingTime = Date.now();
-		
-    }
+        
+    },
+	trials : 2
 };
 
 var postTest = {
+    name: 'postTest',
     "title": "Additional Info",
     "text": "Answering the following questions is optional, but will help us understand your answers.",
     "buttonText": "Continue",
+    // render function renders the view
     render : function() {
 
         viewTemplate = $('#post-test-view').html();
@@ -182,6 +190,7 @@ var postTest = {
 };
 
 var thanks = {
+    name: 'thanks',
     "message": "Thank you for taking part in this experiment!",
     render: function() {
 
@@ -211,4 +220,4 @@ var thanks = {
 
     },
     trials: 1
-}
+};

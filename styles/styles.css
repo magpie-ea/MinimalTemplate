@@ -93,14 +93,16 @@ button:focus {
 
 .progress-bar {
     border: 1px solid #5187BA;
-    height: 12px;
-    width: 180px;
+    display: inline-block;
+    height: 16px;
+    margin: 5px;
+    width: 60px;
 }
 
 .progress-bar #filled {
     background-color: #5187BA;
     display: block;
-    height: 12px;
+    height: 16px;
 }
 
 .stimulus-container {
