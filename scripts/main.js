@@ -29,7 +29,9 @@ exp.init = function(){
 	
 	// flatten views_seq after possible 'loop' insertions
 	this.views_seq = _.flatten(this.views_seq);
-	this.addProgressBars();
+	// create Progress Bar/s
+	this.progress = this.initProgressBar();
+	this.progress.add();
 
 	// insert a Current Trial counter for each view
 	_.map(this.views_seq, function(i) {i.CT = 0});
@@ -39,8 +41,6 @@ exp.init = function(){
 	this.currentTrialCounter = 0;
 	this.currentTrialInViewCounter = 0;
 	this.currentView = this.findNextView();
-	this.filledProgress = 0;
-	this.overallProgress = this.trial_info.main_trials;
 	
 	// user does not (should not) change the following information
 	// checks the config _deploy.deployMethod is MTurk or MTurkSandbox,
@@ -82,7 +82,7 @@ exp.findNextView = function() {
 	// increment counter for how many trials we have seen of THIS view during the whole experiment
 	currentView.CT++;
 	if (currentView.hasProgressBar) {
-		updateProgressBar();
+		this.progress.update();
 	}
 
 	return currentView;

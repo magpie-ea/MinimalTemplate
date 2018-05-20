@@ -79,7 +79,7 @@ button:focus {
 
 .progress-bar-container {
     float: right;
-    margin: 0 10px 50px 10px;
+    margin: 0 10px 60px 10px;
 }
 
 .progress-bar-container p {
@@ -93,6 +93,7 @@ button:focus {
 
 .progress-bar {
     border: 1px solid #5187BA;
+    border-radius: 3px;
     display: inline-block;
     height: 14px;
     margin: 5px;

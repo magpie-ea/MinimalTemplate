@@ -25,5 +25,5 @@ exp.customize = function() {
     // styles: chunks, separate or default
     this.progress_bar_style = 'default';
     // the width of the progress bar or a single chunk
-    this.progress_bar_width = 100;
+    this.progress_bar_width = 60;
 };
