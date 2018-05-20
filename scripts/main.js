@@ -281,15 +281,10 @@ var prepareDataFromCSV = function(practiceTrialsFile, trialsFile) {
 	return data;
 };
 
-// it is not a good idea to have a global function named loop
-// because it might clash with some other function with the same name added later
-this.helpers = {};
-
-// functions to expand 'loop' statements `from views_seq`
-helpers.loop = function(arr, count, shuffleFlag) {
+loop = function(arr, count, shuffleFlag) {
 	return _.flatMapDeep(_.range(count), function(i) {return arr})
 };
 
-helpers.loopShuffled = function(arr, count) {
+loopShuffled = function(arr, count) {
 	return _.flatMapDeep(_.range(count), function(i) {return _.shuffle(arr)})
 };

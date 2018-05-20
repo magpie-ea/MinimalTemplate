@@ -8,7 +8,7 @@ exp.customize = function() {
     // specify view order
     this.views_seq = [intro, 
                      instructions,
-                     helpers.loop([practice,
+                     loop([practice,
                      beginMainExp,
                      main], 2),
                      postTest,
