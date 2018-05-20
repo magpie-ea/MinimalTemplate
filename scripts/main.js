@@ -67,7 +67,6 @@ exp.init = function(){
 // the given number of steps (as defined in 'config_general')
 exp.findNextView = function() {
 	var currentView = this.views_seq[this.currentViewCounter];
-	console.log('ctivc ' + this.currentTrialInViewCounter);	
 	if (this.currentTrialInViewCounter < currentView.trials) {
 		currentView.render(currentView.CT, this.currentTrialInViewCounter);
 	} else {
@@ -82,8 +81,8 @@ exp.findNextView = function() {
 	this.currentTrialCounter++;
 	// increment counter for how many trials we have seen of THIS view during the whole experiment
 	currentView.CT++;
-	if (currentView.progressBar) {
-		updateProgressBar(exp.progressChunks);
+	if (currentView.hasProgressBar) {
+		updateProgressBar();
 	}
 
 	return currentView;

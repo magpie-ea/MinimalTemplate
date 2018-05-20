@@ -123,8 +123,6 @@ var main = {
             picture:  exp.trial_info.main_trials[CT].picture
         }));
         
-        console.log(CT);
-        console.log( exp.trial_info.main_trials[CT]);
         // update the progress bar based on how many trials there are in this round
         var filled = exp.currentTrialInViewCounter * (180 / exp.views_seq[exp.currentViewCounter].trials);
         $('#filled').css('width', filled);
