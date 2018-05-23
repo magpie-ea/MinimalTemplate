@@ -54,7 +54,7 @@ exp.init = function(){
 	config_deploy.liveExperiment = config_deploy.deployMethod !== "debug";
 	config_deploy.prolificCode = '9BTAOPQD';
 	config_deploy.is_MTurk = config_deploy.MTurk_server !== "";
-	config_deploy.submissionURL = config_deploy.deployMethod == "localServer"? "http://localhost:4000/api/submit_experiment": "https://babe-backend.herokuapp.com/api/submit_experiment/8"
+	config_deploy.submissionURL = config_deploy.deployMethod == "localServer"? "http://localhost:4000/api/submit_experiment": "https://babe-backend.herokuapp.com/api/submit_experiment/" + config_deploy.experimentID;
 	console.log("deployMethod: " + config_deploy.deployMethod);
 	console.log("live experiment: " + config_deploy.liveExperiment);
 	console.log("runs on MTurk: " + config_deploy.is_MTurk);
@@ -167,7 +167,6 @@ exp.submit = function() {
 		var trials = data.trials;
 		delete data.trials;
 		var out = _.map(trials, function(t) {return _.merge(t, data);});
-		console.log(out)
 		return out;
 	};
 
