@@ -8,9 +8,12 @@ exp.customize = function() {
     // specify view order
     this.views_seq = [intro, 
                      instructions,
-                     loop([practice,
+                     practice,
                      beginMainExp,
-                     main], 2),
+                     main,
+                     /*loop([practice,
+                     beginMainExp,
+                     main], 2),*/
                      postTest,
                      thanks];
 
@@ -20,10 +23,11 @@ exp.customize = function() {
     this.trial_info.practice_trials = practice_trials;
 
     // adds progress bars to the views listed
-    // view's name coinsides with object's name
-    this.progress_bar_in = ['practice', 'main'];
+    // view's name is the same as object's name
+    this.progress_bar_in = ['main'];
+    // this.progress_bar_in = ['practice', 'main'];
     // styles: chunks, separate or default
     this.progress_bar_style = 'default';
     // the width of the progress bar or a single chunk
-    this.progress_bar_width = 60;
+    this.progress_bar_width = 100;
 };

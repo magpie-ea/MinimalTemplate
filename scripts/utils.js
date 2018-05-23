@@ -3,8 +3,9 @@ exp.initProgressBar = function() {
     var totalProgressParts = 0;
     var progressTrials = 0;
     if (exp.progress_bar_style === 'chunks' || 'separate') {
-        var progressChunks = 0;
-        var currentProgressChunk = 0;        
+        var totalProgressChunks = 0;
+        var filledChunks = 0; 
+        var fillChunk = false;       
     }
 
     // creates progress bar element(s) and adds it(them) to the view
@@ -24,7 +25,7 @@ exp.initProgressBar = function() {
         view.prepend(container);
 
         if (exp.progress_bar_style === 'chunks') {
-            for (i=0; i<progressChunks; i++) {
+            for (i=0; i<totalProgressChunks; i++) {
                 bar = jQuery('<div/>', {
                     class: 'progress-bar'
                 });
@@ -53,7 +54,7 @@ exp.initProgressBar = function() {
         for (var i=0; i<exp.views_seq.length; i++) {
             for (var j=0; j<exp.progress_bar_in.length; j++) {
                 if (exp.views_seq[i].name === exp.progress_bar_in[j]) {
-                    progressChunks++;
+                    totalProgressChunks++;
                     totalProgressParts += exp.views_seq[i].trials;
                     exp.views_seq[i].hasProgressBar = true;
                 }
@@ -74,22 +75,27 @@ exp.initProgressBar = function() {
             filledPart = progressTrials * div;
         } else {
             div = $('.progress-bar').width() / exp.views_seq[exp.currentViewCounter].trials;
-            filledPart = exp.currentTrialInViewCounter * div;
+            filledPart = (exp.currentTrialInViewCounter - 1) * div;
         }
 
         filledElem = jQuery('<span/>', {
             id: 'filled'
-        }).appendTo(progressBars[currentProgressChunk]);
+        }).appendTo(progressBars[filledChunks]);
 
         $('#filled').css('width', filledPart);
         progressTrials++;
 
         if (exp.progress_bar_style === 'chunks') {
-            if (filledElem.width() === $('.progress-bar').width()) {
-                currentProgressChunk++;
+            if (fillChunk === true) {
+                filledChunks++;
+                fillChunk = false;
             }
 
-            for(var i=0; i<currentProgressChunk; i++) {
+            if (filledElem.width() === $('.progress-bar').width() - div) {
+                fillChunk = true;
+            }
+
+            for(var i=0; i<filledChunks; i++) {
                 progressBars[i].style.backgroundColor = '#5187BA';
             }
         }
