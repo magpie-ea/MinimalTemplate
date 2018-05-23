@@ -2,16 +2,15 @@ var config_deploy = {
     
     // obligatory fields
 	
-    // needed to recover data from server app
-    "author": "RandomJane",
-    // needed to recover data from server app
-    "experiment_id": "MinimalTemplateDEMO", 
-    "description": "A minimal template for a browser-based experiment",
+    // the experimentID is needed to recover data from the _babe server app
+	// you receive the experimentID when you create the experiment using the _babe server app
+	
+	 "experimentID": "8",
 
     // set deployment method; use one of:
     //'debug', 'localServer', 'MTurk', 
     // 'MTurkSandbox', 'Prolific', 'directLink'
-    "deployMethod" : "debug", 
+    "deployMethod" : "directLink", 
     
     // optional fields
     
