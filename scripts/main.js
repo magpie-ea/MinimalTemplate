@@ -173,19 +173,49 @@ exp.submit = function() {
 	// construct data object for output
 	var data = {
 		'author': config_deploy.author,
-		'experiment_id': config_deploy.experiment_id,
+		'experiment_id': config_deploy.experimentID,
 		'description': config_deploy.description,
 		'trials': addEmptyColumns(exp.trial_data)
+	};
+
+	// parses the url to get the assignmentId and workerId
+	var getHITData = function() {
+		var url = window.location.href;
+		var qArray = url.split('?');
+		qArray = qArray[1].split('&');
+		var HITData = {};
+
+		for (var i=0; i<qArray.length; i++) {
+			HITData[qArray[i].split('=')[0]] = qArray[i].split('=')[1];
+		}
+
+		console.log(HITData);
+		return HITData;
 	};
 	
 	// add more fields depending on the deploy method
 	if (config_deploy.is_MTurk) {
 		var HITData = getHITData();
+		data['assignment_id'] = HITData['assignmentId'];
+		data['worker_id'] = HITData['workerId'];
+		data['hit_id'] = HITData['hitId'];
+
+		// creates a form with assignmentId input for the submission ot MTurk
+		var form = jQuery('<form/>', {
+			id: 'mturk-submission-form',
+			action: config_deploy.MTurk_server
+		}).appendTo('.thanks-templ')
+		var dataForMTurk = jQuery('<input/>', {
+			type: 'hidden',
+			name: 'data'
+		}).appendTo(form);
 		// MTurk expects a key 'assignmentId' for the submission to work,
 		// that is why is it not consistent with the snake case that the other keys have
-		data['assignmentId'] = HITData['assignmentId'];
-		data['workerId'] = HITData['workerId'];
-		data['HITId'] = HITData['HITId'];
+		var assignmentId = jQuery('<input/>', {
+			type: 'hidden',
+			name: 'assignmentId',
+			value: HITData['assignmentId']
+		}).appendTo(form);
 	} else if (config_deploy.deployMethod === 'Prolific') {
 		console.log();
 	} else if (config_deploy.deployMethod === 'directLink'){
@@ -199,20 +229,6 @@ exp.submit = function() {
 	// merge in global data accummulated so far
 	// this could be unsafe if 'exp.global_data' contains keys used in 'data'!!
 	data = _.merge(exp.global_data, data);
-	
-	// parses the url to get thr assignmentId and workerId
-	var getHITData = function() {
-		var url = window.location.href;
-		var qArray = url.split('?');
-		qArray = qArray[1].split('&');
-		var HITData = {};
-
-		for (var i=0; i<qArray.length; i++) {
-			HITData[qArray[i].split('=')[0]] = qArray[i].split('=')[1];
-		}
-
-		return HITData;
-	};
 
 	// if the experiment is set to live (see config.js liveExperiment)
 	// the results are sent to the server
@@ -224,7 +240,7 @@ exp.submit = function() {
 		submitResults(config_deploy.contact_email, config_deploy.submissionURL, flattenData(data));
 	} else {
 		// hides the 'Please do not close the tab.. ' message in debug mode
-		console.log(data)
+		console.log(data);
 		$('.warning-message').addClass('nodisplay');
 		jQuery('<h3/>', {
 			text: 'Debug Mode'
