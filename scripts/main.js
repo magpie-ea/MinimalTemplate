@@ -141,8 +141,8 @@ exp.submit = function() {
 
 		for (var i = 0; i < trials.length; i++) {
 			var currentTrial = trials[i];
-			for (var trialKey in currentTrial) {
-				if (t.hasOwnProperty(trialKey)) {
+			for (var trialKey in t) {
+				if (currentTrial.hasOwnProperty(trialKey)) {
 					entry = String(currentTrial[trialKey])
 					output += "<td>" + entry.replace(/ /g, "&nbsp;") + "</td>";
 				}
