@@ -123,9 +123,9 @@ var main = {
             picture:  exp.trial_info.main_trials[CT].picture
         }));
         
-        // update the progress bar based on how many trials there are in this round
-        var filled = exp.currentTrialInViewCounter * (180 / exp.views_seq[exp.currentViewCounter].trials);
-        $('#filled').css('width', filled);
+//        // update the progress bar based on how many trials there are in this round
+//        var filled = exp.currentTrialInViewCounter * (180 / exp.views_seq[exp.currentViewCounter].trials);
+//        $('#filled').css('width', filled);
 
         // event listener for buttons; when an input is selected, the response
         // and additional information are stored in exp.trial_info
