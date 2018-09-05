@@ -19,13 +19,14 @@ var submitResults = function(contactEmail, submissionURL, data) {
             console.log(textStatus);
 
             $('.warning-message').addClass('nodisplay');
-            $('.success-message').removeClass('nodisplay');
             $('.thanks-message').removeClass('nodisplay');
             $('.extra-message').removeClass('nodisplay');
 
             if (config_deploy.is_MTurk) {
                 // submits to MTurk's server if isMTurk = true
-                setTimeout(submitToMTurk, 500);
+                setTimeout(function() {
+                    submitToMTurk(data),
+                500});
             }
         },
         error: function (responseData, textStatus, errorThrown) {
@@ -36,7 +37,7 @@ var submitResults = function(contactEmail, submissionURL, data) {
                 // Not notifying the user yet since it might cause confusion. The webapp should report errors.
 
                 // submits to MTurk's server if isMTurk = true
-                submitToMTurk();
+                submitToMTurk(data);
                 
                 // shows a thanks message after the submission
                 $('.thanks-message').removeClass('nodisplay');

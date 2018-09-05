@@ -34,8 +34,6 @@
 
 		<!-- views -->
 		<script src="views/views.js"></script>
-
-
 	</head>
 
 	<body>
@@ -61,11 +59,15 @@
 				<p class="text">{{ text }}</p>
 			</section>
 			{{/ text }}
+			<p id="prolific-id-form">
+				<label for="prolific-id">Please, enter your Prolific ID</label>
+				<input type="text" id="prolific-id" />
+			</p>
 			{{# button }}
-			<button id="next">{{ button }}</button>
+			<button id="next" class="nodisplay">{{ button }}</button>
 			{{/ button }}
 			{{^ button }}
-			<button id="next">Begin Experiment</button>
+			<button id="next" class="nodisplay">Begin Experiment</button>
 			{{/ button }}
 		</div>
 		</script>
@@ -205,16 +207,17 @@
 	<!-- Thanks View -->
 	<script id="thanks-view" type="x-tmpl-mustache">
 		<div class="view thanks-templ">
-			<h4 class="warning-message">Please do not close this tab until you see a <strong>&#10004; Submission Successful</strong> message on the screen.</h4>
+			<h4 class="warning-message">submitting the data
+				<div class="loader"></div>
+			</h4>
 			{{# thanksMessage }}
 			<h1 class="thanks-message nodisplay">{{ thanksMessage }}</h1>
 			{{/ thanksMessage }}
 			{{^ thanksMessage }}
 			<h1 class="thanks-message nodisplay">Thank you for taking part in this experiment!</h1>
 			{{/ thanksMessage }}
-			<h4 class="success-message nodisplay"><strong>&#10004; Submission Successful!</strong></h4>
 			{{# extraMessage }}
-			<h4 class="extra-message nodisplay">{{{ extraMessage }}}</h4>
+			<h2 class="extra-message nodisplay">{{{ extraMessage }}}</h2>
 			{{/ extraMessage }}
 		</div>
 	</script>

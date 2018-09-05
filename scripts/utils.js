@@ -102,4 +102,4 @@ exp.initProgressBar = function() {
     };
 
     return progressBar;
-}
+};

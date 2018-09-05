@@ -3,21 +3,51 @@ var intro = {
     // introduction title
     "title": "Welcome!",
     // introduction text
-    "text": "Thank you for participating in our study. In this study, you will see pictures and click on buttons.",
+    "text": "Thank you for participating in our study. In this study, you will judge whether each of 10 short sentences is true or false.",
     // introduction's slide proceeding button text
     "buttonText": "Begin experiment",
     // render function renders the view
     render: function() {
-        
         viewTemplate = $('#intro-view').html();
+
         $('#main').html(Mustache.render(viewTemplate, {
             title: this.title,
             text: this.text,
             button: this.buttonText
         }));
 
+        var prolificId = $('#prolific-id');
+        var IDform = $('#prolific-id-form');
+        var next = $('#next');
+
+        var showNextBtn = function() {
+            if (prolificId.val().trim() !== "") {
+                next.removeClass('nodisplay');
+            } else  {
+                next.addClass('nodisplay');                
+            }
+        };
+
+        if (config_deploy.deployMethod !== "Prolific") {
+            IDform.addClass('nodisplay');
+            next.removeClass('nodisplay');
+        }
+
+        prolificId.on('keyup', function() {
+            showNextBtn();
+        });
+
+        prolificId.on('focus', function() {
+            showNextBtn();
+        });
+
+
         // moves to the next view
-        $('#next').on('click', function(e) {
+        next.on('click', function(e) {
+            if (config_deploy.deployMethod === "Prolific") {
+                exp.global_data.prolific_id = prolificId.val().trim();
+            }
+
             exp.findNextView();
         });
 
@@ -202,11 +232,11 @@ var thanks = {
                 thanksMessage: this.message,
             }));
         } else if (config_deploy.deployMethod === 'Prolific') {
-            var prolificURL = 'https://prolific.ac/submissions/complete?cc=' + config_deploy.prolificCode;
+            var prolificURL = 'https://app.prolific.ac/submissions/complete?cc=' + config_deploy.prolificCode;
 
             $('main').html(Mustache.render(viewTemplate, {
                 thanksMessage: this.message,
-                extraMessage: "Please press the button below<br />" + '<a href=' + prolificURL +  ' class="prolific-url">Finished!</a>'
+                extraMessage: "Please press the button below to confirm that you completed the expetiment with Prolific<br />" + '<a href=' + prolificURL +  ' class="prolific-url">Confirm</a>'
             }));
         } else if (config_deploy.deployMethod === 'debug') {
             $('main').html(Mustache.render(viewTemplate, {}));

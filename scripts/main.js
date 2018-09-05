@@ -52,7 +52,6 @@ exp.init = function(){
 	""; // blank if deployment is not via MTurk
 	// if the config_deploy.deployMethod is not debug, then liveExperiment is true
 	config_deploy.liveExperiment = config_deploy.deployMethod !== "debug";
-	config_deploy.prolificCode = '9BTAOPQD';
 	config_deploy.is_MTurk = config_deploy.MTurk_server !== "";
 	config_deploy.submissionURL = config_deploy.deployMethod == "localServer"? "http://localhost:4000/api/submit_experiment/" + config_deploy.experimentID : config_deploy.serverAppURL + config_deploy.experimentID;
 	console.log("deployMethod: " + config_deploy.deployMethod);
