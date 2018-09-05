@@ -7,7 +7,7 @@ var intro = {
     // introduction's slide proceeding button text
     "buttonText": "Begin experiment",
     // render function renders the view
-    render: function() {
+    render: function () {
         viewTemplate = $('#intro-view').html();
 
         $('#main').html(Mustache.render(viewTemplate, {
@@ -20,11 +20,11 @@ var intro = {
         var IDform = $('#prolific-id-form');
         var next = $('#next');
 
-        var showNextBtn = function() {
+        var showNextBtn = function () {
             if (prolificId.val().trim() !== "") {
                 next.removeClass('nodisplay');
-            } else  {
-                next.addClass('nodisplay');                
+            } else {
+                next.addClass('nodisplay');
             }
         };
 
@@ -33,17 +33,17 @@ var intro = {
             next.removeClass('nodisplay');
         }
 
-        prolificId.on('keyup', function() {
+        prolificId.on('keyup', function () {
             showNextBtn();
         });
 
-        prolificId.on('focus', function() {
+        prolificId.on('focus', function () {
             showNextBtn();
         });
 
 
         // moves to the next view
-        next.on('click', function(e) {
+        next.on('click', function (e) {
             if (config_deploy.deployMethod === "Prolific") {
                 exp.global_data.prolific_id = prolificId.val().trim();
             }
@@ -64,7 +64,7 @@ var instructions = {
     "text": "On each trial, you will see a question and two response options. Please select the response option you like most. We start with two practice trials.",
     // instuction's slide proceeding button text
     "buttonText": "Go to practice trial",
-    render: function() {
+    render: function () {
 
         viewTemplate = $("#instructions-view").html();
         $('#main').html(Mustache.render(viewTemplate, {
@@ -74,9 +74,9 @@ var instructions = {
         }));
 
         // moves to the next view
-        $('#next').on('click', function(e) {
+        $('#next').on('click', function (e) {
             exp.findNextView();
-        }); 
+        });
 
     },
     trials: 1
@@ -90,21 +90,21 @@ var practice = {
 
         viewTemplate = $("#practice-view").html();
         $('#main').html(Mustache.render(viewTemplate, {
-        title: this.title,
-        question: exp.trial_info.practice_trials[CT].question,
-        option1: exp.trial_info.practice_trials[CT].option1,
-        option2: exp.trial_info.practice_trials[CT].option2,
-        picture: exp.trial_info.practice_trials[CT].picture
+            title: this.title,
+            question: exp.trial_info.practice_trials[CT].question,
+            option1: exp.trial_info.practice_trials[CT].option1,
+            option2: exp.trial_info.practice_trials[CT].option2,
+            picture: exp.trial_info.practice_trials[CT].picture
         }));
         startingTime = Date.now();
         // attaches an event listener to the yes / no radio inputs
         // when an input is selected a response property with a value equal to the answer is added to the trial object
         // as well as a readingTimes property with value - a list containing the reading times of each word
-        $('input[name=answer]').on('change', function() {
+        $('input[name=answer]').on('change', function () {
             RT = Date.now() - startingTime; // measure RT before anything else
             trial_data = {
                 trial_type: "practice",
-                trial_number: CT+1,
+                trial_number: CT + 1,
                 question: exp.trial_info.practice_trials[CT].question,
                 option1: exp.trial_info.practice_trials[CT].option1,
                 option2: exp.trial_info.practice_trials[CT].option2,
@@ -123,7 +123,7 @@ var beginMainExp = {
     name: 'beginMainExp',
     "text": "Now that you have acquainted yourself with the procedure of the task, the actual experiment will begin.",
     // render function renders the view
-    render: function() {
+    render: function () {
 
         viewTemplate = $('#begin-exp-view').html();
         $('#main').html(Mustache.render(viewTemplate, {
@@ -131,7 +131,7 @@ var beginMainExp = {
         }));
 
         // moves to the next view
-        $('#next').on('click', function(e) {
+        $('#next').on('click', function (e) {
             exp.findNextView();
         });
 
@@ -142,43 +142,43 @@ var beginMainExp = {
 var main = {
     name: 'main',
     // render function renders the view
-    render : function(CT) {
-        
+    render: function (CT) {
+
         // fill variables in view-template
         var viewTemplate = $('#main-view').html();
         $('#main').html(Mustache.render(viewTemplate, {
             question: exp.trial_info.main_trials[CT].question,
-            option1:  exp.trial_info.main_trials[CT].option1,
-            option2:  exp.trial_info.main_trials[CT].option2,
-            picture:  exp.trial_info.main_trials[CT].picture
+            option1: exp.trial_info.main_trials[CT].option1,
+            option2: exp.trial_info.main_trials[CT].option2,
+            picture: exp.trial_info.main_trials[CT].picture
         }));
-        
-//        // update the progress bar based on how many trials there are in this round
-//        var filled = exp.currentTrialInViewCounter * (180 / exp.views_seq[exp.currentViewCounter].trials);
-//        $('#filled').css('width', filled);
+
+        //        // update the progress bar based on how many trials there are in this round
+        //        var filled = exp.currentTrialInViewCounter * (180 / exp.views_seq[exp.currentViewCounter].trials);
+        //        $('#filled').css('width', filled);
 
         // event listener for buttons; when an input is selected, the response
         // and additional information are stored in exp.trial_info
-        $('input[name=answer]').on('change', function() {
+        $('input[name=answer]').on('change', function () {
             RT = Date.now() - startingTime; // measure RT before anything else
             trial_data = {
                 trial_type: "mainForcedChoice",
                 trial_number: CT + 1,
                 question: exp.trial_info.main_trials[CT].question,
-                option1:  exp.trial_info.main_trials[CT].option1,
-                option2:  exp.trial_info.main_trials[CT].option2,
+                option1: exp.trial_info.main_trials[CT].option1,
+                option2: exp.trial_info.main_trials[CT].option2,
                 option_chosen: $('input[name=answer]:checked').val(),
                 RT: RT
             };
             exp.trial_data.push(trial_data);
             exp.findNextView();
         });
-        
+
         // record trial starting time
         startingTime = Date.now();
-        
+
     },
-	trials : 4
+    trials: 4
 };
 
 var postTest = {
@@ -187,7 +187,7 @@ var postTest = {
     "text": "Answering the following questions is optional, but will help us understand your answers.",
     "buttonText": "Continue",
     // render function renders the view
-    render : function() {
+    render: function () {
 
         viewTemplate = $('#post-test-view').html();
         $('#main').html(Mustache.render(viewTemplate, {
@@ -196,7 +196,7 @@ var postTest = {
             buttonText: this.buttonText
         }));
 
-        $('#next').on('click', function(e) {
+        $('#next').on('click', function (e) {
             // prevents the form from submitting
             e.preventDefault();
 
@@ -220,12 +220,12 @@ var postTest = {
 var thanks = {
     name: 'thanks',
     "message": "Thank you for taking part in this experiment!",
-    render: function() {
+    render: function () {
 
         viewTemplate = $('#thanks-view').html();
 
         // what is seen on the screen depends on the used deploy method
-		//    normally, you do not need to modify this
+        //    normally, you do not need to modify this
         if ((config_deploy.is_MTurk) || (config_deploy.deployMethod === 'directLink')) {
             // updates the fields in the hidden form with info for the MTurk's server
             $('#main').html(Mustache.render(viewTemplate, {
@@ -236,7 +236,7 @@ var thanks = {
 
             $('main').html(Mustache.render(viewTemplate, {
                 thanksMessage: this.message,
-                extraMessage: "Please press the button below to confirm that you completed the expetiment with Prolific<br />" + '<a href=' + prolificURL +  ' class="prolific-url">Confirm</a>'
+                extraMessage: "Please press the button below to confirm that you completed the expetiment with Prolific<br />" + '<a href=' + prolificURL + ' class="prolific-url">Confirm</a>'
             }));
         } else if (config_deploy.deployMethod === 'debug') {
             $('main').html(Mustache.render(viewTemplate, {}));
