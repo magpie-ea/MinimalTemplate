@@ -3,7 +3,7 @@ var intro = {
     // introduction title
     "title": "Welcome!",
     // introduction text
-    "text": "Thank you for participating in our study. In this study, you will judge whether each of 10 short sentences is true or false.",
+    "text": "This is a minimal (non-sense) example of a _babe experiment. More information can be found <a href='https://babe-project.github.io/babe_site/'>here</a>.",
     // introduction's slide proceeding button text
     "buttonText": "Begin experiment",
     // render function renders the view
