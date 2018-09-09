@@ -11,7 +11,7 @@ var config_deploy = {
     // set deployment method; use one of:
     //'debug', 'localServer', 'MTurk', 
     // 'MTurkSandbox', 'Prolific', 'directLink'
-    "deployMethod": "Prolific",
+    "deployMethod": "debug",
 
     // optional fields
     // set the prolific code if the deploy method is "Prolific"
