@@ -19,5 +19,5 @@ var config_deploy = {
     "prolificCode": "Z47M3IVO",
 
     // who to contact in case of trouble
-    "contact_email": "YOUREMAIL@wherelifeisgreat.you",
+    "contact_email": "YOUREMAIL@wherelifeisgreat.you"
 };

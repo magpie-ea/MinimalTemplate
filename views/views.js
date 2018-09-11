@@ -8,7 +8,7 @@ var intro = {
     "buttonText": "Begin experiment",
     // render function renders the view
     render: function () {
-        viewTemplate = $('#intro-view').html();
+        var viewTemplate = $('#intro-view').html();
 
         $('#main').html(Mustache.render(viewTemplate, {
             title: this.title,
@@ -66,7 +66,7 @@ var instructions = {
     "buttonText": "Go to practice trial",
     render: function () {
 
-        viewTemplate = $("#instructions-view").html();
+        var viewTemplate = $("#instructions-view").html();
         $('#main').html(Mustache.render(viewTemplate, {
             title: this.title,
             text: this.text,
@@ -88,7 +88,7 @@ var practice = {
     // render function renders the view
     render: function (CT) {
 
-        viewTemplate = $("#practice-view").html();
+        var viewTemplate = $("#practice-view").html();
         $('#main').html(Mustache.render(viewTemplate, {
             title: this.title,
             question: exp.trial_info.practice_trials[CT].question,
@@ -96,13 +96,13 @@ var practice = {
             option2: exp.trial_info.practice_trials[CT].option2,
             picture: exp.trial_info.practice_trials[CT].picture
         }));
-        startingTime = Date.now();
+        var startingTime = Date.now();
         // attaches an event listener to the yes / no radio inputs
         // when an input is selected a response property with a value equal to the answer is added to the trial object
         // as well as a readingTimes property with value - a list containing the reading times of each word
         $('input[name=answer]').on('change', function () {
-            RT = Date.now() - startingTime; // measure RT before anything else
-            trial_data = {
+            var RT = Date.now() - startingTime; // measure RT before anything else
+            var trial_data = {
                 trial_type: "practice",
                 trial_number: CT + 1,
                 question: exp.trial_info.practice_trials[CT].question,
@@ -125,7 +125,7 @@ var beginMainExp = {
     // render function renders the view
     render: function () {
 
-        viewTemplate = $('#begin-exp-view').html();
+        var viewTemplate = $('#begin-exp-view').html();
         $('#main').html(Mustache.render(viewTemplate, {
             text: this.text
         }));
@@ -160,8 +160,8 @@ var main = {
         // event listener for buttons; when an input is selected, the response
         // and additional information are stored in exp.trial_info
         $('input[name=answer]').on('change', function () {
-            RT = Date.now() - startingTime; // measure RT before anything else
-            trial_data = {
+            var RT = Date.now() - startingTime; // measure RT before anything else
+            var trial_data = {
                 trial_type: "mainForcedChoice",
                 trial_number: CT + 1,
                 question: exp.trial_info.main_trials[CT].question,
@@ -175,7 +175,7 @@ var main = {
         });
 
         // record trial starting time
-        startingTime = Date.now();
+        var startingTime = Date.now();
 
     },
     trials: 4
@@ -189,7 +189,7 @@ var postTest = {
     // render function renders the view
     render: function () {
 
-        viewTemplate = $('#post-test-view').html();
+        var viewTemplate = $('#post-test-view').html();
         $('#main').html(Mustache.render(viewTemplate, {
             title: this.title,
             text: this.text,
@@ -222,14 +222,14 @@ var thanks = {
     "message": "Thank you for taking part in this experiment!",
     render: function () {
 
-        viewTemplate = $('#thanks-view').html();
+        var viewTemplate = $('#thanks-view').html();
 
         // what is seen on the screen depends on the used deploy method
         //    normally, you do not need to modify this
         if ((config_deploy.is_MTurk) || (config_deploy.deployMethod === 'directLink')) {
             // updates the fields in the hidden form with info for the MTurk's server
             $('#main').html(Mustache.render(viewTemplate, {
-                thanksMessage: this.message,
+                thanksMessage: this.message
             }));
         } else if (config_deploy.deployMethod === 'Prolific') {
             var prolificURL = 'https://app.prolific.ac/submissions/complete?cc=' + config_deploy.prolificCode;

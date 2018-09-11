@@ -96,7 +96,7 @@ exp.submit = function () {
         var columns = [];
 
         for (var i = 0; i < trialData.length; i++) {
-            for (prop in trialData[i]) {
+            for (var prop in trialData[i]) {
                 if ((trialData[i].hasOwnProperty(prop)) && (columns.indexOf(prop) === -1)) {
                     columns.push(prop);
                 }
@@ -140,6 +140,7 @@ exp.submit = function () {
 
         output += "<tbody><tr>";
 
+        var entry = "";
         for (var i = 0; i < trials.length; i++) {
             var currentTrial = trials[i];
             for (var trialKey in t) {
@@ -284,7 +285,7 @@ var prepareDataFromCSV = function (practiceTrialsFile, trialsFile) {
         url: practiceTrialsFile,
         dataType: "text",
         crossDomain: true,
-        success: function (file, textStatus, jqXHR) {
+        success: function (file, _, jqXHR) {
             addToContainer(data, "practice_trials", processTrialsData(CSV.parse(file)));
         }
     });
@@ -301,13 +302,13 @@ var prepareDataFromCSV = function (practiceTrialsFile, trialsFile) {
     return data;
 };
 
-loop = function (arr, count, shuffleFlag) {
+var loop = function (arr, count, shuffleFlag) {
     return _.flatMapDeep(_.range(count), function (i) {
         return arr
     })
 };
 
-loopShuffled = function (arr, count) {
+var loopShuffled = function (arr, count) {
     return _.flatMapDeep(_.range(count), function (i) {
         return _.shuffle(arr)
     })
