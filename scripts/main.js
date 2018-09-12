@@ -116,23 +116,15 @@ exp.submit = function () {
 
     var formatDebugData = function (data) {
         var output = "<table id = 'debugresults'>";
-
-        var trials = data.trials;
-        delete data.trials;
-
-        var t = trials[0];
+        var flattenedData = flattenData(data);
+        
+        var t = flattenedData[0];
 
         output += "<thead><tr>";
 
-        for (var kt in t) {
-            if (t.hasOwnProperty(kt)) {
-                output += "<th>" + kt + "</th>";
-            }
-        }
-
-        for (var kd in data) {
-            if (data.hasOwnProperty(kd)) {
-                output += "<th>" + kd + "</th>";
+        for (const key in t) {
+            if (t.hasOwnProperty(key)) {
+                output += "<th>" + key + "</th>";
             }
         }
 
@@ -141,18 +133,12 @@ exp.submit = function () {
         output += "<tbody><tr>";
 
         var entry = "";
-        for (var i = 0; i < trials.length; i++) {
-            var currentTrial = trials[i];
-            for (var trialKey in t) {
-                if (currentTrial.hasOwnProperty(trialKey)) {
-                    entry = String(currentTrial[trialKey])
-                    output += "<td>" + entry.replace(/ /g, "&nbsp;") + "</td>";
-                }
-            }
 
-            for (var dataKey in data) {
-                if (data.hasOwnProperty(dataKey)) {
-                    entry = String(data[dataKey])
+        for (var i = 0; i < flattenedData.length; i++) {
+            var currentTrial = flattenedData[i];
+            for (const key in t) {
+                if (currentTrial.hasOwnProperty(key)) {
+                    entry = String(currentTrial[key])
                     output += "<td>" + entry.replace(/ /g, "&nbsp;") + "</td>";
                 }
             }
