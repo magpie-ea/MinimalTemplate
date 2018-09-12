@@ -114,9 +114,8 @@ exp.submit = function () {
         return trialData;
     };
 
-    var formatDebugData = function (data) {
+    var formatDebugData = function (flattenedData) {
         var output = "<table id = 'debugresults'>";
-        var flattenedData = flattenData(data);
         
         var t = flattenedData[0];
 
@@ -248,16 +247,53 @@ exp.submit = function () {
     } else {
         // hides the 'Please do not close the tab.. ' message in debug mode
         console.log(data);
+        var flattenedData = flattenData(data);
         $('.warning-message').addClass('nodisplay');
         jQuery('<h3/>', {
             text: 'Debug Mode'
         }).appendTo($('.view'));
         jQuery('<div/>', {
             class: 'debug-results',
-            html: formatDebugData(data)
+            html: formatDebugData(flattenedData)
         }).appendTo($('.view'));
+        createCSVForDownload(flattenedData);
     }
 };
+
+var createCSVForDownload = function (flattenedData) {
+    var csvOutput = "";
+
+    var t = flattenedData[0];
+
+    for (const key in t) {
+        if (t.hasOwnProperty(key)) {
+            csvOutput += '"' + String(key) + '",';
+        }
+    }
+    csvOutput += "\n";
+    for (var i = 0; i < flattenedData.length; i++) {
+        var currentTrial = flattenedData[i];
+        for (const key in t) {
+            if (currentTrial.hasOwnProperty(key)) {
+                csvOutput += '"' + String(currentTrial[key]) + '",';
+            }
+        }
+        csvOutput += "\n";
+    }
+
+    var blob = new Blob([csvOutput], {type: 'text/csv'});
+    if(window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveBlob(blob, "results.csv");
+    }
+    else{
+        jQuery('<a/>', {
+            class: "download-btn",
+            html: "Download the results as CSV",
+            href: window.URL.createObjectURL(blob),
+            download: "results.csv"
+        }).appendTo($('.view'));
+    }
+}
 
 var processTrialsData = function (rows) {
     var toReturn = [];
