@@ -95,7 +95,7 @@ exp.submit = function () {
         var columns = [];
 
         for (var i = 0; i < trialData.length; i++) {
-            for (prop in trialData[i]) {
+            for (var prop in trialData[i]) {
                 if ((trialData[i].hasOwnProperty(prop)) && (columns.indexOf(prop) === -1)) {
                     columns.push(prop);
                 }
@@ -113,25 +113,16 @@ exp.submit = function () {
         return trialData;
     };
 
-    var formatDebugData = function (data) {
+    var formatDebugData = function (flattenedData) {
         var output = "<table id = 'debugresults'>";
-
-        var trials = data.trials;
-        delete data.trials;
-
-        var t = trials[0];
+        
+        var t = flattenedData[0];
 
         output += "<thead><tr>";
 
-        for (var kt in t) {
-            if (t.hasOwnProperty(kt)) {
-                output += "<th>" + kt + "</th>";
-            }
-        }
-
-        for (var kd in data) {
-            if (data.hasOwnProperty(kd)) {
-                output += "<th>" + kd + "</th>";
+        for (const key in t) {
+            if (t.hasOwnProperty(key)) {
+                output += "<th>" + key + "</th>";
             }
         }
 
@@ -139,18 +130,13 @@ exp.submit = function () {
 
         output += "<tbody><tr>";
 
-        for (var i = 0; i < trials.length; i++) {
-            var currentTrial = trials[i];
-            for (var trialKey in t) {
-                if (currentTrial.hasOwnProperty(trialKey)) {
-                    entry = String(currentTrial[trialKey])
-                    output += "<td>" + entry.replace(/ /g, "&nbsp;") + "</td>";
-                }
-            }
+        var entry = "";
 
-            for (var dataKey in data) {
-                if (data.hasOwnProperty(dataKey)) {
-                    entry = String(data[dataKey])
+        for (var i = 0; i < flattenedData.length; i++) {
+            var currentTrial = flattenedData[i];
+            for (const key in t) {
+                if (currentTrial.hasOwnProperty(key)) {
+                    entry = String(currentTrial[key])
                     output += "<td>" + entry.replace(/ /g, "&nbsp;") + "</td>";
                 }
             }
@@ -166,7 +152,23 @@ exp.submit = function () {
     var flattenData = function (data) {
         var trials = data.trials;
         delete data.trials;
+
+        // The easiest way to avoid name clash is just to check the keys one by one and rename them if necessary.
+        // Though I think it's also the user's responsibility to avoid such scenarios...
+        var sample_trial = trials[0];
+        for (var trial_key in sample_trial) {
+            if (sample_trial.hasOwnProperty(trial_key)) {
+                if (data.hasOwnProperty(trial_key)) {
+                    // Much easier to just operate it once on the data, since if we also want to operate on the trials we'd need to loop through each one of them.
+                    var new_data_key = "glb_" + trial_key;
+                    data[new_data_key] = data[trial_key];
+                    delete data[trial_key];
+                }
+            }
+        }
+
         var out = _.map(trials, function (t) {
+            // Here the data is the general informatoin besides the trials.
             return _.merge(t, data);
         });
         return out;
@@ -244,16 +246,53 @@ exp.submit = function () {
     } else {
         // hides the 'Please do not close the tab.. ' message in debug mode
         console.log(data);
+        var flattenedData = flattenData(data);
         $('.warning-message').addClass('nodisplay');
         jQuery('<h3/>', {
             text: 'Debug Mode'
         }).appendTo($('.view'));
         jQuery('<div/>', {
             class: 'debug-results',
-            html: formatDebugData(data)
+            html: formatDebugData(flattenedData)
         }).appendTo($('.view'));
+        createCSVForDownload(flattenedData);
     }
 };
+
+var createCSVForDownload = function (flattenedData) {
+    var csvOutput = "";
+
+    var t = flattenedData[0];
+
+    for (const key in t) {
+        if (t.hasOwnProperty(key)) {
+            csvOutput += '"' + String(key) + '",';
+        }
+    }
+    csvOutput += "\n";
+    for (var i = 0; i < flattenedData.length; i++) {
+        var currentTrial = flattenedData[i];
+        for (const key in t) {
+            if (currentTrial.hasOwnProperty(key)) {
+                csvOutput += '"' + String(currentTrial[key]) + '",';
+            }
+        }
+        csvOutput += "\n";
+    }
+
+    var blob = new Blob([csvOutput], {type: 'text/csv'});
+    if(window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveBlob(blob, "results.csv");
+    }
+    else{
+        jQuery('<a/>', {
+            class: "download-btn",
+            html: "Download the results as CSV",
+            href: window.URL.createObjectURL(blob),
+            download: "results.csv"
+        }).appendTo($('.view'));
+    }
+}
 
 var processTrialsData = function (rows) {
     var toReturn = [];
@@ -283,7 +322,7 @@ var prepareDataFromCSV = function (practiceTrialsFile, trialsFile) {
         url: practiceTrialsFile,
         dataType: "text",
         crossDomain: true,
-        success: function (file, textStatus, jqXHR) {
+        success: function (file, _, jqXHR) {
             addToContainer(data, "practice_trials", processTrialsData(CSV.parse(file)));
         }
     });
@@ -300,13 +339,13 @@ var prepareDataFromCSV = function (practiceTrialsFile, trialsFile) {
     return data;
 };
 
-loop = function (arr, count, shuffleFlag) {
+var loop = function (arr, count, shuffleFlag) {
     return _.flatMapDeep(_.range(count), function (i) {
         return arr
     })
 };
 
-loopShuffled = function (arr, count) {
+var loopShuffled = function (arr, count) {
     return _.flatMapDeep(_.range(count), function (i) {
         return _.shuffle(arr)
     })

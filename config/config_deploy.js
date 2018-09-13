@@ -12,7 +12,7 @@ var config_deploy = {
     // set deployment method; use one of:
     //'debug', 'localServer', 'MTurk', 
     // 'MTurkSandbox', 'Prolific', 'directLink'
-    "deployMethod": "Prolific",
+    "deployMethod": "debug",
 
     // who to contact in case of trouble
     "contact_email": "YOUREMAIL@wherelifeisgreat.you",
@@ -22,5 +22,4 @@ var config_deploy = {
     // set the prolific completion URL if the deploy method is "Prolific"
     // the URL should look something like this - https://app.prolific.ac/submissions/complete?cc=ABCD1234
     "prolificURL": "https://app.prolific.ac/submissions/complete?cc=ABCD1234"
-
 };

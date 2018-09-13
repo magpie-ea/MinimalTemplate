@@ -344,6 +344,21 @@ input[type="range"]:focus::-moz-range-thumb {
     text-align: left;
 }
 
+/* Similar to Bootstrap button */
+.download-btn {
+    background-color: #5187BA;
+    border-radius: 5px;
+    color: white;
+    padding: .5em;
+    text-decoration: none;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 300px;
+    text-align: center;
+    margin-top: 20px;
+}
+
 /* submission loader */
 /* https://projects.lukehaas.me/css-loaders/ */
 .loader,
