@@ -50,25 +50,25 @@
 
         <!-- Introduction view -->
         <script id="intro-view" type="x-tmpl-mustache">
-        <div class='view'>
-            {{# title }}
-            <h1 class="title">{{ title }}</h1>
-            {{/ title }}
-            {{# text }}
-            <section class="text-container">
-                <p class="text">{{ text }}</p>
-            </section>
-            {{/ text }}
-            <p id="prolific-id-form">
-                <label for="prolific-id">Please, enter your Prolific ID</label>
-                <input type="text" id="prolific-id" />
-            </p>
-            {{# button }}
-            <button id="next" class="nodisplay">{{ button }}</button>
-            {{/ button }}
-            {{^ button }}
-            <button id="next" class="nodisplay">Begin Experiment</button>
-            {{/ button }}
+            <div class='view'>
+                {{# title }}
+                <h1 class="title">{{ title }}</h1>
+                {{/ title }}
+                {{# text }}
+                <section class="text-container">
+                    <p class="text">{{ text }}</p>
+                </section>
+                {{/ text }}
+                <p id="prolific-id-form">
+                    <label for="prolific-id">Please, enter your Prolific ID</label>
+                    <input type="text" id="prolific-id" />
+                </p>
+                {{# button }}
+                <button id="next" class="nodisplay">{{ button }}</button>
+                {{/ button }}
+                {{^ button }}
+                <button id="next" class="nodisplay">Begin Experiment</button>
+                {{/ button }}
             </div>
         </script>
 

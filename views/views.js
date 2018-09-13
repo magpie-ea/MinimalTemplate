@@ -1,12 +1,8 @@
 var intro = {
     name: 'intro',
-    // introduction title
-    "title": "Welcome!",
-    // introduction text
-    "text": "Thank you for participating in our study. In this study, you will judge whether each of 10 short sentences is true or false.",
-    // introduction's slide proceeding button text
-    "buttonText": "Begin experiment",
-    // render function renders the view
+    title: "Welcome!",
+    text: "Thank you for participating in our study. In this study, you will judge whether each of 10 short sentences is true or false.",
+    buttonText: "Begin experiment",
     render: function () {
         viewTemplate = $('#intro-view').html();
 
@@ -58,12 +54,10 @@ var intro = {
 
 var instructions = {
     name: 'instructions',
-    // instruction's title
-    "title": "Instructions",
-    // instruction's text
-    "text": "On each trial, you will see a question and two response options. Please select the response option you like most. We start with two practice trials.",
-    // instuction's slide proceeding button text
-    "buttonText": "Go to practice trial",
+    title: "Instructions",
+    text: "On each trial, you will see a question and two response options. Please select the response option you like most. We start with two practice trials.",
+    buttonText: "Go to practice trial",
+
     render: function () {
 
         viewTemplate = $("#instructions-view").html();
@@ -84,8 +78,7 @@ var instructions = {
 
 var practice = {
     name: 'practice',
-    "title": "Practice trial",
-    // render function renders the view
+    title: "Practice trial",
     render: function (CT) {
 
         viewTemplate = $("#practice-view").html();
@@ -121,8 +114,7 @@ var practice = {
 
 var beginMainExp = {
     name: 'beginMainExp',
-    "text": "Now that you have acquainted yourself with the procedure of the task, the actual experiment will begin.",
-    // render function renders the view
+    text: "Now that you have acquainted yourself with the procedure of the task, the actual experiment will begin.",
     render: function () {
 
         viewTemplate = $('#begin-exp-view').html();
@@ -141,7 +133,6 @@ var beginMainExp = {
 
 var main = {
     name: 'main',
-    // render function renders the view
     render: function (CT) {
 
         // fill variables in view-template
@@ -183,10 +174,9 @@ var main = {
 
 var postTest = {
     name: 'postTest',
-    "title": "Additional Info",
-    "text": "Answering the following questions is optional, but will help us understand your answers.",
-    "buttonText": "Continue",
-    // render function renders the view
+    title: "Additional Info",
+    text: "Answering the following questions is optional, but will help us understand your answers.",
+    buttonText: "Continue",
     render: function () {
 
         viewTemplate = $('#post-test-view').html();
@@ -219,7 +209,7 @@ var postTest = {
 
 var thanks = {
     name: 'thanks',
-    "message": "Thank you for taking part in this experiment!",
+    message: "Thank you for taking part in this experiment!",
     render: function () {
 
         viewTemplate = $('#thanks-view').html();
@@ -232,11 +222,10 @@ var thanks = {
                 thanksMessage: this.message,
             }));
         } else if (config_deploy.deployMethod === 'Prolific') {
-            var prolificURL = 'https://app.prolific.ac/submissions/complete?cc=' + config_deploy.prolificCode;
 
             $('main').html(Mustache.render(viewTemplate, {
                 thanksMessage: this.message,
-                extraMessage: "Please press the button below to confirm that you completed the expetiment with Prolific<br />" + '<a href=' + prolificURL + ' class="prolific-url">Confirm</a>'
+                extraMessage: "Please press the button below to confirm that you completed the experiment with Prolific<br />" + '<a href=' + config_deploy.prolificURL + ' class="prolific-url">Confirm</a>'
             }));
         } else if (config_deploy.deployMethod === 'debug') {
             $('main').html(Mustache.render(viewTemplate, {}));

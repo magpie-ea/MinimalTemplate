@@ -62,7 +62,6 @@ exp.init = function () {
     console.log("MTurk server: " + config_deploy.MTurk_server);
 };
 
-
 // navigation through the views and steps in each view;
 // shows each view (in the order defined in 'config_general') for
 // the given number of steps (as defined in the view's 'trial' property)
