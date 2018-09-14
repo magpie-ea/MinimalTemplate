@@ -115,7 +115,7 @@ exp.submit = function () {
 
     var formatDebugData = function (flattenedData) {
         var output = "<table id = 'debugresults'>";
-        
+
         var t = flattenedData[0];
 
         output += "<thead><tr>";
@@ -176,9 +176,7 @@ exp.submit = function () {
 
     // construct data object for output
     var data = {
-        'author': config_deploy.author,
         'experiment_id': config_deploy.experimentID,
-        'description': config_deploy.description,
         'trials': addEmptyColumns(exp.trial_data)
     };
 
@@ -280,11 +278,12 @@ var createCSVForDownload = function (flattenedData) {
         csvOutput += "\n";
     }
 
-    var blob = new Blob([csvOutput], {type: 'text/csv'});
-    if(window.navigator.msSaveOrOpenBlob) {
+    var blob = new Blob([csvOutput], {
+        type: 'text/csv'
+    });
+    if (window.navigator.msSaveOrOpenBlob) {
         window.navigator.msSaveBlob(blob, "results.csv");
-    }
-    else{
+    } else {
         jQuery('<a/>', {
             class: "download-btn",
             html: "Download the results as CSV",
