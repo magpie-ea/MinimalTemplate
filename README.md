@@ -77,7 +77,7 @@ var intro = {
     // render function renders the view
     render: function() {
         var viewTemplate = $('#intro-view').html();
-        $('#main').html(Mustache.render(view.template, {
+        $('#main').html(Mustache.render(viewTemplate, {
                 title: this.title,
                 text: this.text,
                 button: this.buttonText
