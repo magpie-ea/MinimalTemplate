@@ -19,19 +19,19 @@ Extensive documentation is provided on the [_babe site](http://babe-project.gith
 
 + `index.html` - starting point; to be loaded in the browser; general structure; user must edit this
 
-+ `views`/     - file with a collection of views (= block / chunk of related content) of the experiment
-	+ `view.js`            - definition of how individual trials look, which data to collect etc.; main work happens here
++ `views`/ - file with a collection of views (= block / chunk of related content) of the experiment
+    + `view.js` - definition of how individual trials look, which data to collect etc.; main work happens here
 
-+ `scripts`/   - files for main functionality
-	+ `experiment.js`       - initializes the experiment (trial structure, input data etc.); user must customize this
-	+ `main.js`             - main functionality to run experiment; usually user will not edit this
-    + `helpers.js`          - helper functions specific to each particular experiment; user might edit this
-	+ `submit_to_server.js` - functions to process, send or store data; user will almost never edit this
++ `scripts`/ - files for main functionality
+    + `experiment.js` - initializes the experiment (trial structure, input data etc.); user must customize this
+    + `main.js` - main functionality to run experiment; usually user will not edit this
+    + `helpers.js` - helper functions specific to each particular experiment; user might edit this
+    + `submit_to_server.js` - functions to process, send or store data; user will almost never edit this
 
-+ `config`/    - file(s) with user-supplied information
-	+ `config_deploy.js`    - information about how to deploy (=run, collect data for) the experiment
++ `config`/ - file(s) with user-supplied information
+    + `config_deploy.js` - information about how to deploy (=run, collect data for) the experiment
 
-+ `images`       - images shown in this experiment; optional; user usually supplies these
++ `images` - images shown in this experiment; optional; user usually supplies these
 
 + `styles/styles.css`  - style files
 
@@ -44,11 +44,11 @@ Extensive documentation is provided on the [_babe site](http://babe-project.gith
 
 The main files which must (usually) be edited to program an experiment are: 
 
-+ `index.html`    - provide view-templates
++ `index.html` - provide view-templates
 
 + `views/view.js` - define how individual trials look, which data to collect etc.
 
-+ `scripts/experiment.js`   - define structure of the experiment (order of blocks, number of trials etc.)
++ `scripts/experiment.js` - define structure of the experiment (order of blocks, number of trials etc.)
 
 + `config/config_deploy.js` - just choose one of several options regarding what to do with the collected data
 
@@ -67,33 +67,30 @@ For example, the `intro` view of the minimal template looks like this:
 
 ```javascript
 var intro = {
+    name: 'intro',
     // introduction title
-    "title": "Welcome!",
-             // introduction text
-             "text": "Thank you for participating in our study. In this study, you will ...",
-             // introduction's slide proceeding button text
-             "buttonText": "Begin experiment",
-             // render function renders the view
-             render: function() {
-    var view = {};
-                                 view.name = 'intro';
-                                 view.template = $('#intro-view').html();
-                                 $('#main').html(Mustache.render(view.template, {
-    title: this.title,
-                                                                                 text: this.text,
-                                                                                 button: this.buttonText
-                                                                                }));
+    title: "Welcome!",
+    // introduction text
+    text: "Thank you for participating in our study. In this study, you will ...",
+    // introduction's slide proceeding button text
+    buttonText: "Begin experiment",
+    // render function renders the view
+    render: function() {
+        var viewTemplate = $('#intro-view').html();
+        $('#main').html(Mustache.render(view.template, {
+                title: this.title,
+                text: this.text,
+                button: this.buttonText
+          }));
 
-                                 // moves to the next view
-                                 $('#next').on('click', function(e) {
-    exp.findNextView();
-                                                                    });
-
-                                 return view;
-                                },
-             // for how many trials should this view be repeated?
-             trials: 1
-            }
+        // moves to the next view
+        $('#next').on('click', function() {
+            exp.findNextView();
+        });
+    },
+    // for how many trials should this view be repeated?
+    trials: 1
+}
 ```
 
 ## Experiment
@@ -112,15 +109,17 @@ The sequence of views is defined in `scripts/experiment.js`, for example like so
 
 ``` javascript
 // specify view order
-this.views = [intro,
-              instructionsForcedChoice,
-              practiceForcedChoice,
-              beginForcedChoice,
-              mainForcedChoice,
-              instructionsSliderRating,
-              mainSliderRating,
-              postTest,
-              thanks];
+this.views = [
+    intro,
+    instructionsForcedChoice,
+    practiceForcedChoice,
+    beginForcedChoice,
+    mainForcedChoice,
+    instructionsSliderRating,
+    mainSliderRating,
+    postTest,
+    thanks
+];
 ```
 
 
