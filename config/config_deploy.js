@@ -7,7 +7,7 @@ var config_deploy = {
     "experimentID": "8",
 
     // if you use the _babe server app, specify its URL here
-    "serverAppURL": "https://babe-backend.herokuapp.com/api/submit_experiment/",
+    "serverAppURL": "https://babe-demo.herokuapp.com/api/submit_experiment/",
 
     // set deployment method; use one of:
     //'debug', 'localServer', 'MTurk', 
