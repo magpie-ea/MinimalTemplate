@@ -120,7 +120,7 @@ exp.submit = function () {
 
         output += "<thead><tr>";
 
-        for (const key in t) {
+        for (var key in t) {
             if (t.hasOwnProperty(key)) {
                 output += "<th>" + key + "</th>";
             }
@@ -134,9 +134,9 @@ exp.submit = function () {
 
         for (var i = 0; i < flattenedData.length; i++) {
             var currentTrial = flattenedData[i];
-            for (const key in t) {
-                if (currentTrial.hasOwnProperty(key)) {
-                    entry = String(currentTrial[key])
+            for (var k in t) {
+                if (currentTrial.hasOwnProperty(k)) {
+                    entry = String(currentTrial[k])
                     output += "<td>" + entry.replace(/ /g, "&nbsp;") + "</td>";
                 }
             }
@@ -262,7 +262,7 @@ var createCSVForDownload = function (flattenedData) {
 
     var t = flattenedData[0];
 
-    for (const key in t) {
+    for (var key in t) {
         if (t.hasOwnProperty(key)) {
             csvOutput += '"' + String(key) + '",';
         }
@@ -270,9 +270,9 @@ var createCSVForDownload = function (flattenedData) {
     csvOutput += "\n";
     for (var i = 0; i < flattenedData.length; i++) {
         var currentTrial = flattenedData[i];
-        for (const key in t) {
-            if (currentTrial.hasOwnProperty(key)) {
-                csvOutput += '"' + String(currentTrial[key]) + '",';
+        for (var k in t) {
+            if (currentTrial.hasOwnProperty(k)) {
+                csvOutput += '"' + String(currentTrial[k]) + '",';
             }
         }
         csvOutput += "\n";
