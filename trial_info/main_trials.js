@@ -1,4 +1,4 @@
-var main_trials = [
+let main_trials = [
     {
         question: "How are you today?",
         option1: "fine",

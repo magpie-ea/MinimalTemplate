@@ -1,4 +1,4 @@
-var practice_trials = [
+let practice_trials = [
     {
         question: "Where is your head?",
         option1: "here",

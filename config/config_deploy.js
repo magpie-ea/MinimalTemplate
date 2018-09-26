@@ -1,4 +1,4 @@
-var config_deploy = {
+const config_deploy = {
 
     // OBLIGATORY FIELDS
 
@@ -23,3 +23,5 @@ var config_deploy = {
     // the URL should look something like this - https://app.prolific.ac/submissions/complete?cc=ABCD1234
     "prolificURL": "https://app.prolific.ac/submissions/complete?cc=ABCD1234"
 };
+
+export { config_deploy }

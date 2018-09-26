@@ -1,8 +1,4 @@
 // submits data to the server and MTurk's server if the experiment runs on MTurk
-// takes three arguments:
-// 1) isMTurk - boolean; true if the experiment runs on MTurk
-// 2) contactEmail - string
-// 3) trials
 var submitResults = function(contactEmail, submissionURL, data) {
     // set a default contact email
     contactEmail =

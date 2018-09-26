@@ -1,96 +1,81 @@
-// when the DOM is created and JavaScript code can run safely,
-// the experiment initialisation is called
-$("document").ready(function() {
-    exp.init();
-    // prevent scrolling when space is pressed (firefox does it)
-    window.onkeydown = function(e) {
-        if (e.keyCode == 32 && e.target == document.body) {
-            e.preventDefault();
-        }
-    };
+import { updateProgress, views_seq } from './modules/utils.js';
+import { customize } from './modules/experiment.js';
+import { config_deploy } from '../config/config_deploy.js';
+
+const config = {};
+// user does not (should not) change the following information
+// checks the config _deploy.deployMethod is MTurk or MTurkSandbox,
+// sets the submission url to MTukr's servers
+config.MTurk_server =
+    config_deploy.deployMethod == "MTurkSandbox"
+        ? "https://workersandbox.mturk.com/mturk/externalSubmit" // URL for MTurk sandbox
+        : config_deploy.deployMethod == "MTurk"
+            ? "https://www.mturk.com/mturk/externalSubmit" // URL for live HITs on MTurk
+            : ""; // blank if deployment is not via MTurk
+// if the config_deploy.deployMethod is not debug, then liveExperiment is true
+config.liveExperiment = config_deploy.deployMethod !== "debug";
+config.is_MTurk = config_deploy.MTurk_server !== "";
+config.submissionURL =
+    config_deploy.deployMethod == "localServer"
+        ? "http://localhost:4000/api/submit_experiment/" +
+          config_deploy.experimentID
+        : config_deploy.serverAppURL + config_deploy.experimentID;
+console.log("deployMethod: " + config_deploy.deployMethod);
+console.log("live experiment: " + config.liveExperiment);
+console.log("runs on MTurk: " + config.is_MTurk);
+console.log("MTurk server: " + config.MTurk_server);
+
+// insert a Current Trial (CT) counter for each view
+_.map(views_seq, function(view) {
+         view.CT = 0;
 });
 
-// empty shell for 'exp' object; to be filled with life by the init() function
-var exp = {};
-
-exp.init = function() {
-    // allocate storage room for global data, trial data, and trial info
-    this.global_data = {};
-    this.trial_data = [];
-    this.trial_info = {};
-
-    // record current date and time
-    this.global_data.startDate = Date();
-    this.global_data.startTime = Date.now();
-
-    // call user-defined costumization function
-    this.customize();
-
-    // flatten views_seq after possible 'loop' insertions
-    this.views_seq = _.flatten(this.views_seq);
-    // create Progress Bar/s
-    this.progress = this.initProgressBar();
-    this.progress.add();
-
-    // insert a Current Trial counter for each view
-    _.map(this.views_seq, function(i) {
-        i.CT = 0;
-    });
-
-    // initialize procedure
-    this.currentViewCounter = 0;
-    this.currentTrialCounter = 0;
-    this.currentTrialInViewCounter = 0;
-    this.currentView = this.findNextView();
-
-    // user does not (should not) change the following information
-    // checks the config _deploy.deployMethod is MTurk or MTurkSandbox,
-    // sets the submission url to MTukr's servers
-    config_deploy.MTurk_server =
-        config_deploy.deployMethod == "MTurkSandbox"
-            ? "https://workersandbox.mturk.com/mturk/externalSubmit" // URL for MTurk sandbox
-            : config_deploy.deployMethod == "MTurk"
-                ? "https://www.mturk.com/mturk/externalSubmit" // URL for live HITs on MTurk
-                : ""; // blank if deployment is not via MTurk
-    // if the config_deploy.deployMethod is not debug, then liveExperiment is true
-    config_deploy.liveExperiment = config_deploy.deployMethod !== "debug";
-    config_deploy.is_MTurk = config_deploy.MTurk_server !== "";
-    config_deploy.submissionURL =
-        config_deploy.deployMethod == "localServer"
-            ? "http://localhost:4000/api/submit_experiment/" +
-              config_deploy.experimentID
-            : config_deploy.serverAppURL + config_deploy.experimentID;
-    console.log("deployMethod: " + config_deploy.deployMethod);
-    console.log("live experiment: " + config_deploy.liveExperiment);
-    console.log("runs on MTurk: " + config_deploy.is_MTurk);
-    console.log("MTurk server: " + config_deploy.MTurk_server);
+// create global data where ... is stored
+exp.global_data = {
+    startDate: Date(),
+    startTime: Date.now()
 };
+// prepare information about trials (procedure)
+// randomize main trial order, but keep practice trial order fixed
+exp.trial_info = {
+    main_trials: _.shuffle(
+        main_trials.concat(practice_trials)
+    ),
+    practice_trials: practice_trials    
+}
+// the data from the participants is collected here
+exp.trial_data = [];
 
 // navigation through the views and steps in each view;
-// shows each view (in the order defined in 'config_general') for
+// shows each view (in the order defined in 'modules/experiment.js') for
 // the given number of steps (as defined in the view's 'trial' property)
 exp.findNextView = function() {
-    var currentView = this.views_seq[this.currentViewCounter];
-    if (this.currentTrialInViewCounter < currentView.trials) {
-        currentView.render(currentView.CT, this.currentTrialInViewCounter);
+    let currentView = views_seq[exp.currentViewCounter];
+    if (exp.currentTrialInViewCounter < currentView.trials) {
+        currentView.render(currentView.CT, exp.currentTrialInViewCounter);
     } else {
-        this.currentViewCounter++;
-        currentView = this.views_seq[this.currentViewCounter];
-        this.currentTrialInViewCounter = 0;
+        exp.currentViewCounter++;
+        currentView = views_seq[exp.currentViewCounter];
+        exp.currentTrialInViewCounter = 0;
         currentView.render(currentView.CT);
     }
     // increment counter for how many trials we have seen of THIS view during THIS occurrence of it
-    this.currentTrialInViewCounter++;
+    exp.currentTrialInViewCounter++;
     // increment counter for how many trials we have seen in the whole experiment
-    this.currentTrialCounter++;
+    exp.currentTrialCounter++;
     // increment counter for how many trials we have seen of THIS view during the whole experiment
     currentView.CT++;
+    // updates the progress bar if the view has one
     if (currentView.hasProgressBar) {
-        this.progress.update();
+        updateProgress();
     }
 
     return currentView;
 };
+
+exp.currentView = exp.findNextView();
+
+// exports
 
 // submits the data
 exp.submit = function() {
@@ -268,42 +253,6 @@ exp.submit = function() {
     }
 };
 
-var createCSVForDownload = function(flattenedData) {
-    var csvOutput = "";
-
-    var t = flattenedData[0];
-
-    for (var key in t) {
-        if (t.hasOwnProperty(key)) {
-            csvOutput += '"' + String(key) + '",';
-        }
-    }
-    csvOutput += "\n";
-    for (var i = 0; i < flattenedData.length; i++) {
-        var currentTrial = flattenedData[i];
-        for (var k in t) {
-            if (currentTrial.hasOwnProperty(k)) {
-                csvOutput += '"' + String(currentTrial[k]) + '",';
-            }
-        }
-        csvOutput += "\n";
-    }
-
-    var blob = new Blob([csvOutput], {
-        type: "text/csv"
-    });
-    if (window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveBlob(blob, "results.csv");
-    } else {
-        jQuery("<a/>", {
-            class: "button download-btn",
-            html: "Download the results as CSV",
-            href: window.URL.createObjectURL(blob),
-            download: "results.csv"
-        }).appendTo($(".view"));
-    }
-};
-
 var processTrialsData = function(rows) {
     var toReturn = [];
     var headers = rows[0];
@@ -315,55 +264,4 @@ var processTrialsData = function(rows) {
         toReturn.push(thisTrial);
     }
     return toReturn;
-};
-
-var prepareDataFromCSV = function(practiceTrialsFile, trialsFile) {
-    var data = {
-        out: [] // mandatory field to store results in during experimental trials
-    };
-
-    // Need to use such a callback since AJAX is async.
-    var addToContainer = function(container, name, results) {
-        container[name] = results;
-    };
-
-    $.ajax({
-        url: practiceTrialsFile,
-        dataType: "text",
-        crossDomain: true,
-        success: function(file, _, jqXHR) {
-            addToContainer(
-                data,
-                "practice_trials",
-                processTrialsData(CSV.parse(file))
-            );
-        }
-    });
-
-    $.ajax({
-        url: trialsFile,
-        dataType: "text",
-        crossDomain: true,
-        success: function(file, textStatus, jqXHR) {
-            addToContainer(
-                data,
-                "trials",
-                _.shuffle(processTrialsData(CSV.parse(file)))
-            );
-        }
-    });
-
-    return data;
-};
-
-var loop = function(arr, count, shuffleFlag) {
-    return _.flatMapDeep(_.range(count), function(i) {
-        return arr;
-    });
-};
-
-var loopShuffled = function(arr, count) {
-    return _.flatMapDeep(_.range(count), function(i) {
-        return _.shuffle(arr);
-    });
 };

@@ -1,3 +1,5 @@
+import { config_deploy } from '../config/config_deploy.js';
+
 var intro = {
     name: "intro",
     // introduction title
@@ -47,7 +49,7 @@ var intro = {
         // moves to the next view
         next.on("click", function() {
             if (config_deploy.deployMethod === "Prolific") {
-                exp.global_data.prolific_id = prolificId.val().trim();
+                global_data.prolific_id = prolificId.val().trim();
             }
 
             exp.findNextView();
@@ -253,3 +255,5 @@ var thanks = {
     },
     trials: 1
 };
+
+export { intro, instructions, practice, beginMainExp, main, postTest, thanks }
