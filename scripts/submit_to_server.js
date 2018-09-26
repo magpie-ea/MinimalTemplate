@@ -4,8 +4,6 @@
 // 2) contactEmail - string
 // 3) trials
 var submitResults = function(contactEmail, submissionURL, data) {
-    // if isMTurk is not given, sets it to false
-    isMTurk = typeof isMTurk !== 'undefined' ? isMTurk : false;
     // set a default contact email
     contactEmail = typeof contactEmail !== 'undefined' ? contactEmail : "exprag@gmail.com";
 

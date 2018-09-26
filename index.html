@@ -47,7 +47,6 @@
         </main>
 
         <!-- Mustache templates below. Each template is a view with a separate HTML structure. -->
-
         <!-- Introduction view -->
         <script id="intro-view" type="x-tmpl-mustache">
             <div class='view'>
@@ -67,7 +66,7 @@
                 <button id="next" class="nodisplay">{{ button }}</button>
                 {{/ button }}
                 {{^ button }}
-                <button id="next" class="nodisplay">Begin Experiment</button>
+                <button id="next">Next</button>
                 {{/ button }}
             </div>
         </script>
@@ -86,7 +85,10 @@
             {{# button }}
             <button id="next">{{ button }}</button>
             {{/ button }}
-            </view>
+            {{^ button }}
+            <button id="next">Next</button>
+            {{/ button }}
+        </view>
         </script>
 
         <!-- Practice trial view -->
@@ -95,28 +97,25 @@
             {{# title }}
             <h1>{{ title }}</h1>
             {{/ title }}
-            <div class="picture", align = "center">
-            <img <img src={{picture}} alt="a picture" height="100" width="100">
+            <div class="picture">
+            <img <img src={{ picture }} alt="a picture" height="100" width="100">
             </div>
-
-          <p class="question">
-          {{# question }}
-          {{ question }}
-          {{/ question }}
+            {{# question }}
+            <p class="question">
+            {{ question }}
             </p>
-
+            {{/ question }}
             <p class="answer-container">
                 <label for="yes" class="button-answer">{{option1}}</label>
                 <input type="radio" name="answer" id="yes" value={{option1}} />
                 <input type="radio" name="answer" id="no" value={{option2}} />
                 <label for="no" class="button-answer">{{option2}}</label>
             </p>
-            </div>
+        </div>
         </script>
 
         <!-- Begin Experiment view -->
         <script id="begin-exp-view" type="x-tmpl-mustache">
-
         <div class="view">
             {{# text }}
             <section class="text-container">
@@ -130,25 +129,21 @@
         <!-- main view (buttons response) -->
         <script id="main-view" type="x-tmpl-mustache">
         <div class="view">
-
-        <div class="picture", align = "center">
-            <img src={{picture}} alt="a picture" height="100" width="100">
+            <div class="picture">
+                <img src={{ picture }} alt="a picture" height="100" width="100">
             </div>
-
-        <p class="question">
-        {{# question }}
-        {{{ question }}}
-        {{/ question }}
+            {{# question }}
+            <p class="question">
+            {{{ question }}}
             </p>
-
-        <p class="answer-container">
-            <label for="yes" class="button-answer">{{ option1 }}</label>
-            <input type="radio" name="answer" id="yes" value={{ option1 }} />
-            <input type="radio" name="answer" id="no" value={{ option2 }} />
-            <label for="no" class="button-answer">{{option2}}</label>
+            {{/ question }}
+            <p class="answer-container">
+                <label for="yes" class="button-answer">{{ option1 }}</label>
+                <input type="radio" name="answer" id="yes" value={{ option1 }} />
+                <input type="radio" name="answer" id="no" value={{ option2 }} />
+                <label for="no" class="button-answer">{{option2}}</label>
             </p>
-
-            </div>
+        </div>
         </script>
 
         <!-- post test view -->
@@ -163,43 +158,43 @@
             </section>
             {{/ text }}
             <form>
-                <p>
-                    <label for="age">Age:</label>
-                    <input type="number" name="age" min="18" max="110" id="age" />
+            <p>
+                <label for="age">Age:</label>
+                <input type="number" name="age" min="18" max="110" id="age" />
             </p>
-                <p>
-                    <label for="gender">Gender:</label>
-                    <select id="gender" name="gender">
-                        <option></option>
-                        <option value="male">male</option>
-                        <option value="female">female</option>
-                        <option value="other">other</option>
-            </select>
+            <p>
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender">
+                    <option></option>
+                    <option value="male">male</option>
+                    <option value="female">female</option>
+                    <option value="other">other</option>
+                </select>
             </p>
-                <p>
-                    <label for="education">Level of Education:</label>
-                    <select id="education" name="education">
-                        <option></option>
-                        <option value="graduated_high_school">Graduated High School</option>
-                        <option value="graduated_college">Graduated College</option>
-                        <option value="higher_degree">Higher Degree</option>
-            </select>
+            <p>
+                <label for="education">Level of Education:</label>
+                <select id="education" name="education">
+                    <option></option>
+                    <option value="graduated_high_school">Graduated High School</option>
+                    <option value="graduated_college">Graduated College</option>
+                    <option value="higher_degree">Higher Degree</option>
+                </select>
             </p>
-                <p>
-                    <label for="languages" name="languages">Native Languages: <br /><span>(i.e. the language(s) spoken at home when you were a child)</</span></label>
-                    <input type="text" id="languages"/>
+            <p>
+                <label for="languages" name="languages">Native Languages: <br /><span>(i.e. the language(s) spoken at home when you were a child)</</span></label>
+                <input type="text" id="languages"/>
             </p>
-                <p class="comment-sect">
-                    <label for="comments">Further comments</label>
-                    <textarea name="comments" id="comments"
-                    rows="6" cols="40"></textarea>
+            <p class="comment-sect">
+                <label for="comments">Further comments</label>
+                <textarea name="comments" id="comments"
+                rows="6" cols="40"></textarea>
             </p>
-                {{# buttonText }}
-                <button id="next">{{ buttonText }}</button>
-                {{/ buttonText }}
-                {{^ buttonText }}
-                <button id="next">Next</button>
-                {{/ buttonText }}
+            {{# buttonText }}
+            <button id="next">{{ buttonText }}</button>
+            {{/ buttonText }}
+            {{^ buttonText }}
+            <button id="next">Next</button>
+            {{/ buttonText }}
             </form>
             </div>
         </script>
@@ -219,7 +214,7 @@
             {{# extraMessage }}
             <h2 class="extra-message nodisplay">{{{ extraMessage }}}</h2>
             {{/ extraMessage }}
-            </div>
+        </div>
         </script>
     </body>
 </html>
