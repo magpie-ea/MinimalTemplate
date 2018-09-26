@@ -22,5 +22,5 @@ var practice_trials = [
         option1: "jam",
         option2: "ham",
         picture: "images/question_mark_04.png"
-    },
+    }
 ];

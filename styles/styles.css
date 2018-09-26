@@ -54,7 +54,8 @@ p {
     max-width: 550px;
 }
 
-button {
+button,
+.button {
     background-color: #5187BA;
     border: none;
     border-radius: 2px;
@@ -73,7 +74,9 @@ button {
 
 /* buttons when covered or clicked */
 button:hover,
-button:focus {
+button:focus,
+.button:hover,
+.button:focus {
     background-color: #324D93;
 }
 
@@ -125,6 +128,12 @@ button:focus {
 .question {
     padding: 30px 0;
     text-align: center;
+}
+
+.picture {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
 }
 
 .answer-container {
@@ -346,17 +355,8 @@ input[type="range"]:focus::-moz-range-thumb {
 
 /* Similar to Bootstrap button */
 .download-btn {
-    background-color: #5187BA;
-    border-radius: 5px;
-    color: white;
-    padding: .5em;
     text-decoration: none;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    width: 300px;
-    text-align: center;
-    margin-top: 20px;
+    width: 221px;
 }
 
 /* submission loader */

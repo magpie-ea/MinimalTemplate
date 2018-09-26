@@ -1,9 +1,9 @@
 // when the DOM is created and JavaScript code can run safely,
 // the experiment initialisation is called
-$('document').ready(function () {
+$("document").ready(function() {
     exp.init();
     // prevent scrolling when space is pressed (firefox does it)
-    window.onkeydown = function (e) {
+    window.onkeydown = function(e) {
         if (e.keyCode == 32 && e.target == document.body) {
             e.preventDefault();
         }
@@ -13,8 +13,7 @@ $('document').ready(function () {
 // empty shell for 'exp' object; to be filled with life by the init() function
 var exp = {};
 
-exp.init = function () {
-
+exp.init = function() {
     // allocate storage room for global data, trial data, and trial info
     this.global_data = {};
     this.trial_data = [];
@@ -34,8 +33,8 @@ exp.init = function () {
     this.progress.add();
 
     // insert a Current Trial counter for each view
-    _.map(this.views_seq, function (i) {
-        i.CT = 0
+    _.map(this.views_seq, function(i) {
+        i.CT = 0;
     });
 
     // initialize procedure
@@ -47,15 +46,20 @@ exp.init = function () {
     // user does not (should not) change the following information
     // checks the config _deploy.deployMethod is MTurk or MTurkSandbox,
     // sets the submission url to MTukr's servers
-    config_deploy.MTurk_server = config_deploy.deployMethod == "MTurkSandbox" ?
-        "https://workersandbox.mturk.com/mturk/externalSubmit" : // URL for MTurk sandbox
-        config_deploy.deployMethod == 'MTurk' ?
-        "https://www.mturk.com/mturk/externalSubmit" : // URL for live HITs on MTurk
-        ""; // blank if deployment is not via MTurk
+    config_deploy.MTurk_server =
+        config_deploy.deployMethod == "MTurkSandbox"
+            ? "https://workersandbox.mturk.com/mturk/externalSubmit" // URL for MTurk sandbox
+            : config_deploy.deployMethod == "MTurk"
+                ? "https://www.mturk.com/mturk/externalSubmit" // URL for live HITs on MTurk
+                : ""; // blank if deployment is not via MTurk
     // if the config_deploy.deployMethod is not debug, then liveExperiment is true
     config_deploy.liveExperiment = config_deploy.deployMethod !== "debug";
     config_deploy.is_MTurk = config_deploy.MTurk_server !== "";
-    config_deploy.submissionURL = config_deploy.deployMethod == "localServer" ? "http://localhost:4000/api/submit_experiment/" + config_deploy.experimentID : config_deploy.serverAppURL + config_deploy.experimentID;
+    config_deploy.submissionURL =
+        config_deploy.deployMethod == "localServer"
+            ? "http://localhost:4000/api/submit_experiment/" +
+              config_deploy.experimentID
+            : config_deploy.serverAppURL + config_deploy.experimentID;
     console.log("deployMethod: " + config_deploy.deployMethod);
     console.log("live experiment: " + config_deploy.liveExperiment);
     console.log("runs on MTurk: " + config_deploy.is_MTurk);
@@ -65,7 +69,7 @@ exp.init = function () {
 // navigation through the views and steps in each view;
 // shows each view (in the order defined in 'config_general') for
 // the given number of steps (as defined in the view's 'trial' property)
-exp.findNextView = function () {
+exp.findNextView = function() {
     var currentView = this.views_seq[this.currentViewCounter];
     if (this.currentTrialInViewCounter < currentView.trials) {
         currentView.render(currentView.CT, this.currentTrialInViewCounter);
@@ -89,14 +93,17 @@ exp.findNextView = function () {
 };
 
 // submits the data
-exp.submit = function () {
+exp.submit = function() {
     // adds columns with NA values
-    var addEmptyColumns = function (trialData) {
+    var addEmptyColumns = function(trialData) {
         var columns = [];
 
         for (var i = 0; i < trialData.length; i++) {
             for (var prop in trialData[i]) {
-                if ((trialData[i].hasOwnProperty(prop)) && (columns.indexOf(prop) === -1)) {
+                if (
+                    trialData[i].hasOwnProperty(prop) &&
+                    columns.indexOf(prop) === -1
+                ) {
                     columns.push(prop);
                 }
             }
@@ -105,7 +112,7 @@ exp.submit = function () {
         for (var j = 0; j < trialData.length; j++) {
             for (var k = 0; k < columns.length; k++) {
                 if (!trialData[j].hasOwnProperty(columns[k])) {
-                    trialData[j][columns[k]] = 'NA';
+                    trialData[j][columns[k]] = "NA";
                 }
             }
         }
@@ -113,7 +120,7 @@ exp.submit = function () {
         return trialData;
     };
 
-    var formatDebugData = function (flattenedData) {
+    var formatDebugData = function(flattenedData) {
         var output = "<table id = 'debugresults'>";
 
         var t = flattenedData[0];
@@ -136,7 +143,7 @@ exp.submit = function () {
             var currentTrial = flattenedData[i];
             for (var k in t) {
                 if (currentTrial.hasOwnProperty(k)) {
-                    entry = String(currentTrial[k])
+                    entry = String(currentTrial[k]);
                     output += "<td>" + entry.replace(/ /g, "&nbsp;") + "</td>";
                 }
             }
@@ -149,7 +156,7 @@ exp.submit = function () {
         return output;
     };
 
-    var flattenData = function (data) {
+    var flattenData = function(data) {
         var trials = data.trials;
         delete data.trials;
 
@@ -167,7 +174,7 @@ exp.submit = function () {
             }
         }
 
-        var out = _.map(trials, function (t) {
+        var out = _.map(trials, function(t) {
             // Here the data is the general informatoin besides the trials.
             return _.merge(t, data);
         });
@@ -176,19 +183,19 @@ exp.submit = function () {
 
     // construct data object for output
     var data = {
-        'experiment_id': config_deploy.experimentID,
-        'trials': addEmptyColumns(exp.trial_data)
+        experiment_id: config_deploy.experimentID,
+        trials: addEmptyColumns(exp.trial_data)
     };
 
     // parses the url to get the assignmentId and workerId
-    var getHITData = function () {
+    var getHITData = function() {
         var url = window.location.href;
-        var qArray = url.split('?');
-        qArray = qArray[1].split('&');
+        var qArray = url.split("?");
+        qArray = qArray[1].split("&");
         var HITData = {};
 
         for (var i = 0; i < qArray.length; i++) {
-            HITData[qArray[i].split('=')[0]] = qArray[i].split('=')[1];
+            HITData[qArray[i].split("=")[0]] = qArray[i].split("=")[1];
         }
 
         console.log(HITData);
@@ -198,35 +205,35 @@ exp.submit = function () {
     // add more fields depending on the deploy method
     if (config_deploy.is_MTurk) {
         var HITData = getHITData();
-        data['assignment_id'] = HITData['assignmentId'];
-        data['worker_id'] = HITData['workerId'];
-        data['hit_id'] = HITData['hitId'];
+        data["assignment_id"] = HITData["assignmentId"];
+        data["worker_id"] = HITData["workerId"];
+        data["hit_id"] = HITData["hitId"];
 
         // creates a form with assignmentId input for the submission ot MTurk
-        var form = jQuery('<form/>', {
-            id: 'mturk-submission-form',
+        var form = jQuery("<form/>", {
+            id: "mturk-submission-form",
             action: config_deploy.MTurk_server
-        }).appendTo('.thanks-templ')
-        var dataForMTurk = jQuery('<input/>', {
-            type: 'hidden',
-            name: 'data',
+        }).appendTo(".thanks-templ");
+        var dataForMTurk = jQuery("<input/>", {
+            type: "hidden",
+            name: "data",
             value: JSON.stringify(data)
         }).appendTo(form);
         // MTurk expects a key 'assignmentId' for the submission to work,
         // that is why is it not consistent with the snake case that the other keys have
-        var assignmentId = jQuery('<input/>', {
-            type: 'hidden',
-            name: 'assignmentId',
-            value: HITData['assignmentId']
+        var assignmentId = jQuery("<input/>", {
+            type: "hidden",
+            name: "assignmentId",
+            value: HITData["assignmentId"]
         }).appendTo(form);
-    } else if (config_deploy.deployMethod === 'Prolific') {
+    } else if (config_deploy.deployMethod === "Prolific") {
         console.log();
-    } else if (config_deploy.deployMethod === 'directLink') {
+    } else if (config_deploy.deployMethod === "directLink") {
         console.log();
-    } else if (config_deploy.deployMethod === 'debug') {
+    } else if (config_deploy.deployMethod === "debug") {
         console.log();
     } else {
-        console.log('no such config_deploy.deployMethod');
+        console.log("no such config_deploy.deployMethod");
     }
 
     // merge in global data accummulated so far
@@ -238,26 +245,30 @@ exp.submit = function () {
     // if it is set to false
     // the results are displayed on the thanks slide
     if (config_deploy.liveExperiment) {
-        console.log('submits');
+        console.log("submits");
         //submitResults(config_deploy.contact_email, config_deploy.submissionURL, data);
-        submitResults(config_deploy.contact_email, config_deploy.submissionURL, flattenData(data));
+        submitResults(
+            config_deploy.contact_email,
+            config_deploy.submissionURL,
+            flattenData(data)
+        );
     } else {
         // hides the 'Please do not close the tab.. ' message in debug mode
         console.log(data);
         var flattenedData = flattenData(data);
-        $('.warning-message').addClass('nodisplay');
-        jQuery('<h3/>', {
-            text: 'Debug Mode'
-        }).appendTo($('.view'));
-        jQuery('<div/>', {
-            class: 'debug-results',
+        $(".warning-message").addClass("nodisplay");
+        jQuery("<h3/>", {
+            text: "Debug Mode"
+        }).appendTo($(".view"));
+        jQuery("<div/>", {
+            class: "debug-results",
             html: formatDebugData(flattenedData)
-        }).appendTo($('.view'));
+        }).appendTo($(".view"));
         createCSVForDownload(flattenedData);
     }
 };
 
-var createCSVForDownload = function (flattenedData) {
+var createCSVForDownload = function(flattenedData) {
     var csvOutput = "";
 
     var t = flattenedData[0];
@@ -279,21 +290,21 @@ var createCSVForDownload = function (flattenedData) {
     }
 
     var blob = new Blob([csvOutput], {
-        type: 'text/csv'
+        type: "text/csv"
     });
     if (window.navigator.msSaveOrOpenBlob) {
         window.navigator.msSaveBlob(blob, "results.csv");
     } else {
-        jQuery('<a/>', {
-            class: "download-btn",
+        jQuery("<a/>", {
+            class: "button download-btn",
             html: "Download the results as CSV",
             href: window.URL.createObjectURL(blob),
             download: "results.csv"
-        }).appendTo($('.view'));
+        }).appendTo($(".view"));
     }
-}
+};
 
-var processTrialsData = function (rows) {
+var processTrialsData = function(rows) {
     var toReturn = [];
     var headers = rows[0];
     for (var indexTrial = 1; indexTrial < rows.length; indexTrial++) {
@@ -306,23 +317,26 @@ var processTrialsData = function (rows) {
     return toReturn;
 };
 
-var prepareDataFromCSV = function (practiceTrialsFile, trialsFile) {
+var prepareDataFromCSV = function(practiceTrialsFile, trialsFile) {
     var data = {
-        'out': [] // mandatory field to store results in during experimental trials
+        out: [] // mandatory field to store results in during experimental trials
     };
 
     // Need to use such a callback since AJAX is async.
-    var addToContainer = function (container, name, results) {
+    var addToContainer = function(container, name, results) {
         container[name] = results;
     };
-
 
     $.ajax({
         url: practiceTrialsFile,
         dataType: "text",
         crossDomain: true,
-        success: function (file, _, jqXHR) {
-            addToContainer(data, "practice_trials", processTrialsData(CSV.parse(file)));
+        success: function(file, _, jqXHR) {
+            addToContainer(
+                data,
+                "practice_trials",
+                processTrialsData(CSV.parse(file))
+            );
         }
     });
 
@@ -330,22 +344,26 @@ var prepareDataFromCSV = function (practiceTrialsFile, trialsFile) {
         url: trialsFile,
         dataType: "text",
         crossDomain: true,
-        success: function (file, textStatus, jqXHR) {
-            addToContainer(data, "trials", _.shuffle(processTrialsData(CSV.parse(file))));
+        success: function(file, textStatus, jqXHR) {
+            addToContainer(
+                data,
+                "trials",
+                _.shuffle(processTrialsData(CSV.parse(file)))
+            );
         }
     });
 
     return data;
 };
 
-var loop = function (arr, count, shuffleFlag) {
-    return _.flatMapDeep(_.range(count), function (i) {
-        return arr
-    })
+var loop = function(arr, count, shuffleFlag) {
+    return _.flatMapDeep(_.range(count), function(i) {
+        return arr;
+    });
 };
 
-var loopShuffled = function (arr, count) {
-    return _.flatMapDeep(_.range(count), function (i) {
-        return _.shuffle(arr)
-    })
+var loopShuffled = function(arr, count) {
+    return _.flatMapDeep(_.range(count), function(i) {
+        return _.shuffle(arr);
+    });
 };
