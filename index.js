@@ -1,4 +1,6 @@
-'use strict';
+import { babeInit } from "./node_modules/babe-project/babe-init.js";
+import { findNextView } from "./node_modules/babe-project/babe-main.js";
+import { views_seq } from "./config/views.js";
 
 // when the DOM is created and JavaScript code can run safely,
 // the experiment initialisation is called
@@ -9,16 +11,14 @@ $("document").ready(function() {
             e.preventDefault();
         }
     };
-});
 
-var _babe = {
-    // initialize procedure
-    currentViewCounter: 0,
-    currentTrialCounter: 0,
-    currentTrialInViewCounter: 0,
-    global_data: {
-        startDate: Date(),
-        startTime: Date.now()
-    },
-    trial_data: []
-};
+    babeInit({
+        views_seq: views_seq,
+        deploy: config_deploy,
+        progress_bar: {
+            in: ["forcedChoice"],
+            style: "default",
+            width: 100
+        }
+    });
+});

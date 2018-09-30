@@ -7,13 +7,18 @@
 git clone https://github.com/babe-project/MinimalTemplate
 
 # go to 'MinimalTemplate'
+cd MinimalTemplate
+
+# install the dependencies
+npm install 
 
 # open 'index.html' in the browser to see the experiment
 ```
 
 ## Documentation
 
-Extensive documentation is provided on the [_babe site](http://babe-project.github.io/babe_site/index.html).
+Extensive documentation is provided on the [\_babe site](http://babe-project.github.io/babe_site/index.html).
+
 
 ## File Organisation
 

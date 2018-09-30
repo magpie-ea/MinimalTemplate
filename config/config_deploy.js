@@ -1,27 +1,24 @@
 const config_deploy = {
-
     // OBLIGATORY FIELDS
 
     // the experimentID is needed to recover data from the _babe server app
     // you receive the experimentID when you create the experiment using the _babe server app
-    "experimentID": "4",
+    experimentID: "4",
 
     // if you use the _babe server app, specify its URL here
-    "serverAppURL": "https://babe-demo.herokuapp.com/api/submit_experiment/",
+    serverAppURL: "https://babe-demo.herokuapp.com/api/submit_experiment/",
 
     // set deployment method; use one of:
-    //'debug', 'localServer', 'MTurk', 
+    //'debug', 'localServer', 'MTurk',
     // 'MTurkSandbox', 'Prolific', 'directLink'
-    "deployMethod": "directLink",
+    deployMethod: "debug",
 
     // who to contact in case of trouble
-    "contact_email": "YOUREMAIL@wherelifeisgreat.you",
+    contact_email: "YOUREMAIL@wherelifeisgreat.you",
 
     // OPTIONAL FIELDS
 
     // set the prolific completion URL if the deploy method is "Prolific"
     // the URL should look something like this - https://app.prolific.ac/submissions/complete?cc=ABCD1234
-    "prolificURL": "https://app.prolific.ac/submissions/complete?cc=ABCD1234"
+    prolificURL: "https://app.prolific.ac/submissions/complete?cc=ABCD1234"
 };
-
-export { config_deploy }
