@@ -38,7 +38,7 @@ let beginExp = _begin({
 let main = _forcedChoice({
     trials: 4,
     trial_type: "main",
-    data: main_trials;
+    data: main_trials
 });
 
 let postTest = _postTest({
