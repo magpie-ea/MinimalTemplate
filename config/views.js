@@ -1,13 +1,13 @@
 import {
-    _intro,
-    _instructions,
-    _forcedChoice,
-    _begin,
-    _postTest,
-    _thanks
+    intro,
+    instructions,
+    forcedChoice,
+    begin,
+    postTest,
+    thanks
 } from "../node_modules/babe-project/babe-views.js";
 
-let intro = _intro({
+let introView = intro({
     trials: 1,
     title: "Welcome!",
     text:
@@ -15,7 +15,7 @@ let intro = _intro({
     buttonText: "Begin Experiment"
 });
 
-let instructions = _instructions({
+let instructionsView = instructions({
     trials: 1,
     title: "Instructions",
     text:
@@ -23,32 +23,32 @@ let instructions = _instructions({
     buttonText: "Go to practice trial"
 });
 
-let practice = _forcedChoice({
+let practiceView = forcedChoice({
     trials: 2,
     trial_type: "practice",
     data: practice_trials
 });
 
-let beginExp = _begin({
+let beginExpView = begin({
     trials: 1,
     text:
         "Now that you have acquainted yourself with the procedure of the task, the actual experiment will begin."
 });
 
-let main = _forcedChoice({
+let mainView = forcedChoice({
     trials: 4,
     trial_type: "main",
     data: main_trials
 });
 
-let postTest = _postTest({
+let postTestView = postTest({
     trials: 1,
     title: "Additional Info",
     text:
         "Answering the following questions is optional, but will help us understand your answers."
 });
 
-let thanks = _thanks({
+let thanksView = thanks({
     trials: 1,
     title: "Thank you for taking part in this experiment!"
 });
@@ -56,13 +56,13 @@ let thanks = _thanks({
 // customize the experiment by specifying a view order and a trial structure
 // specify view order
 const views_seq = [
-    intro,
-    instructions,
-    practice,
-    beginExp,
-    main,
-    postTest,
-    thanks
+    introView,
+    instructionsView,
+    practiceView,
+    beginExpView,
+    mainView,
+    postTestView,
+    thanksView
 ];
 
 export { views_seq };
