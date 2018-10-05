@@ -6,8 +6,11 @@ import {
     postTest,
     thanks
 } from "../node_modules/babe-project/babe-views.js";
+import { practice_trials } from '../trial_info/practice_trials.js';
+import { main_trials } from '../trial_info/main_trials.js';
 
 let introView = intro({
+    name: 'intro',
     trials: 1,
     title: "Welcome!",
     text:
@@ -16,6 +19,7 @@ let introView = intro({
 });
 
 let instructionsView = instructions({
+    name: 'instructions',
     trials: 1,
     title: "Instructions",
     text:
@@ -24,24 +28,28 @@ let instructionsView = instructions({
 });
 
 let practiceView = forcedChoice({
+    name: 'practice',
     trials: 2,
     trial_type: "practice",
     data: practice_trials
 });
 
 let beginExpView = begin({
+    name: 'begin',
     trials: 1,
     text:
         "Now that you have acquainted yourself with the procedure of the task, the actual experiment will begin."
 });
 
 let mainView = forcedChoice({
+    name: 'main',
     trials: 4,
     trial_type: "main",
     data: main_trials
 });
 
 let postTestView = postTest({
+    name: 'posttest',
     trials: 1,
     title: "Additional Info",
     text:
@@ -49,6 +57,7 @@ let postTestView = postTest({
 });
 
 let thanksView = thanks({
+    name: 'thanks',
     trials: 1,
     title: "Thank you for taking part in this experiment!"
 });

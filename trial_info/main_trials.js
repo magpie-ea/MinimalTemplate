@@ -24,3 +24,5 @@ let main_trials = [
         picture: "images/question_mark_02.png"
     }
 ];
+
+export { main_trials };

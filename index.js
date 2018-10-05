@@ -1,6 +1,7 @@
 import { babeInit } from "./node_modules/babe-project/babe-init.js";
 import { findNextView } from "./node_modules/babe-project/babe-main.js";
 import { views_seq } from "./config/views.js";
+import { config_deploy } from './config/config_deploy.js';
 
 // when the DOM is created and JavaScript code can run safely,
 // the experiment initialisation is called

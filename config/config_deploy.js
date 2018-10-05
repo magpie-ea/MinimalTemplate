@@ -22,3 +22,5 @@ const config_deploy = {
     // the URL should look something like this - https://app.prolific.ac/submissions/complete?cc=ABCD1234
     prolificURL: "https://app.prolific.ac/submissions/complete?cc=ABCD1234"
 };
+
+export { config_deploy };
