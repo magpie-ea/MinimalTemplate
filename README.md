@@ -25,17 +25,35 @@ git checkout -b modularized
 git pull origin modularized
 
 # install the js dependencies
-npm install 
-
-# open 'index.html' in the browser to see the experiment
-
-# open the browser console to see more information about the experiment
+npm install
 ```
 
 
-### By downloading the project and the dependencies
+### Downloading the project and the dependencies
 
 coming soon..
+
+
+## Starting the experiment
+
+To see the experiment you have to install a local server.
+
+### using npm's [http-server](https://www.npmjs.com/package/http-server)
+
+```
+# install http-server with npm
+npm install -g http-server
+
+# start the local server
+# call http-server from the MinimalTemplate folder
+http-server
+
+# open 'http://localhost:8080' in the browser to see the experiment
+```
+
+### using Python's SimpleHTTPServer
+
+follow the steps [here](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server#Running_a_simple_local_HTTP_server)
 
 
 ## Documentation
