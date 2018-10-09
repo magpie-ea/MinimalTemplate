@@ -1,15 +1,4 @@
-import {
-    intro,
-    instructions,
-    forcedChoice,
-    begin,
-    postTest,
-    thanks
-} from "../node_modules/babe-project/babe-views.js";
-import { practice_trials } from '../trial_info/practice_trials.js';
-import { main_trials } from '../trial_info/main_trials.js';
-
-let introView = intro({
+let introView = _babeViews.intro({
     name: 'intro',
     trials: 1,
     title: "Welcome!",
@@ -18,7 +7,7 @@ let introView = intro({
     buttonText: "Begin Experiment"
 });
 
-let instructionsView = instructions({
+let instructionsView = _babeViews.instructions({
     name: 'instructions',
     trials: 1,
     title: "Instructions",
@@ -27,28 +16,28 @@ let instructionsView = instructions({
     buttonText: "Go to practice trial"
 });
 
-let practiceView = forcedChoice({
+let practiceView = _babeViews.forcedChoice({
     name: 'practice',
     trials: 2,
     trial_type: "practice",
     data: practice_trials
 });
 
-let beginExpView = begin({
+let beginExpView = _babeViews.begin({
     name: 'begin',
     trials: 1,
     text:
         "Now that you have acquainted yourself with the procedure of the task, the actual experiment will begin."
 });
 
-let mainView = forcedChoice({
+let mainView = _babeViews.forcedChoice({
     name: 'main',
-    trials: 4,
+    trials: 2,
     trial_type: "main",
     data: main_trials
 });
 
-let postTestView = postTest({
+let postTestView = _babeViews.postTest({
     name: 'posttest',
     trials: 1,
     title: "Additional Info",
@@ -56,7 +45,7 @@ let postTestView = postTest({
         "Answering the following questions is optional, but will help us understand your answers."
 });
 
-let thanksView = thanks({
+let thanksView = _babeViews.thanks({
     name: 'thanks',
     trials: 1,
     title: "Thank you for taking part in this experiment!"
@@ -73,5 +62,3 @@ const views_seq = [
     postTestView,
     thanksView
 ];
-
-export { views_seq };

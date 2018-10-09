@@ -1,0 +1,45 @@
+{
+  "_args": [
+    [
+      "babe-project@0.0.7",
+      "/Users/stela/nightowl/babe-project/templates/MinimalTemplate"
+    ]
+  ],
+  "_from": "babe-project@0.0.7",
+  "_id": "babe-project@0.0.7",
+  "_inBundle": false,
+  "_integrity": "sha512-sh0zYAb6lo9cKwqxO5isJaQyjU6GO6LVl2DuWmqVtsgM+ruL6+eQB+7eZuQHZMIRFmAZXsILM4yj/ZoaxwbeSA==",
+  "_location": "/babe-project",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "babe-project@0.0.7",
+    "name": "babe-project",
+    "escapedName": "babe-project",
+    "rawSpec": "0.0.7",
+    "saveSpec": null,
+    "fetchSpec": "0.0.7"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/babe-project/-/babe-project-0.0.7.tgz",
+  "_spec": "0.0.7",
+  "_where": "/Users/stela/nightowl/babe-project/templates/MinimalTemplate",
+  "author": "",
+  "dependencies": {
+    "csv-js": "^1.0.0",
+    "jquery": "^3.3.1",
+    "mustache": "^3.0.0"
+  },
+  "description": "Basic Architecture for Browser-based experiments (https://github.com/babe-project)",
+  "devDependencies": {},
+  "license": "ISC",
+  "main": "babe-main.js",
+  "name": "babe-project",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.0.7"
+}

@@ -12,5 +12,3 @@ let practice_trials = [
         picture: "images/question_mark_04.png"
     }
 ];
-
-export { practice_trials };
