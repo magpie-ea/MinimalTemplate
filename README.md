@@ -7,6 +7,14 @@ This is a sample binary-choice experiment that consists of 2 practice trials vie
 
 ## Installing the experiment
 
+### by downloading the .zip
+
+1. Download the .zip
+
+2. Unzip and open `index.html` in the browser
+
+### with git
+
 ```
 # clone the repo, e.g.:
 git clone https://github.com/babe-project/MinimalTemplate
@@ -20,29 +28,22 @@ git checkout -b modularized
 # pull from the remove 'modularized' branch
 git pull origin modularized
 
+#open `index.html` in the browser to see the experiment
 ```
-
-## Starting the experiment
-
-Open `index.html` in the browser to see the experiment.
 
 ## File Organisation
 
 This MinimalTemplate has the following files:
 
 + `index.html` - starting point; to be loaded in the browser; general structure;
++ `main.js` - the main js file where the \_babe-project is initialised. See the [docs](https://github.com/babe-project/babe-base#_babe-initialisation) on \_babe initialisation.
++ `config_deploy.js` - information about how to deploy (=run, collect data for) the experiment
++ `views.js` - information about trials and texts
 
-+ `index.js` - the main js file where the \_babe-project is initialised. See the [docs](https://github.com/babe-project/babe-base#_babe-initialisation) on \_babe initialisation.
-
-+ `config`/ - file(s) with user-supplied information
-    + `config_deploy.js` - information about how to deploy (=run, collect data for) the experiment
-    + `views.js` - information about trials and texts
-
-+ `libraries`/ - the dependencies
-	+ `jquery`
-	+ `mustache`
-	+ `babe-project`
-	+ `csv-js`
++ `libraries`/ - contains the \_babe files
+    + `_babe.full.min.js`
+    + `_bbae,.min.js`
+    _ `_babe-styles.css`
 
 + `images` - images shown in this experiment; optional; user usually supplies these
 
@@ -59,7 +60,7 @@ The main files which must (usually) be edited to program an experiment are:
 
 The views in this experiment come from the predefined views that \_babe provide. For more information check the [docs](https://github.com/babe-project/babe-base#views-in-_babe)
 
-The views in this experiment are declared in `config/views.js`.
+The views in this experiment are declared in `views.js`.
 
 
 ## Configuration of deployment
