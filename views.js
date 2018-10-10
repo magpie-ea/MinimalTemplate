@@ -1,13 +1,13 @@
-let introView = _babeViews.intro({
+let introView = babeViews.intro({
     name: 'intro',
     trials: 1,
     title: "Welcome!",
     text:
-        'This is a minimal (non-sense) example of a _babe experiment. More information can be found <a href="https://babe-project.github.io/babe_site/">here</a>.',
+        'This is a minimal (non-sense) example of a babe experiment. More information can be found <a href="https://babe-project.github.io/babe_site/">here</a>.',
     buttonText: "Begin Experiment"
 });
 
-let instructionsView = _babeViews.instructions({
+let instructionsView = babeViews.instructions({
     name: 'instructions',
     trials: 1,
     title: "Instructions",
@@ -16,28 +16,28 @@ let instructionsView = _babeViews.instructions({
     buttonText: "Go to practice trial"
 });
 
-let practiceView = _babeViews.forcedChoice({
+let practiceView = babeViews.forcedChoice({
     name: 'practice',
     trials: 2,
     trial_type: "practice",
     data: practice_trials
 });
 
-let beginExpView = _babeViews.begin({
+let beginExpView = babeViews.begin({
     name: 'begin',
     trials: 1,
     text:
         "Now that you have acquainted yourself with the procedure of the task, the actual experiment will begin."
 });
 
-let mainView = _babeViews.forcedChoice({
+let mainView = babeViews.forcedChoice({
     name: 'main',
     trials: 2,
     trial_type: "main",
     data: main_trials
 });
 
-let postTestView = _babeViews.postTest({
+let postTestView = babeViews.postTest({
     name: 'posttest',
     trials: 1,
     title: "Additional Info",
@@ -45,7 +45,7 @@ let postTestView = _babeViews.postTest({
         "Answering the following questions is optional, but will help us understand your answers."
 });
 
-let thanksView = _babeViews.thanks({
+let thanksView = babeViews.thanks({
     name: 'thanks',
     trials: 1,
     title: "Thank you for taking part in this experiment!"

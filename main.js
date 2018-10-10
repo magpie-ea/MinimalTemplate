@@ -8,7 +8,7 @@ $("document").ready(function() {
         }
     };
 
-    _babeInit({
+    babeInit({
         views_seq: views_seq,
         deploy: config_deploy,
         progress_bar: {
